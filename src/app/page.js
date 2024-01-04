@@ -2,9 +2,37 @@
 import { useEffect, useState } from 'react';
 import embed from 'vega-embed';
 import * as vl from 'vega-lite-api';
+import { db } from './firebaseConfig';
+import { collection, addDoc } from "firebase/firestore";
+
+async function addDataToFireStore(PID, score) {
+  try {
+    const docRef = await addDoc(collection(db, "messages"), {
+      PID: PID,
+      score, score,
+    });
+    console.log("Doc written with ID: ", docRef.id);
+    return true;
+  } catch (error) {
+    console.error("Error ", error)
+    return false;
+  }
+}
 
 export default function HomePage() {
   const [isClient, setIsClient] = useState(false);
+  const [PID, setPID] = useState("")
+  const [score, setScore] = useState("") 
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const added = await addDataToFireStore(PID, score);
+    if (added) {
+      setPID("");
+      setScore("");
+      alert("Data added!");
+    }
+  };
 
   // // setup API options
   // const options = {
@@ -89,7 +117,41 @@ export default function HomePage() {
   
 
   return (
-      <span id="vis"></span>
+    <div>
+      <div id="vis"></div>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor='PID'>
+            PID:
+          </label>
+          <input 
+          type='text'
+          id='PID'
+          value={PID}
+          onChange={(e) => setPID(e.target.value)}
+          />
+
+        </div>
+        <div>
+          <label htmlFor='score'>
+            Score:
+          </label>
+          <input 
+          type='text'
+          id='score'
+          value={score}
+          onChange={(e) => setScore(e.target.value)}
+          />
+
+        </div>
+        <div>
+          <button type='submit'>
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+      
     
     
     // <div>
