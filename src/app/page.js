@@ -5,10 +5,10 @@ import * as vl from 'vega-lite-api';
 import { db } from './firebaseConfig';
 import { collection, addDoc } from "firebase/firestore";
 
-async function addDataToFireStore(PID, score) {
+async function addDataToFireStore(prolificID, score) {
   try {
     const docRef = await addDoc(collection(db, "messages"), {
-      PID: PID,
+      prolificID: prolificID,
       score, score,
     });
     console.log("Doc written with ID: ", docRef.id);
@@ -21,18 +21,39 @@ async function addDataToFireStore(PID, score) {
 
 export default function HomePage() {
   const [isClient, setIsClient] = useState(false);
-  const [PID, setPID] = useState("")
+  // const [PID, setPID] = useState("")
   const [score, setScore] = useState("") 
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const added = await addDataToFireStore(PID, score);
-    if (added) {
-      setPID("");
-      setScore("");
-      alert("Data added!");
+    const queryString = window.location.search;
+    console.log(queryString);
+
+    const urlParams = new URLSearchParams(queryString);
+    console.log(urlParams)
+
+    const prolific_ID = urlParams.get('PROLIFIC_PID')
+    console.log(prolific_ID)
+
+    if (prolific_ID) {
+      const added = await addDataToFireStore(prolific_ID, score);
+      if (added) {
+        // setPID("");
+        setScore("");
+        alert("Data added!");
+      }
     }
+    
   };
+
+  // const queryString = window.location.search;
+  // console.log(queryString);
+
+  // const urlParams = new URLSearchParams(queryString);
+  // console.log(urlParams)
+
+  // const prolificID = urlParams.get('PROLIFIC_PID')
+  // console.log(prolificID)
 
   // // setup API options
   // const options = {
@@ -56,6 +77,8 @@ export default function HomePage() {
 
   useEffect(() => {
     setIsClient(true)
+    
+    
     // register vega and vega-lite with the API
     // vl.register(vega, vegaLite, options);
     // console.log(data["data"]["values"][0])
@@ -120,7 +143,7 @@ export default function HomePage() {
     <div>
       <div id="vis"></div>
       <form onSubmit={handleSubmit}>
-        <div>
+        {/* <div>
           <label htmlFor='PID'>
             PID:
           </label>
@@ -131,7 +154,7 @@ export default function HomePage() {
           onChange={(e) => setPID(e.target.value)}
           />
 
-        </div>
+        </div> */}
         <div>
           <label htmlFor='score'>
             Score:
