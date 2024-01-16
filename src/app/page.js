@@ -96,9 +96,10 @@ export default function HomePage() {
   let data = require('./data.json') // import vega_datasets
 
   if (isClient) {
-    let mark_spec = vl.markPoint()
-      .data(data)
-      .toSpec()
+    // let mark_spec = vl.markPoint()
+    //   .data(data)
+    //   .toSpec()
+    let mark_spec = require("./rules/I3/I3-8-1.json");
     embed('#vis', mark_spec, {"actions": false});
   }
   
@@ -142,8 +143,8 @@ export default function HomePage() {
   return (
     <div>
       <div id="vis"></div>
-      <form onSubmit={handleSubmit}>
-        {/* <div>
+      {/*<form onSubmit={handleSubmit}>
+         <div>
           <label htmlFor='PID'>
             PID:
           </label>
@@ -154,7 +155,7 @@ export default function HomePage() {
           onChange={(e) => setPID(e.target.value)}
           />
 
-        </div> */}
+        </div> 
         <div>
           <label htmlFor='score'>
             Score:
@@ -172,7 +173,7 @@ export default function HomePage() {
             Submit
           </button>
         </div>
-      </form>
+      </form>*/}
     </div>
       
     

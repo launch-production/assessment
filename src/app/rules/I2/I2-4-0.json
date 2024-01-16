@@ -1,0 +1,18 @@
+{
+    "data": {
+      "url": "data/seattle-weather.csv"
+    },
+    "mark": "bar",
+    "encoding": {
+      "y": {
+        "field": "precipitation",
+        "aggregate": "sum",
+        "type": "quantitative"
+      },
+      "x": {
+        "field": "wind",
+        "aggregate": "mean",
+        "type": "quantitative"
+      }
+    }
+  }
