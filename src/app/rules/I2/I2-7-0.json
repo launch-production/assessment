@@ -5,8 +5,8 @@
     "mark": "bar",
     "encoding": {
       "x": {
-        "field": "Origin",
-        "type": "nominal"
+        "field": "Cylinders",
+        "type": "ordinal"
       },
       "y": {
         "field": "Horsepower",
@@ -14,7 +14,7 @@
         "aggregate": "distinct",
         "stack": true
       },
-      "color": {
+      "size": {
         "field": "Origin",
         "type": "nominal"
       }

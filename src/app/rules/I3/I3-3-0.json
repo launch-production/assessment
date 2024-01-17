@@ -2,11 +2,10 @@
     "data": {
       "url": "data/cars.json"
     },
-    "mark": "point",
+    "mark": "tick",
     "encoding": {
       "x": {
         "field": "Horsepower",
-        "field": "Miles_per_Gallon",
         "type": "quantitative"
       },
       "y": {

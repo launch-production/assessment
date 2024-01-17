@@ -99,7 +99,7 @@ export default function HomePage() {
     // let mark_spec = vl.markPoint()
     //   .data(data)
     //   .toSpec()
-    let mark_spec = require("./rules/I3/I3-8-1.json");
+    let mark_spec = require("./rules/I3/I3-7-1.json");
     embed('#vis', mark_spec, {"actions": false});
   }
   
