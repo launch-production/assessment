@@ -4,6 +4,7 @@ import embed from 'vega-embed';
 import * as vl from 'vega-lite-api';
 import { db } from './firebaseConfig';
 import { collection, addDoc } from "firebase/firestore";
+import QuestionText from './question_text.js';
 
 async function addDataToFireStore(prolificID, score) {
   try {
@@ -99,7 +100,7 @@ export default function HomePage() {
     // let mark_spec = vl.markPoint()
     //   .data(data)
     //   .toSpec()
-    let mark_spec = require("./rules/I3/I3-7-1.json");
+    let mark_spec = require("./rules/I1/I1-14-0.json");
     embed('#vis', mark_spec, {"actions": false});
   }
   
@@ -142,7 +143,43 @@ export default function HomePage() {
 
   return (
     <div>
-      <div id="vis"></div>
+      <div>
+        <QuestionText question={"Cars that have horsepower greater than 200 are generally originated from where?"}></QuestionText>
+        <div id='visContainer'>
+          <div id="vis"></div>
+        </div>
+        <div>
+          <div id='tilesContainer'>
+            <div id='chartTypes'>
+              <p>Chart Types</p>
+              <div>
+                <div>
+                  <img src='images/bar_icon.svg'></img>
+                </div>
+                <div>
+                  <img src='images/bar_icon.svg'></img>
+                </div>
+                <div>
+                  <img src='images/bar_icon.svg'></img>
+                </div>
+              </div>
+            </div>
+            <div id='encodings'>
+              <p>Encodings</p>
+
+            </div>
+            <div id='data'>
+              <p>Data</p>
+
+            </div>
+            <div id='transformations'>
+              <p>Transformations</p>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      
       {/*<form onSubmit={handleSubmit}>
          <div>
           <label htmlFor='PID'>

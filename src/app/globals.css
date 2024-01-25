@@ -25,3 +25,25 @@ body {
     )
     rgb(var(--background-start-rgb));
 } */
+
+#tilesContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: auto;
+  width: fit-content;
+}
+
+#chartTypes, #encodings, #data, #transformations {
+  padding: 4rem;
+}
+
+#chartTypes {
+  margin-right: 4rem;
+}
+
+#visContainer, #questionContainer {
+  margin: auto;
+  width: fit-content;
+  margin-top: 4rem;
+}
