@@ -4,7 +4,12 @@ import embed from 'vega-embed';
 import * as vl from 'vega-lite-api';
 import { db } from './firebaseConfig';
 import { collection, addDoc } from "firebase/firestore";
-import QuestionText from './question_text.js';
+import QuestionText from './question-text.js';
+import QuestionVis from './question-vis.js';
+import TilesChartTypes from './tiles-chart-types.js';
+import TilesEncodings from './tiles-encodings.js';
+import TilesMappings from './tiles-mappings.js';
+import TilesTransformations from './tiles-transformations.js';
 
 async function addDataToFireStore(prolificID, score) {
   try {
@@ -21,7 +26,7 @@ async function addDataToFireStore(prolificID, score) {
 }
 
 export default function HomePage() {
-  const [isClient, setIsClient] = useState(false);
+  // const [isClient, setIsClient] = useState(false);
   // const [PID, setPID] = useState("")
   const [score, setScore] = useState("") 
   
@@ -76,33 +81,33 @@ export default function HomePage() {
   // };
   
 
-  useEffect(() => {
-    setIsClient(true)
+  // useEffect(() => {
+  //   setIsClient(true)
     
     
-    // register vega and vega-lite with the API
-    // vl.register(vega, vegaLite, options);
-    // console.log(data["data"]["values"][0])
+  //   // register vega and vega-lite with the API
+  //   // vl.register(vega, vegaLite, options);
+  //   // console.log(data["data"]["values"][0])
     
-    // console.log(mark_spec)
-    // // .then(viewElement => {
-    // //   // render returns a promise to a DOM element containing the chart
-    // //   // viewElement.value contains the Vega View object instance
-    // //   document.getElementById('view').appendChild(viewElement);
-    // // });
-    // embed('#vis', mark_spec);
+  //   // console.log(mark_spec)
+  //   // // .then(viewElement => {
+  //   // //   // render returns a promise to a DOM element containing the chart
+  //   // //   // viewElement.value contains the Vega View object instance
+  //   // //   document.getElementById('view').appendChild(viewElement);
+  //   // // });
+  //   // embed('#vis', mark_spec);
 
-  }, [])
+  // }, [])
 
-  let data = require('./data.json') // import vega_datasets
+  // let data = require('./data.json') // import vega_datasets
 
-  if (isClient) {
-    // let mark_spec = vl.markPoint()
-    //   .data(data)
-    //   .toSpec()
-    let mark_spec = require("./rules/I1/I1-14-0.json");
-    embed('#vis', mark_spec, {"actions": false});
-  }
+  // if (isClient) {
+  //   // let mark_spec = vl.markPoint()
+  //   //   .data(data)
+  //   //   .toSpec()
+  //   let mark_spec = require("./rules/I1/I1-14-0.json");
+  //   embed('#vis', mark_spec, {"actions": false});
+  // }
   
   
   
@@ -115,114 +120,44 @@ export default function HomePage() {
   // });
  
 
-  var yourVlSpec = {
-    $schema: 'https://vega.github.io/schema/vega-lite/v5.json',
-    description: 'A simple bar chart with embedded data.',
-    data: {
-      values: [
-        {a: 'A', b: 28},
-        {a: 'B', b: 55},
-        {a: 'C', b: 43},
-        {a: 'D', b: 91},
-        {a: 'E', b: 81},
-        {a: 'F', b: 53},
-        {a: 'G', b: 19},
-        {a: 'H', b: 87},
-        {a: 'I', b: 52}
-      ]
-    },
-    mark: 'bar',
-    encoding: {
-      x: {field: 'a', type: 'ordinal'},
-      y: {field: 'b', type: 'quantitative'}
-    }
-  };
+  // var yourVlSpec = {
+  //   $schema: 'https://vega.github.io/schema/vega-lite/v5.json',
+  //   description: 'A simple bar chart with embedded data.',
+  //   data: {
+  //     values: [
+  //       {a: 'A', b: 28},
+  //       {a: 'B', b: 55},
+  //       {a: 'C', b: 43},
+  //       {a: 'D', b: 91},
+  //       {a: 'E', b: 81},
+  //       {a: 'F', b: 53},
+  //       {a: 'G', b: 19},
+  //       {a: 'H', b: 87},
+  //       {a: 'I', b: 52}
+  //     ]
+  //   },
+  //   mark: 'bar',
+  //   encoding: {
+  //     x: {field: 'a', type: 'ordinal'},
+  //     y: {field: 'b', type: 'quantitative'}
+  //   }
+  // };
   // var moreSpecificSpec = require("./visSpec.json");
   
   
 
   return (
     <div>
-      <div>
         <QuestionText question={"Cars that have horsepower greater than 200 are generally originated from where?"}></QuestionText>
-        <div id='visContainer'>
-          <div id="vis"></div>
-        </div>
-        <div>
-          <div id='tilesContainer'>
-            <div id='chartTypes'>
-              <p>Chart Types</p>
-              <div>
-                <div>
-                  <img src='images/chart_types/bar_icon.svg'></img>
-                </div>
-                <div>
-                  <img src='images/chart_types/bar_icon.svg'></img>
-                </div>
-                <div>
-                  <img src='images/chart_types/bar_icon.svg'></img>
-                </div>
-                <div>
-                  <img src='images/chart_types/bar_icon.svg'></img>
-                </div>
-                <div>
-                  <img src='images/chart_types/bar_icon.svg'></img>
-                </div>
-                <div>
-                  <img src='images/chart_types/bar_icon.svg'></img>
-                </div>
-              </div>
-            </div>
-            <div id='mappingZone'>
-              <div id='encodings'>
-                <p>Encodings</p>
-                <div>
-                  <div>
-                    <img src='images/encodings/x_axis_icon.svg'></img>
-                  </div>
-                  <div>
-                    <img src='images/encodings/x_axis_icon.svg'></img>
-                  </div>
-                  <div>
-                    <img src='images/encodings/x_axis_icon.svg'></img>
-                  </div>
-                </div>
-              </div>
-              <div id='data'>
-                <p>Data</p>
-                <div>
-                  <div id='mappingContainer'>
-                    <div className='inputSpace'>
-
-                    </div>
-                    <div className='staticColumn'>
-                      <img src='images/encodings/x_axis_icon.svg'></img>
-                    </div>
-                    <div className='inputSpace'>
-
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-              <div id='transformations'>
-                <p>Transformations</p>
-                <div>
-                  <div>
-                    <img src='images/transformations/mean_icon.svg'></img>
-                  </div>
-                  <div>
-                    <img src='images/transformations/mean_icon.svg'></img>
-                  </div>
-                  <div>
-                    <img src='images/transformations/mean_icon.svg'></img>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <QuestionVis></QuestionVis>
+        <div id='tilesContainer'>
+          <TilesChartTypes></TilesChartTypes>
+          <div id='mappingZone'>
+            <TilesEncodings></TilesEncodings>
+            <TilesMappings></TilesMappings>
+            <TilesTransformations></TilesTransformations>
           </div>
         </div>
-      </div>
       
       {/*<form onSubmit={handleSubmit}>
          <div>
