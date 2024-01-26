@@ -154,27 +154,71 @@ export default function HomePage() {
               <p>Chart Types</p>
               <div>
                 <div>
-                  <img src='images/bar_icon.svg'></img>
+                  <img src='images/chart_types/bar_icon.svg'></img>
                 </div>
                 <div>
-                  <img src='images/bar_icon.svg'></img>
+                  <img src='images/chart_types/bar_icon.svg'></img>
                 </div>
                 <div>
-                  <img src='images/bar_icon.svg'></img>
+                  <img src='images/chart_types/bar_icon.svg'></img>
+                </div>
+                <div>
+                  <img src='images/chart_types/bar_icon.svg'></img>
+                </div>
+                <div>
+                  <img src='images/chart_types/bar_icon.svg'></img>
+                </div>
+                <div>
+                  <img src='images/chart_types/bar_icon.svg'></img>
                 </div>
               </div>
             </div>
-            <div id='encodings'>
-              <p>Encodings</p>
+            <div id='mappingZone'>
+              <div id='encodings'>
+                <p>Encodings</p>
+                <div>
+                  <div>
+                    <img src='images/encodings/x_axis_icon.svg'></img>
+                  </div>
+                  <div>
+                    <img src='images/encodings/x_axis_icon.svg'></img>
+                  </div>
+                  <div>
+                    <img src='images/encodings/x_axis_icon.svg'></img>
+                  </div>
+                </div>
+              </div>
+              <div id='data'>
+                <p>Data</p>
+                <div>
+                  <div id='mappingContainer'>
+                    <div className='inputSpace'>
 
-            </div>
-            <div id='data'>
-              <p>Data</p>
+                    </div>
+                    <div className='staticColumn'>
+                      <img src='images/encodings/x_axis_icon.svg'></img>
+                    </div>
+                    <div className='inputSpace'>
 
-            </div>
-            <div id='transformations'>
-              <p>Transformations</p>
-              
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div id='transformations'>
+                <p>Transformations</p>
+                <div>
+                  <div>
+                    <img src='images/transformations/mean_icon.svg'></img>
+                  </div>
+                  <div>
+                    <img src='images/transformations/mean_icon.svg'></img>
+                  </div>
+                  <div>
+                    <img src='images/transformations/mean_icon.svg'></img>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

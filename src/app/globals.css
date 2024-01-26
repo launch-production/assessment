@@ -32,10 +32,18 @@ body {
   justify-content: space-between;
   margin: auto;
   width: fit-content;
+  margin-top: 2rem;
+}
+
+img {
+  width: 4rem;
 }
 
 #chartTypes, #encodings, #data, #transformations {
-  padding: 4rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
+  width: 8rem;
+  text-align: center;
 }
 
 #chartTypes {
@@ -46,4 +54,31 @@ body {
   margin: auto;
   width: fit-content;
   margin-top: 4rem;
+}
+
+.inputSpace {
+  width: 62px;
+  height: 62px;
+  border-width: 1px;
+  border-style: dashed;
+}
+
+#mappingContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+#data {
+  width: fit-content;
+}
+
+.staticColumn {
+  margin-right: 0.2rem;
+  margin-left: 0.2rem;
+}
+
+#mappingZone {
+  display: flex;
+  flex-direction: row;
+  background-color: WhiteSmoke;
 }
