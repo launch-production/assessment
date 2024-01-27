@@ -1,0 +1,9 @@
+{
+    "charts_index": ["bar", "scatter", "line", "area"],
+    "types": {
+        "bar": "images/chart_types/bar_icon.svg",
+        "scatter": "images/chart_types/scatter_icon.svg",
+        "line": "images/chart_types/line_icon.svg",
+        "area": "images/chart_types/area_icon.svg"
+    }
+}

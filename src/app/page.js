@@ -10,6 +10,7 @@ import TilesChartTypes from './tiles-chart-types.js';
 import TilesEncodings from './tiles-encodings.js';
 import TilesMappings from './tiles-mappings.js';
 import TilesTransformations from './tiles-transformations.js';
+import { DraftModeProvider } from 'next/dist/server/async-storage/draft-mode-provider';
 
 async function addDataToFireStore(prolificID, score) {
   try {
@@ -26,9 +27,11 @@ async function addDataToFireStore(prolificID, score) {
 }
 
 export default function HomePage() {
-  // const [isClient, setIsClient] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   // const [PID, setPID] = useState("")
   const [score, setScore] = useState("") 
+  const [chartTypeSelected, setChartTypeSelected] = useState("");
+  const [encodingsDisplay, setEncodingDisplay] = useState({});
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,6 +54,69 @@ export default function HomePage() {
     }
     
   };
+
+  useEffect(() => {
+      setIsClient(true);
+      setChartTypeSelected("scatter");
+      setEncodingDisplay(encodings[chartTypeSelected]);
+    }, [encodingsDisplay])
+
+  if (isClient) {
+  // let mark_spec = vl.markPoint()
+  //   .data(data)
+  //   .toSpec()
+  let mark_spec = require("./rules/I1/I1-14-0.json");
+  embed('#questionVis', mark_spec, {"actions": false});
+  }
+
+  let chart_types = require("./tiles/chart-types.json");
+  let types_list = chart_types.charts_index;
+  let tile_types = chart_types.types
+  console.log(tile_types)
+
+  let encodings = require("./tiles/encodings.json");
+  console.log(chartTypeSelected)
+  console.log(encodings[chartTypeSelected])
+
+  let dataset = require("./data/cars.json");
+  console.log(dataset)
+  let data_columns = Object.keys(dataset[0])
+  console.log(data_columns)
+  
+  const changeChartType = (clicked_chart) => {
+    console.log("clicked")
+    console.log(clicked_chart)
+    setChartTypeSelected(clicked_chart);
+    setEncodingDisplay(encodings[chartTypeSelected]);
+  }
+
+
+  const drag = (element) => {
+    console.log(element.dataTransfer)
+    console.log(element.target)
+    element.dataTransfer.setData("text", element.target.id);
+  }
+
+  const allowDrop = (ev) => {
+    ev.preventDefault();
+  }
+
+  const drop = (ev, variableID) => {
+    ev.preventDefault();
+    console.log(variableID)
+    var data = ev.dataTransfer.getData("text");
+    console.log(data)
+    if (data.includes("encoding")) {
+      let drop_container = document.getElementById("drop1");
+      drop_container.innerHTML = "";
+      drop_container.appendChild(document.getElementById(data).cloneNode(true));
+    }
+    
+  }
+  // document.getElementById('exportText').addEventListener('click', function() {
+  //   console.log(document.getElementById('yourname').value)
+  // })
+
 
   // const queryString = window.location.search;
   // console.log(queryString);
@@ -105,8 +171,25 @@ export default function HomePage() {
   //   // let mark_spec = vl.markPoint()
   //   //   .data(data)
   //   //   .toSpec()
-  //   let mark_spec = require("./rules/I1/I1-14-0.json");
-  //   embed('#vis', mark_spec, {"actions": false});
+  //   // let mark_spec = require("./rules/I1/I1-14-0.json");
+  //   // embed('#vis', mark_spec, {"actions": false});
+  //   let chart_types = {};
+  //   fetch('./tiles/chart-types.json')
+  //       .then((res) => {
+  //           if (!res.ok) {
+  //               throw new Error
+  //                   (`HTTP error! Status: ${res.status}`);
+  //           }
+  //           return res.json();
+  //       })
+  //       .then((data) => {
+  //           console.log(data);
+  //           chart_types = data
+  //       })
+  //       .catch((error) => 
+  //           console.error("Unable to fetch data:", error));
+    
+  //   console.log(chart_types)
   // }
   
   
@@ -149,12 +232,53 @@ export default function HomePage() {
   return (
     <div>
         <QuestionText question={"Cars that have horsepower greater than 200 are generally originated from where?"}></QuestionText>
-        <QuestionVis></QuestionVis>
+        <div id='visContainer'>
+            <div id="questionVis"></div>
+            <div id="answerVis"></div>
+        </div>
         <div id='tilesContainer'>
-          <TilesChartTypes></TilesChartTypes>
+          <div id='chartTypes'>
+            <p>Chart Types</p>
+            <div>
+              {types_list.map(chart_tiles => (
+                  <div key={chart_tiles}>
+                      <img className="chartTiles" src={tile_types[chart_tiles]} onClick={() => changeChartType(chart_tiles)}></img>
+                  </div>
+              ))}
+            </div>
+          </div>
           <div id='mappingZone'>
-            <TilesEncodings></TilesEncodings>
-            <TilesMappings></TilesMappings>
+            <div id='encodings'>
+              <p>Encodings</p>
+              <div>
+                {isClient ? Object.entries(encodings[chartTypeSelected]).map((encoding_icon, index) => (
+                  <div key={index}>
+                    <img className="encodingTiles" id={"encoding_"+encoding_icon[0]} draggable="true" onDragStart={(event) => drag(event)} src={encoding_icon[1]}></img>
+                  </div>
+                )): null}
+
+              </div>
+            </div>
+            <div id='data'>
+                <p>Data</p>
+                <div>
+                  {data_columns.map(variable => (
+                    <div className='mappingContainer'>
+                      <div className='inputSpace' id={"Q1_"+variable} onDrop={(event, variable) => drop(event, variable)} onDragOver={(event) => allowDrop(event)}>
+
+                      </div>
+                      <div className='staticColumn'>
+                        <p>{variable}</p>
+                      </div>
+                      <div className='inputSpace'>
+
+                      </div>
+                    </div>
+                  ))}
+                  
+                </div>
+
+              </div>
             <TilesTransformations></TilesTransformations>
           </div>
         </div>
