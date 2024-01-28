@@ -46,6 +46,10 @@ img {
   text-align: center;
 }
 
+#data {
+  width: fit-content;
+}
+
 #chartTypes {
   margin-right: 4rem;
 }
@@ -62,8 +66,8 @@ img {
 }
 
 .inputSpace {
-  width: 65px;
-  height: 65px;
+  width: 62px;
+  height: 62px;
   border-width: 1px;
   border-style: dashed;
 }
@@ -73,26 +77,34 @@ img {
   flex-direction: row;
 }
 
-#data {
+#encodings {
   width: fit-content;
+}
+
+.dataTiles {
+  width: 60px;
+  height: 60px;
+  border-width: 1px;
+  border-style: solid;
+  font-size: small;
+  overflow-x: scroll;
+  margin-bottom: 0.4rem;
+}
+
+.dataTiles p{
+  margin-left: 0.2rem;
+  margin-right: 0.5rem;
 }
 
 .staticColumn {
   margin-right: 0.2rem;
   margin-left: 0.2rem;
-  width: 65px;
-  height: 65px;
-  border-width: 1px;
-  border-style: solid;
-  font-size: small;
-  overflow-x: scroll;
-  /* text-align: center; */
-  vertical-align: center;
+  
 }
 
-.staticColumn p {
+/* .staticColumn p {
   top: 50%;
-}
+} */
 
 #mappingZone {
   display: flex;
@@ -101,6 +113,6 @@ img {
   padding-bottom: 1rem;
 }
 
-.chartTiles:hover, .encodingTiles:hover {
+.chartTiles:hover, .dataTiles:hover {
   cursor: pointer;
 }

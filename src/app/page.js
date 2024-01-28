@@ -32,6 +32,7 @@ export default function HomePage() {
   const [score, setScore] = useState("") 
   const [chartTypeSelected, setChartTypeSelected] = useState("");
   const [encodingsDisplay, setEncodingDisplay] = useState({});
+  const [draggedTile, setDraggedTile] = useState(null);
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -92,26 +93,49 @@ export default function HomePage() {
 
 
   const drag = (element) => {
+    console.log("in drag")
     console.log(element.dataTransfer)
     console.log(element.target)
     element.dataTransfer.setData("text", element.target.id);
+    // setDraggedTile(element.target);
+    // element.dataTransfer.setData("text", "");
   }
 
   const allowDrop = (ev) => {
-    ev.preventDefault();
+    // if (draggedTile) {
+      ev.preventDefault();
+    // }
+    
   }
 
-  const drop = (ev, variableID) => {
+  const drop = (ev) => {
     ev.preventDefault();
-    console.log(variableID)
+    console.log("in drop")
+    console.log(ev.target)
+    // console.log(ev.target.getAttribute('data-draggable'))
     var data = ev.dataTransfer.getData("text");
     console.log(data)
-    if (data.includes("encoding")) {
-      let drop_container = document.getElementById("drop1");
-      drop_container.innerHTML = "";
+    if (data.includes("data") && ev.target.getAttribute('data-draggable') == "target") {
+      console.log("dropping!")
+      // ev.target.appendChild(draggedTile); // todo try not using setstate, and append by id?
+      let drop_container = ev.target;
+      // drop_container.innerHTML = "";
       drop_container.appendChild(document.getElementById(data).cloneNode(true));
+      // ev.preventDefault();
     }
+    // if (data.includes("data")) {
+    //   
+    // }
     
+  }
+
+  const removeTile = (ev) => {
+    console.log("in click")
+    console.log(ev.target.id)
+    if (ev.target.id.includes("data")) {
+      console.log(ev.target.parentNode)
+      ev.target.parentNode.innerHTML = "";
+    }
   }
   // document.getElementById('exportText').addEventListener('click', function() {
   //   console.log(document.getElementById('yourname').value)
@@ -248,33 +272,30 @@ export default function HomePage() {
             </div>
           </div>
           <div id='mappingZone'>
-            <div id='encodings'>
-              <p>Encodings</p>
-              <div>
-                {isClient ? Object.entries(encodings[chartTypeSelected]).map((encoding_icon, index) => (
-                  <div key={index}>
-                    <img className="encodingTiles" id={"encoding_"+encoding_icon[0]} draggable="true" onDragStart={(event) => drag(event)} src={encoding_icon[1]}></img>
-                  </div>
-                )): null}
-
-              </div>
-            </div>
             <div id='data'>
-                <p>Data</p>
+              <p>Data</p>
+              {data_columns.map(variable => (
+                  <div key={variable} className="dataTiles" id={"data_"+variable} draggable="true" onDragStart={(event) => drag(event)}>
+                    <p>{variable}</p>
+                  </div>
+                ))}
+            </div>
+            <div id='encodings'>
+                <p>Encodings</p>
                 <div>
-                  {data_columns.map(variable => (
-                    <div className='mappingContainer'>
-                      <div className='inputSpace' id={"Q1_"+variable} onDrop={(event, variable) => drop(event, variable)} onDragOver={(event) => allowDrop(event)}>
+                  { isClient ? Object.entries(encodings[chartTypeSelected]).map((encoding_icon, index) => (
+                    <div className='mappingContainer' key={"mapping_"+index}>
+                      <div className='inputSpace' key={"input_"+index} data-draggable="target" onDrop={(event) => drop(event)} onDragOver={(event) => allowDrop(event)} onClick={(event) => removeTile(event)}>
 
                       </div>
-                      <div className='staticColumn'>
-                        <p>{variable}</p>
+                      <div className='staticColumn' key={index}>
+                        <img id={"encoding_"+encoding_icon[0]} src={encoding_icon[1]}></img>
                       </div>
-                      <div className='inputSpace'>
+                      <div className='inputSpace' key={"input_transform"+index}>
 
                       </div>
                     </div>
-                  ))}
+                  )): null}
                   
                 </div>
 
