@@ -1,5 +1,14 @@
 {
     "item1": {
-        "chart_type": "scatter"
+        "chart_type": "scatter",
+        "dataset": "./data/cars.json",
+        "question_text": "Cars that have horsepower greater than 200 are generally originated from where?",
+        "question_vis": "./question_vis/item1.json"
+    },
+    "item2": {
+        "chart_type": "bar",
+        "dataset": "./data/cars.json",
+        "question_text": "How many cars originated from the country that had the highest production?",
+        "question_vis": "./question_vis/item2.json"
     }
 }

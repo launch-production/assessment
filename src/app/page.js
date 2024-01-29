@@ -33,6 +33,7 @@ export default function HomePage() {
   const [chartTypeSelected, setChartTypeSelected] = useState("");
   const [encodingsDisplay, setEncodingDisplay] = useState({});
   const [draggedTile, setDraggedTile] = useState(null);
+  const [currentItem, setCurrentItem] = useState(1);
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,15 +61,24 @@ export default function HomePage() {
       setIsClient(true);
       setChartTypeSelected("scatter");
       setEncodingDisplay(encodings[chartTypeSelected]);
+
     }, [encodingsDisplay])
+
+  var item_bank = require("./item_bank.json");
+  console.log(item_bank)
 
   if (isClient) {
   // let mark_spec = vl.markPoint()
   //   .data(data)
   //   .toSpec()
-  let mark_spec = require("./rules/I1/I1-14-0.json");
-  embed('#questionVis', mark_spec, {"actions": false});
+  // let mark_spec = require("./rules/I1/I1-14-0.json");
+    // let mark_spec = require("./rules/I2/I2-4-0.json");
+    
+    let mark_spec = item_bank["item"+currentItem.toString()]["question_vis"]
+    embed('#questionVis', mark_spec, {"actions": false});
   }
+
+  
 
   let chart_types = require("./tiles/chart-types.json");
   let types_list = chart_types.charts_index;
@@ -136,6 +146,17 @@ export default function HomePage() {
       console.log(ev.target.parentNode)
       ev.target.parentNode.innerHTML = "";
     }
+  }
+
+  const nextItem = () => {
+    let current_item = currentItem;
+    let next_item = current_item + 1
+    if (next_item <= 2) {
+      setCurrentItem(current_item+1);
+    }
+    
+
+    // write to DB and reset [necessary/written variables]
   }
   // document.getElementById('exportText').addEventListener('click', function() {
   //   console.log(document.getElementById('yourname').value)
@@ -255,7 +276,7 @@ export default function HomePage() {
 
   return (
     <div>
-        <QuestionText question={"Cars that have horsepower greater than 200 are generally originated from where?"}></QuestionText>
+        <QuestionText question={item_bank["item"+currentItem.toString()]["question_text"]}></QuestionText>
         <div id='visContainer'>
             <div id="questionVis"></div>
             <div id="answerVis"></div>
@@ -303,7 +324,9 @@ export default function HomePage() {
             <TilesTransformations></TilesTransformations>
           </div>
         </div>
-      
+      <div id="nextButton" onClick={() => nextItem()}>
+        <p>Next</p>
+      </div>
       {/*<form onSubmit={handleSubmit}>
          <div>
           <label htmlFor='PID'>

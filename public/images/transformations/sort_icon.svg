@@ -9,18 +9,14 @@
 </style>
 <g>
 	<rect x="1.5" y="1.5" class="st0" width="65" height="65"/>
+	<text transform="matrix(1 0 0 1 23.5422 57.7215)" class="st1 st2">sort</text>
 	<g>
-		<circle class="st0" cx="16.5" cy="32.5" r="2"/>
-		<circle class="st0" cx="23.5" cy="36.5" r="2"/>
-		<circle class="st0" cx="32.5" cy="30.5" r="2"/>
-		<circle class="st0" cx="37.5" cy="38.5" r="2"/>
-		<circle class="st0" cx="42.5" cy="29.5" r="2"/>
-		<circle class="st0" cx="24.5" cy="26.5" r="2"/>
-		<circle class="st0" cx="38.5" cy="21.5" r="2"/>
-		<circle class="st0" cx="49.5" cy="34.5" r="2"/>
-		<circle class="st0" cx="50.5" cy="23.5" r="2"/>
-		<circle class="st0" cx="50.5" cy="13.5" r="2"/>
+		<rect x="14" y="33.22" width="5" height="7"/>
+		<rect x="21" y="30.72" width="5" height="9.5"/>
+		<rect x="28" y="27.72" width="5" height="12.5"/>
+		<rect x="35" y="24.72" width="5" height="15.5"/>
+		<rect x="42" y="21.72" width="5" height="18.5"/>
+		<rect x="49" y="16.72" width="5" height="23.5"/>
 	</g>
-	<text transform="matrix(1 0 0 1 18.6267 57.1215)" class="st1 st2">point</text>
 </g>
 </svg>

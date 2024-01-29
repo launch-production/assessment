@@ -60,6 +60,18 @@ img {
   margin-top: 4rem;
 }
 
+#nextButton {
+  margin: auto;
+  width: 6rem;
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+  border-width: 1px;
+  border-style: solid;
+  background-color: gray;
+  text-align: center;
+  color: white;
+}
+
 #visContainer {
   display: flex;
   flex-direction: row;
@@ -113,6 +125,6 @@ img {
   padding-bottom: 1rem;
 }
 
-.chartTiles:hover, .dataTiles:hover {
+.chartTiles:hover, .dataTiles:hover, #nextButton:hover {
   cursor: pointer;
 }

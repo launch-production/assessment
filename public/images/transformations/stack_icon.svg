@@ -9,18 +9,13 @@
 </style>
 <g>
 	<rect x="1.5" y="1.5" class="st0" width="65" height="65"/>
+	<text transform="matrix(1 0 0 1 19.8468 57.7215)" class="st1 st2">stack</text>
 	<g>
-		<circle class="st0" cx="16.5" cy="32.5" r="2"/>
-		<circle class="st0" cx="23.5" cy="36.5" r="2"/>
-		<circle class="st0" cx="32.5" cy="30.5" r="2"/>
-		<circle class="st0" cx="37.5" cy="38.5" r="2"/>
-		<circle class="st0" cx="42.5" cy="29.5" r="2"/>
-		<circle class="st0" cx="24.5" cy="26.5" r="2"/>
-		<circle class="st0" cx="38.5" cy="21.5" r="2"/>
-		<circle class="st0" cx="49.5" cy="34.5" r="2"/>
-		<circle class="st0" cx="50.5" cy="23.5" r="2"/>
-		<circle class="st0" cx="50.5" cy="13.5" r="2"/>
+		<rect x="11.5" y="39.74" width="18" height="6"/>
+		<rect x="19.5" y="32.74" width="18" height="6"/>
+		<rect x="26.5" y="25.74" width="18" height="6"/>
+		<rect x="32.5" y="18.74" width="18" height="6"/>
+		<rect x="38.5" y="11.74" width="18" height="6"/>
 	</g>
-	<text transform="matrix(1 0 0 1 18.6267 57.1215)" class="st1 st2">point</text>
 </g>
 </svg>

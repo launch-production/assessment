@@ -1,9 +1,11 @@
 {
-    "charts_index": ["bar", "scatter", "line", "area"],
+    "charts_index": ["bar", "scatter", "line", "area", "pie", "map"],
     "types": {
         "bar": "images/chart_types/bar_icon.svg",
         "scatter": "images/chart_types/scatter_icon.svg",
         "line": "images/chart_types/line_icon.svg",
-        "area": "images/chart_types/area_icon.svg"
+        "area": "images/chart_types/area_icon.svg",
+        "pie": "images/chart_types/pie_icon.svg",
+        "map": "images/chart_types/map_icon.svg"
     }
 }
