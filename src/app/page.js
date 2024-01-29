@@ -34,6 +34,7 @@ export default function HomePage() {
   const [encodingsDisplay, setEncodingDisplay] = useState({});
   const [draggedTile, setDraggedTile] = useState(null);
   const [currentItem, setCurrentItem] = useState(1);
+  const [loadVis, setLoadVis] = useState({});
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -61,7 +62,7 @@ export default function HomePage() {
       setIsClient(true);
       setChartTypeSelected("scatter");
       setEncodingDisplay(encodings[chartTypeSelected]);
-
+      setLoadVis(item_bank["item"+currentItem.toString()]["initialize"]["question_vis"])
     }, [encodingsDisplay])
 
   var item_bank = require("./item_bank.json");
@@ -72,10 +73,13 @@ export default function HomePage() {
   //   .data(data)
   //   .toSpec()
   // let mark_spec = require("./rules/I1/I1-14-0.json");
-    // let mark_spec = require("./rules/I2/I2-4-0.json");
-    
-    let mark_spec = item_bank["item"+currentItem.toString()]["question_vis"]
-    embed('#questionVis', mark_spec, {"actions": false});
+    // let mark_spec = require("./question_vis/item1.json");
+    // let vis_spec = item_bank["item"+currentItem.toString()]["initialize"]["question_vis"]
+    // let vis_json = require(loadVis)
+    console.log(loadVis)
+    // let mark_spec = require(item_bank["item"+currentItem.toString()]["initialize"]["question_vis"]);
+    embed('#questionVis', loadVis, {"actions": false});
+    // console.log(require(mark_spec))
   }
 
   
@@ -84,6 +88,11 @@ export default function HomePage() {
   let types_list = chart_types.charts_index;
   let tile_types = chart_types.types
   console.log(tile_types)
+
+  let transformations = require("./tiles/transformations.json");
+  let actions_list = transformations.transformation_index;
+  let action_types = transformations.actions
+  console.log(action_types)
 
   let encodings = require("./tiles/encodings.json");
   console.log(chartTypeSelected)
@@ -118,7 +127,7 @@ export default function HomePage() {
     
   }
 
-  const drop = (ev) => {
+  const dataDrop = (ev) => {
     ev.preventDefault();
     console.log("in drop")
     console.log(ev.target)
@@ -139,10 +148,40 @@ export default function HomePage() {
     
   }
 
-  const removeTile = (ev) => {
+  const transformationDrop = (ev) => {
+    ev.preventDefault();
+    console.log("in transformation drop")
+    console.log(ev.target)
+    // console.log(ev.target.getAttribute('data-draggable'))
+    var data = ev.dataTransfer.getData("text");
+    console.log(data)
+    if (data.includes("transformation") && ev.target.getAttribute('data-draggable') == "transformation_target") {
+      console.log("dropping transformation!")
+      // ev.target.appendChild(draggedTile); // todo try not using setstate, and append by id?
+      let drop_container = ev.target;
+      // drop_container.innerHTML = "";
+      drop_container.appendChild(document.getElementById(data).cloneNode(true));
+      // ev.preventDefault();
+    }
+    // if (data.includes("data")) {
+    //   
+    // }
+    
+  }
+
+  const removeDataTile = (ev) => {
     console.log("in click")
     console.log(ev.target.id)
     if (ev.target.id.includes("data")) {
+      console.log(ev.target.parentNode)
+      ev.target.parentNode.innerHTML = "";
+    }
+  }
+
+  const removeTransformationTile =(ev) => {
+    console.log("in transformation click")
+    console.log(ev.target.id)
+    if (ev.target.id.includes("transformation")) {
       console.log(ev.target.parentNode)
       ev.target.parentNode.innerHTML = "";
     }
@@ -152,7 +191,8 @@ export default function HomePage() {
     let current_item = currentItem;
     let next_item = current_item + 1
     if (next_item <= 2) {
-      setCurrentItem(current_item+1);
+      setCurrentItem(next_item);
+      setLoadVis(item_bank["item"+next_item.toString()]["initialize"]["question_vis"])
     }
     
 
@@ -276,7 +316,7 @@ export default function HomePage() {
 
   return (
     <div>
-        <QuestionText question={item_bank["item"+currentItem.toString()]["question_text"]}></QuestionText>
+        <QuestionText question={item_bank["item"+currentItem.toString()]["initialize"]["question_text"]}></QuestionText>
         <div id='visContainer'>
             <div id="questionVis"></div>
             <div id="answerVis"></div>
@@ -296,8 +336,8 @@ export default function HomePage() {
             <div id='data'>
               <p>Data</p>
               {data_columns.map(variable => (
-                  <div key={variable} className="dataTiles" id={"data_"+variable} draggable="true" onDragStart={(event) => drag(event)}>
-                    <p>{variable}</p>
+                  <div key={variable} className="dataTileContainer">
+                    <div className="dataTiles" id={"data_"+variable} draggable="true" onDragStart={(event) => drag(event)}><p>{variable}</p></div>
                   </div>
                 ))}
             </div>
@@ -306,13 +346,13 @@ export default function HomePage() {
                 <div>
                   { isClient ? Object.entries(encodings[chartTypeSelected]).map((encoding_icon, index) => (
                     <div className='mappingContainer' key={"mapping_"+index}>
-                      <div className='inputSpace' key={"input_"+index} data-draggable="target" onDrop={(event) => drop(event)} onDragOver={(event) => allowDrop(event)} onClick={(event) => removeTile(event)}>
+                      <div className='inputSpace' key={"input_"+index} data-draggable="target" onDrop={(event) => dataDrop(event)} onDragOver={(event) => allowDrop(event)} onClick={(event) => removeDataTile(event)}>
 
                       </div>
                       <div className='staticColumn' key={index}>
                         <img id={"encoding_"+encoding_icon[0]} src={encoding_icon[1]}></img>
                       </div>
-                      <div className='inputSpace' key={"input_transform"+index}>
+                      <div className='inputSpace' key={"input_transform"+index} data-draggable="transformation_target" onDrop={(event) => transformationDrop(event)} onDragOver={(event) => allowDrop(event)} onClick={(event) => removeTransformationTile(event)}>
 
                       </div>
                     </div>
@@ -321,7 +361,17 @@ export default function HomePage() {
                 </div>
 
               </div>
-            <TilesTransformations></TilesTransformations>
+              <div id='transformations'>
+                <p>Transformations</p>
+                <div>
+                  {actions_list.map(transformation_tiles => (
+                    <div key={transformation_tiles} >
+                      <img  src={action_types[transformation_tiles]} id={"transformation_"+transformation_tiles} className="transformationTiles" draggable="true" onDragStart={(event) => drag(event)}></img>
+                    </div>
+                  ))}
+                  
+                </div>
+              </div>
           </div>
         </div>
       <div id="nextButton" onClick={() => nextItem()}>

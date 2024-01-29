@@ -1,14 +1,53 @@
 {
     "item1": {
-        "chart_type": "scatter",
-        "dataset": "./data/cars.json",
-        "question_text": "Cars that have horsepower greater than 200 are generally originated from where?",
-        "question_vis": "./question_vis/item1.json"
+        "initialize": {
+            "chart_type": "scatter",
+            "dataset": "./data/cars.json",
+            "question_text": "Cars that have horsepower greater than 200 are generally originated from where?",
+            "question_vis": {
+                "data": {
+                  "url": "data/cars.json"
+                },
+                "mark": "point",
+                "encoding": {
+                  "x": {
+                    "field": "Horsepower",
+                    "type": "quantitative"
+                  },
+                  "y": {
+                    "field": "Miles_per_Gallon",
+                    "type": "quantitative"
+                  },
+                  "size": {
+                    "field": "Origin",
+                    "type": "nominal"
+                  }
+                }
+              }
+        }
+        
     },
     "item2": {
-        "chart_type": "bar",
-        "dataset": "./data/cars.json",
-        "question_text": "How many cars originated from the country that had the highest production?",
-        "question_vis": "./question_vis/item2.json"
+        "initialize": {
+            "chart_type": "bar",
+            "dataset": "./data/cars.json",
+            "question_text": "How many cars originated from the country that had the highest production?",
+            "question_vis": {
+                "data": {
+                  "url": "data/cars.json"
+                },
+                "mark": "bar",
+                "encoding": {
+                  "x": {
+                    "field": "Origin",
+                    "aggregate": "count",
+                    "type": "nominal"
+                  },
+                  "y": {
+                    "aggregate": "count"
+                  }
+                }
+              }
+        }
     }
 }
