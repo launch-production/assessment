@@ -11,6 +11,8 @@ import TilesEncodings from './tiles-encodings.js';
 import TilesMappings from './tiles-mappings.js';
 import TilesTransformations from './tiles-transformations.js';
 import { DraftModeProvider } from 'next/dist/server/async-storage/draft-mode-provider';
+import ItemComponent from './ItemComponent';
+// import { useRouter } from 'next/router'
 
 async function addDataToFireStore(prolificID, score) {
   try {
@@ -27,462 +29,468 @@ async function addDataToFireStore(prolificID, score) {
 }
 
 export default function HomePage() {
-  const [isClient, setIsClient] = useState(false);
-  // const [PID, setPID] = useState("")
-  const [score, setScore] = useState("") 
-  const [chartTypeSelected, setChartTypeSelected] = useState("");
-  const [encodingsDisplay, setEncodingDisplay] = useState({});
-  const [draggedTile, setDraggedTile] = useState(null);
-  const [currentItem, setCurrentItem] = useState(1);
-  const [loadVis, setLoadVis] = useState({});
-  const [currentItemState, setCurrentItemState] = useState({});
-  const [bankStatus, setBankStatus] = useState({});
+  // const router = useRouter()
+  // const [isClient, setIsClient] = useState(false);
+  // // const [PID, setPID] = useState("")
+  // const [score, setScore] = useState("") 
+  // const [chartTypeSelected, setChartTypeSelected] = useState("");
+  // const [encodingsDisplay, setEncodingDisplay] = useState({});
+  // const [draggedTile, setDraggedTile] = useState(null);
+  // const [currentItem, setCurrentItem] = useState(1);
+  // const [loadVis, setLoadVis] = useState({});
+  // const [currentItemState, setCurrentItemState] = useState({});
+  // const [bankStatus, setBankStatus] = useState({});
   
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const queryString = window.location.search;
-    console.log(queryString);
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const queryString = window.location.search;
+  //   console.log(queryString);
 
-    const urlParams = new URLSearchParams(queryString);
-    console.log(urlParams)
+  //   const urlParams = new URLSearchParams(queryString);
+  //   console.log(urlParams)
 
-    const prolific_ID = urlParams.get('PROLIFIC_PID')
-    console.log(prolific_ID)
+  //   const prolific_ID = urlParams.get('PROLIFIC_PID')
+  //   console.log(prolific_ID)
 
-    if (prolific_ID) {
-      const added = await addDataToFireStore(prolific_ID, score);
-      if (added) {
-        // setPID("");
-        setScore("");
-        alert("Data added!");
-      }
-    }
+  //   if (prolific_ID) {
+  //     const added = await addDataToFireStore(prolific_ID, score);
+  //     if (added) {
+  //       // setPID("");
+  //       setScore("");
+  //       alert("Data added!");
+  //     }
+  //   }
     
-  };
+  // };
 
-  useEffect(() => {
-      setIsClient(true);
-      setChartTypeSelected("scatter");
-      setEncodingDisplay(encodings[chartTypeSelected]);
-      setLoadVis(item_bank["item"+currentItem.toString()]["initialize"]["question_vis"])
-      item_bank["status"]["item"+currentItem] = true
-      setBankStatus(item_bank["status"])
-      var item_state = require("./item_bank_config/item"+currentItem+"_initialize.json");
-      setCurrentItemState(item_state);
-      console.log(item_state)
-      console.log(item_bank["status"])
-    }, [])
+  // useEffect(() => {
+  //     setIsClient(true);
+  //     setChartTypeSelected("scatter");
+  //     setEncodingDisplay(encodings[chartTypeSelected]);
+  //     setLoadVis(item_bank["item"+currentItem.toString()]["initialize"]["question_vis"])
+  //     item_bank["status"]["item"+currentItem] = true
+  //     setBankStatus(item_bank["status"])
+  //     var item_state = require("./item_bank_config/item"+currentItem+"_initialize.json");
+  //     setCurrentItemState(item_state);
+  //     console.log(item_state)
+  //     console.log(item_bank["status"])
+  //   }, [])
 
   var item_bank = require("./item_bank.json");
   console.log(item_bank)
 
 
-  if (isClient) {
-  // let mark_spec = vl.markPoint()
-  //   .data(data)
-  //   .toSpec()
-  // let mark_spec = require("./rules/I1/I1-14-0.json");
-    // let mark_spec = require("./question_vis/item1.json");
-    // let vis_spec = item_bank["item"+currentItem.toString()]["initialize"]["question_vis"]
-    // let vis_json = require(loadVis)
-    console.log(loadVis)
-    // let mark_spec = require(item_bank["item"+currentItem.toString()]["initialize"]["question_vis"]);
-    embed('#questionVis', loadVis, {"actions": false});
-    // console.log(require(mark_spec))
-  }
-
-  
-
-  let chart_types = require("./tiles/chart-types.json");
-  let types_list = chart_types.charts_index;
-  let tile_types = chart_types.types
-  console.log(tile_types)
-
-  let transformations = require("./tiles/transformations.json");
-  let actions_list = transformations.transformation_index;
-  let action_types = transformations.actions
-  console.log(action_types)
-
-  let encodings = require("./tiles/encodings.json");
-  console.log(chartTypeSelected)
-  console.log(encodings[chartTypeSelected])
-
-  let dataset = require("./data/cars.json");
-  console.log(dataset)
-  let data_columns = Object.keys(dataset[0])
-  console.log(data_columns)
-  
-  const changeChartType = (clicked_chart) => {
-    console.log("clicked")
-    console.log(clicked_chart)
-    setChartTypeSelected(clicked_chart);
-    setEncodingDisplay(encodings[chartTypeSelected]);
-  }
-
-
-  const drag = (element) => {
-    console.log("in drag")
-    console.log(element.dataTransfer)
-    console.log(element.target)
-    element.dataTransfer.setData("text", element.target.id);
-    // setDraggedTile(element.target);
-    // element.dataTransfer.setData("text", "");
-  }
-
-  const allowDrop = (ev) => {
-    // if (draggedTile) {
-      ev.preventDefault();
-    // }
-    
-  }
-
-  const dataDrop = (ev) => {
-    ev.preventDefault();
-    console.log("in drop")
-    console.log(ev.target)
-    // console.log(ev.target.getAttribute('data-draggable'))
-    var data = ev.dataTransfer.getData("text");
-    console.log(data)
-    if (data.includes("data") && ev.target.getAttribute('data-draggable') == "target") {
-      console.log("dropping!")
-      // ev.target.appendChild(draggedTile); // todo try not using setstate, and append by id?
-      let drop_container = ev.target;
-      // drop_container.innerHTML = "";
-      drop_container.appendChild(document.getElementById(data).cloneNode(true));
-      let add_data = data.split("-")[1]
-      let find_encoding = drop_container.nextSibling.firstChild.id.split("-")[1] // TODO fix; check have an unique separator
-      console.log(find_encoding)
-      let vis_update = loadVis
-      if (find_encoding.includes("color")) {
-        vis_update["encoding"][find_encoding.split("_")[1]] = {"field": add_data, "type": "nominal"}; // TODO need a dictionary for looking up each data column type
-      }
-      
-      console.log(vis_update)
-      setLoadVis(vis_update)
-      console.log(loadVis)
-      embed('#questionVis', loadVis, {"actions": false});
-      // let state_change = currentItemState
-      
-      // for (var [key, value] of Object.entries(currentItemState)) {
-      //   // console.log(key, value);
-        
-      //   // console.log(extract_data)
-      //   console.log(value["data"])
-      //   // TODO: fix this portion
-      //   if (key == "seq_color" || key == "div_color") {
-      //       // let extract_encoding = key.split("_")[0];
-      //       // console.log(extract_encoding)
-      //       vis_update["encoding"]["color"] = {"field": add_data}
-      //   }
-          
-      
-      //   }
-      // }
-      // setCurrentItemState(state_change)
-      // ev.preventDefault();
-    }
-    // if (data.includes("data")) {
-    //   
-    // }
-    
-  }
-
-  const transformationDrop = (ev) => {
-    ev.preventDefault();
-    console.log("in transformation drop")
-    console.log(ev.target)
-    // console.log(ev.target.getAttribute('data-draggable'))
-    var data = ev.dataTransfer.getData("text");
-    console.log(data)
-    if (data.includes("transformation") && ev.target.getAttribute('data-draggable') == "transformation_target") {
-      console.log("dropping transformation!")
-      // ev.target.appendChild(draggedTile); // todo try not using setstate, and append by id?
-      let drop_container = ev.target;
-      // drop_container.innerHTML = "";
-      drop_container.appendChild(document.getElementById(data).cloneNode(true));
-      let add_transformation = data.split("-")[1]
-      console.log(drop_container)
-      let find_transformation_encoding = drop_container.previousSibling.firstChild.id.split("-")[1]
-      let vis_update = loadVis
-      let extract_transformation_encoding = find_transformation_encoding
-      if (find_transformation_encoding.includes("color")) {
-        extract_transformation_encoding = find_transformation_encoding.split("_")[1];
-        // vis_update["encoding"][find_transformation_encoding.split("_")[1]]["aggregation"] = add_transformation; // TODO need a dictionary for looking up each data column type and where the transformaiton should be
-      } else if (find_transformation_encoding.includes("axis")) {
-        extract_transformation_encoding = find_transformation_encoding.split("_")[0];
-        // vis_update["encoding"][find_transformation_encoding.split("_")[0]] = {"field": add_transformation, "type": "nominal"}; // TODO need a dictionary for looking up each data column type
-      }
-      vis_update["encoding"][extract_transformation_encoding]["aggregate"] = add_transformation; // TODO need a dictionary for looking up each data column type and where the transformaiton should be
-      // ev.preventDefault();
-      console.log(vis_update)
-      setLoadVis(vis_update)
-      console.log(loadVis)
-      embed('#questionVis', loadVis, {"actions": false});
-    }
-    // if (data.includes("data")) {
-    //   
-    // }
-    
-  }
-
-  const removeDataTile = (ev) => {
-    console.log("in click")
-    console.log(ev.target.id)
-    console.log(loadVis)
-    console.log(currentItemState)
-    if (ev.target.id.includes("data")) {
-      let state_change = currentItemState
-      let vis_update = loadVis
-      for (var [key, value] of Object.entries(currentItemState)) {
-        // console.log(key, value);
-        let extract_data = ev.target.id.split("-")[1]
-        // console.log(extract_data)
-        console.log(value["data"])
-        if (value["data"] == extract_data) {
-          console.log(key)
-          // TODO: fix this portion
-          if (key == "x_axis" || key == "y_axis") {
-            let extract_encoding = key.split("_")[0];
-            console.log(extract_encoding)
-            vis_update["encoding"][extract_encoding] = ""
-          } else {
-            vis_update["encoding"][key] = ""
-          }
-          
-          state_change[key]["data"] = ""
-        }
-      }
-      setLoadVis(vis_update);
-      setCurrentItemState(state_change)
-      embed('#questionVis', loadVis, {"actions": false});
-      console.log(vis_update)
-      console.log(ev.target.parentNode)
-      ev.target.parentNode.innerHTML = "";
-    }
-  }
-
-  const removeTransformationTile =(ev) => {
-    console.log("in transformation click")
-    console.log(ev.target.id)
-    console.log(loadVis)
-    console.log(currentItemState)
-    if (ev.target.id.includes("transformation")) {
-      
-      let state_change = currentItemState
-      let vis_update = loadVis
-      for (var [key, value] of Object.entries(currentItemState)) {
-        // console.log(key, value);
-        let extract_transformation = ev.target.id.split("-")[1]
-        // console.log(extract_data)
-        console.log(value["transformation"])
-        if (value["transformation"] == extract_transformation) {
-          console.log(key)
-          // TODO: fix this portion
-          console.log(ev.target.parentNode.previousSibling.firstChild.id)
-          let corresponding_encoding = ev.target.parentNode.previousSibling.firstChild.id.split("-")[1]
-          // let extract_encoding = key.split("_")[0];
-          // console.log(extract_encoding)
-          if (key == corresponding_encoding) {
-            if (key == "x_axis" || key == "y_axis") {
-              console.log("deleting for"+key.split("_")[0])
-              delete vis_update["encoding"][key.split("_")[0]]["aggregate"]
-              state_change[key]["transformation"] = ""
-            } else {
-              vis_update["encoding"][key]["aggregate"] = ""
-            }
-              
-          }
-          
-          
-        }
-      }
-      setLoadVis(vis_update);
-      setCurrentItemState(state_change)
-      embed('#questionVis', loadVis, {"actions": false});
-      console.log(vis_update)
-      console.log(state_change)
-      console.log(ev.target.parentNode)
-      ev.target.parentNode.innerHTML = "";
-    }
-  }
-
-  const nextItem = () => {
-    let current_item = currentItem;
-    let next_item = current_item + 1
-    if (next_item <= 2) {
-      setCurrentItem(next_item);
-      setLoadVis(item_bank["item"+next_item.toString()]["initialize"]["question_vis"])
-      console.log(document.getElementsByClassName("inputSpace"))
-      // let to_clear = document.getElementsByClassName("inputSpace")
-      // for (let i = 0; i < to_clear.length; i += 1) {
-      //   to_clear[i].innerHTML = "<p></p>";
-      // }
-
-      // var current_item_state = require("./item_bank_config/item"+current_item+"_initialize.json");
-      // setCurrentItemState(current_item_state);
-      // let clear_state = currentItemState
-      // for (var [key, value] of Object.entries(currentItemState)) {
-      //   // console.log(key, value);
-      //   if (value["data"]) {
-
-      //   }
-      //   clear_state[key]["data"] = "";
-      //   clear_state[key]["transformation"] = "";
-      //   // let extract_data = ev.target.id.split("_")[1]
-      //   // // console.log(extract_data)
-      //   // console.log(value["data"])
-      //   // if (value["data"] == extract_data) {
-      //   //   console.log(key)
-      //   //   // TODO: fix this portion
-      //   //   if (key == "x_axis" || key == "y_axis") {
-      //   //     let extract_encoding = key.split("_")[0];
-      //   //     console.log(extract_encoding)
-      //   //     vis_update["encoding"][extract_encoding] = ""
-      //   //   } else {
-      //   //     vis_update["encoding"][key] = ""
-      //   //   }
-          
-      //   //   state_change[key]["data"] = ""
-      //   }
-      //   setCurrentItemState(clear_state);      
-
-      var next_item_state = require("./item_bank_config/item"+next_item+"_initialize.json");
-      setCurrentItemState(next_item_state);
-      item_bank["status"]["item"+next_item] = true
-      setBankStatus(item_bank["status"])
-      console.log(currentItemState)
-      console.log(item_bank["status"])
-    }
-    
-
-    // write to DB and reset [necessary/written variables]
-  }
-  // document.getElementById('exportText').addEventListener('click', function() {
-  //   console.log(document.getElementById('yourname').value)
-  // })
-
-
-  // const queryString = window.location.search;
-  // console.log(queryString);
-
-  // const urlParams = new URLSearchParams(queryString);
-  // console.log(urlParams)
-
-  // const prolificID = urlParams.get('PROLIFIC_PID')
-  // console.log(prolificID)
-
-  // // setup API options
-  // const options = {
-  //   config: {
-  //     // Vega-Lite default configuration
-  //   },
-  //   init: (view) => {
-  //     // initialize tooltip handler
-  //     view.tooltip(new vegaTooltip.Handler().call);
-  //   },
-  //   view: {
-  //     // view constructor options
-  //     // remove the loader if you don't want to default to vega-datasets!
-  //     // loader: vega.loader({
-  //     //   baseURL: "https://cdn.jsdelivr.net/npm/vega-datasets@2/",
-  //     // }),
-  //     renderer: "canvas",
-  //   },
-  // };
-  
-
-  // useEffect(() => {
-  //   setIsClient(true)
-    
-    
-  //   // register vega and vega-lite with the API
-  //   // vl.register(vega, vegaLite, options);
-  //   // console.log(data["data"]["values"][0])
-    
-  //   // console.log(mark_spec)
-  //   // // .then(viewElement => {
-  //   // //   // render returns a promise to a DOM element containing the chart
-  //   // //   // viewElement.value contains the Vega View object instance
-  //   // //   document.getElementById('view').appendChild(viewElement);
-  //   // // });
-  //   // embed('#vis', mark_spec);
-
-  // }, [])
-
-  // let data = require('./data.json') // import vega_datasets
-  // let mark_spec = vl.markPoint()
-  //     .data(data)
-  //     .size("")
-  //     .toSpec()
-
-  // // mark_spec_update = mark_spec.size("")
-  // console.log(mark_spec)
-
   // if (isClient) {
-  //   // let mark_spec = vl.markPoint()
-  //   //   .data(data)
-  //   //   .toSpec()
-  //   // let mark_spec = require("./rules/I1/I1-14-0.json");
-  //   // embed('#vis', mark_spec, {"actions": false});
-  //   let chart_types = {};
-  //   fetch('./tiles/chart-types.json')
-  //       .then((res) => {
-  //           if (!res.ok) {
-  //               throw new Error
-  //                   (`HTTP error! Status: ${res.status}`);
-  //           }
-  //           return res.json();
-  //       })
-  //       .then((data) => {
-  //           console.log(data);
-  //           chart_types = data
-  //       })
-  //       .catch((error) => 
-  //           console.error("Unable to fetch data:", error));
-    
-  //   console.log(chart_types)
+  // // let mark_spec = vl.markPoint()
+  // //   .data(data)
+  // //   .toSpec()
+  // // let mark_spec = require("./rules/I1/I1-14-0.json");
+  //   // let mark_spec = require("./question_vis/item1.json");
+  //   // let vis_spec = item_bank["item"+currentItem.toString()]["initialize"]["question_vis"]
+  //   // let vis_json = require(loadVis)
+  //   console.log(loadVis)
+  //   // let mark_spec = require(item_bank["item"+currentItem.toString()]["initialize"]["question_vis"]);
+  //   embed('#questionVis', loadVis, {"actions": false});
+  //   // console.log(require(mark_spec))
   // }
+
   
+
+  // let chart_types = require("./tiles/chart-types.json");
+  // let types_list = chart_types.charts_index;
+  // let tile_types = chart_types.types
+  // console.log(tile_types)
+
+  // let transformations = require("./tiles/transformations.json");
+  // let actions_list = transformations.transformation_index;
+  // let action_types = transformations.actions
+  // console.log(action_types)
+
+  // let encodings = require("./tiles/encodings.json");
+  // console.log(chartTypeSelected)
+  // console.log(encodings[chartTypeSelected])
+
+  // let dataset = require("./data/cars.json");
+  // console.log(dataset)
+  // let data_columns = Object.keys(dataset[0])
+  // console.log(data_columns)
   
-  
-  // console.log(JSON.stringify(mark_spec))
-  // var fs = require('fs');
-  // fs.writeFile("vis_spec.json", mark_spec, function(err) {
-  //     if (err) {
-  //         console.log(err);
+  // const changeChartType = (clicked_chart) => {
+  //   console.log("clicked")
+  //   console.log(clicked_chart)
+  //   setChartTypeSelected(clicked_chart);
+  //   setEncodingDisplay(encodings[chartTypeSelected]);
+  // }
+
+
+  // const drag = (element) => {
+  //   console.log("in drag")
+  //   console.log(element.dataTransfer)
+  //   console.log(element.target)
+  //   element.dataTransfer.setData("text", element.target.id);
+  //   // setDraggedTile(element.target);
+  //   // element.dataTransfer.setData("text", "");
+  // }
+
+  // const allowDrop = (ev) => {
+  //   // if (draggedTile) {
+  //     ev.preventDefault();
+  //   // }
+    
+  // }
+
+  // const dataDrop = (ev) => {
+  //   ev.preventDefault();
+  //   console.log("in drop")
+  //   console.log(ev.target)
+  //   // console.log(ev.target.getAttribute('data-draggable'))
+  //   var data = ev.dataTransfer.getData("text");
+  //   console.log(data)
+  //   if (data.includes("data") && ev.target.getAttribute('data-draggable') == "target") {
+  //     console.log("dropping!")
+  //     // ev.target.appendChild(draggedTile); // todo try not using setstate, and append by id?
+  //     let drop_container = ev.target;
+  //     // drop_container.innerHTML = "";
+  //     drop_container.appendChild(document.getElementById(data).cloneNode(true));
+  //     let add_data = data.split("-")[1]
+  //     let find_encoding = drop_container.nextSibling.firstChild.id.split("-")[1] // TODO fix; check have an unique separator
+  //     console.log(find_encoding)
+  //     let vis_update = loadVis
+  //     if (find_encoding.includes("color")) {
+  //       vis_update["encoding"][find_encoding.split("_")[1]] = {"field": add_data, "type": "nominal"}; // TODO need a dictionary for looking up each data column type
   //     }
-  // });
+      
+  //     console.log(vis_update)
+  //     setLoadVis(vis_update)
+  //     console.log(loadVis)
+  //     embed('#questionVis', loadVis, {"actions": false});
+  //     // let state_change = currentItemState
+      
+  //     // for (var [key, value] of Object.entries(currentItemState)) {
+  //     //   // console.log(key, value);
+        
+  //     //   // console.log(extract_data)
+  //     //   console.log(value["data"])
+  //     //   // TODO: fix this portion
+  //     //   if (key == "seq_color" || key == "div_color") {
+  //     //       // let extract_encoding = key.split("_")[0];
+  //     //       // console.log(extract_encoding)
+  //     //       vis_update["encoding"]["color"] = {"field": add_data}
+  //     //   }
+          
+      
+  //     //   }
+  //     // }
+  //     // setCurrentItemState(state_change)
+  //     // ev.preventDefault();
+  //   }
+  //   // if (data.includes("data")) {
+  //   //   
+  //   // }
+    
+  // }
+
+  // const transformationDrop = (ev) => {
+  //   ev.preventDefault();
+  //   console.log("in transformation drop")
+  //   console.log(ev.target)
+  //   // console.log(ev.target.getAttribute('data-draggable'))
+  //   var data = ev.dataTransfer.getData("text");
+  //   console.log(data)
+  //   if (data.includes("transformation") && ev.target.getAttribute('data-draggable') == "transformation_target") {
+  //     console.log("dropping transformation!")
+  //     // ev.target.appendChild(draggedTile); // todo try not using setstate, and append by id?
+  //     let drop_container = ev.target;
+  //     // drop_container.innerHTML = "";
+  //     drop_container.appendChild(document.getElementById(data).cloneNode(true));
+  //     let add_transformation = data.split("-")[1]
+  //     console.log(drop_container)
+  //     let find_transformation_encoding = drop_container.previousSibling.firstChild.id.split("-")[1]
+  //     let vis_update = loadVis
+  //     let extract_transformation_encoding = find_transformation_encoding
+  //     if (find_transformation_encoding.includes("color")) {
+  //       extract_transformation_encoding = find_transformation_encoding.split("_")[1];
+  //       // vis_update["encoding"][find_transformation_encoding.split("_")[1]]["aggregation"] = add_transformation; // TODO need a dictionary for looking up each data column type and where the transformaiton should be
+  //     } else if (find_transformation_encoding.includes("axis")) {
+  //       extract_transformation_encoding = find_transformation_encoding.split("_")[0];
+  //       // vis_update["encoding"][find_transformation_encoding.split("_")[0]] = {"field": add_transformation, "type": "nominal"}; // TODO need a dictionary for looking up each data column type
+  //     }
+  //     vis_update["encoding"][extract_transformation_encoding]["aggregate"] = add_transformation; // TODO need a dictionary for looking up each data column type and where the transformaiton should be
+  //     // ev.preventDefault();
+  //     console.log(vis_update)
+  //     setLoadVis(vis_update)
+  //     console.log(loadVis)
+  //     embed('#questionVis', loadVis, {"actions": false});
+  //   }
+  //   // if (data.includes("data")) {
+  //   //   
+  //   // }
+    
+  // }
+
+  // const removeDataTile = (ev) => {
+  //   console.log("in click")
+  //   console.log(ev.target.id)
+  //   console.log(loadVis)
+  //   console.log(currentItemState)
+  //   if (ev.target.id.includes("data")) {
+  //     let state_change = currentItemState
+  //     let vis_update = loadVis
+  //     for (var [key, value] of Object.entries(currentItemState)) {
+  //       // console.log(key, value);
+  //       let extract_data = ev.target.id.split("-")[1]
+  //       // console.log(extract_data)
+  //       console.log(value["data"])
+  //       if (value["data"] == extract_data) {
+  //         console.log(key)
+  //         // TODO: fix this portion
+  //         if (key == "x_axis" || key == "y_axis") {
+  //           let extract_encoding = key.split("_")[0];
+  //           console.log(extract_encoding)
+  //           vis_update["encoding"][extract_encoding] = ""
+  //         } else {
+  //           vis_update["encoding"][key] = ""
+  //         }
+          
+  //         state_change[key]["data"] = ""
+  //       }
+  //     }
+  //     setLoadVis(vis_update);
+  //     setCurrentItemState(state_change)
+  //     embed('#questionVis', loadVis, {"actions": false});
+  //     console.log(vis_update)
+  //     console.log(ev.target.parentNode)
+  //     ev.target.parentNode.innerHTML = "";
+  //   }
+  // }
+
+  // const removeTransformationTile =(ev) => {
+  //   console.log("in transformation click")
+  //   console.log(ev.target.id)
+  //   console.log(loadVis)
+  //   console.log(currentItemState)
+  //   if (ev.target.id.includes("transformation")) {
+      
+  //     let state_change = currentItemState
+  //     let vis_update = loadVis
+  //     for (var [key, value] of Object.entries(currentItemState)) {
+  //       // console.log(key, value);
+  //       let extract_transformation = ev.target.id.split("-")[1]
+  //       // console.log(extract_data)
+  //       console.log(value["transformation"])
+  //       if (value["transformation"] == extract_transformation) {
+  //         console.log(key)
+  //         // TODO: fix this portion
+  //         console.log(ev.target.parentNode.previousSibling.firstChild.id)
+  //         let corresponding_encoding = ev.target.parentNode.previousSibling.firstChild.id.split("-")[1]
+  //         // let extract_encoding = key.split("_")[0];
+  //         // console.log(extract_encoding)
+  //         if (key == corresponding_encoding) {
+  //           if (key == "x_axis" || key == "y_axis") {
+  //             console.log("deleting for"+key.split("_")[0])
+  //             delete vis_update["encoding"][key.split("_")[0]]["aggregate"]
+  //             state_change[key]["transformation"] = ""
+  //           } else {
+  //             vis_update["encoding"][key]["aggregate"] = ""
+  //           }
+              
+  //         }
+          
+          
+  //       }
+  //     }
+  //     setLoadVis(vis_update);
+  //     setCurrentItemState(state_change)
+  //     embed('#questionVis', loadVis, {"actions": false});
+  //     console.log(vis_update)
+  //     console.log(state_change)
+  //     console.log(ev.target.parentNode)
+  //     ev.target.parentNode.innerHTML = "";
+  //   }
+  // }
+
+  // const nextItem = () => {
+  //   let current_item = currentItem;
+  //   let next_item = current_item + 1
+  //   if (next_item <= 2) {
+  //     setCurrentItem(next_item);
+  //     setLoadVis(item_bank["item"+next_item.toString()]["initialize"]["question_vis"])
+  //     console.log(document.getElementsByClassName("inputSpace"))
+  //     // let to_clear = document.getElementsByClassName("inputSpace")
+  //     // for (let i = 0; i < to_clear.length; i += 1) {
+  //     //   to_clear[i].innerHTML = "<p></p>";
+  //     // }
+
+  //     // var current_item_state = require("./item_bank_config/item"+current_item+"_initialize.json");
+  //     // setCurrentItemState(current_item_state);
+  //     // let clear_state = currentItemState
+  //     // for (var [key, value] of Object.entries(currentItemState)) {
+  //     //   // console.log(key, value);
+  //     //   if (value["data"]) {
+
+  //     //   }
+  //     //   clear_state[key]["data"] = "";
+  //     //   clear_state[key]["transformation"] = "";
+  //     //   // let extract_data = ev.target.id.split("_")[1]
+  //     //   // // console.log(extract_data)
+  //     //   // console.log(value["data"])
+  //     //   // if (value["data"] == extract_data) {
+  //     //   //   console.log(key)
+  //     //   //   // TODO: fix this portion
+  //     //   //   if (key == "x_axis" || key == "y_axis") {
+  //     //   //     let extract_encoding = key.split("_")[0];
+  //     //   //     console.log(extract_encoding)
+  //     //   //     vis_update["encoding"][extract_encoding] = ""
+  //     //   //   } else {
+  //     //   //     vis_update["encoding"][key] = ""
+  //     //   //   }
+          
+  //     //   //   state_change[key]["data"] = ""
+  //     //   }
+  //     //   setCurrentItemState(clear_state);      
+
+  //     var next_item_state = require("./item_bank_config/item"+next_item+"_initialize.json");
+  //     setCurrentItemState(next_item_state);
+  //     item_bank["status"]["item"+next_item] = true
+  //     setBankStatus(item_bank["status"])
+  //     console.log(currentItemState)
+  //     console.log(item_bank["status"])
+  //   }
+    
+
+  //   // write to DB and reset [necessary/written variables]
+  // }
+  // // document.getElementById('exportText').addEventListener('click', function() {
+  // //   console.log(document.getElementById('yourname').value)
+  // // })
+
+
+  // // const queryString = window.location.search;
+  // // console.log(queryString);
+
+  // // const urlParams = new URLSearchParams(queryString);
+  // // console.log(urlParams)
+
+  // // const prolificID = urlParams.get('PROLIFIC_PID')
+  // // console.log(prolificID)
+
+  // // // setup API options
+  // // const options = {
+  // //   config: {
+  // //     // Vega-Lite default configuration
+  // //   },
+  // //   init: (view) => {
+  // //     // initialize tooltip handler
+  // //     view.tooltip(new vegaTooltip.Handler().call);
+  // //   },
+  // //   view: {
+  // //     // view constructor options
+  // //     // remove the loader if you don't want to default to vega-datasets!
+  // //     // loader: vega.loader({
+  // //     //   baseURL: "https://cdn.jsdelivr.net/npm/vega-datasets@2/",
+  // //     // }),
+  // //     renderer: "canvas",
+  // //   },
+  // // };
+  
+
+  // // useEffect(() => {
+  // //   setIsClient(true)
+    
+    
+  // //   // register vega and vega-lite with the API
+  // //   // vl.register(vega, vegaLite, options);
+  // //   // console.log(data["data"]["values"][0])
+    
+  // //   // console.log(mark_spec)
+  // //   // // .then(viewElement => {
+  // //   // //   // render returns a promise to a DOM element containing the chart
+  // //   // //   // viewElement.value contains the Vega View object instance
+  // //   // //   document.getElementById('view').appendChild(viewElement);
+  // //   // // });
+  // //   // embed('#vis', mark_spec);
+
+  // // }, [])
+
+  // // let data = require('./data.json') // import vega_datasets
+  // // let mark_spec = vl.markPoint()
+  // //     .data(data)
+  // //     .size("")
+  // //     .toSpec()
+
+  // // // mark_spec_update = mark_spec.size("")
+  // // console.log(mark_spec)
+
+  // // if (isClient) {
+  // //   // let mark_spec = vl.markPoint()
+  // //   //   .data(data)
+  // //   //   .toSpec()
+  // //   // let mark_spec = require("./rules/I1/I1-14-0.json");
+  // //   // embed('#vis', mark_spec, {"actions": false});
+  // //   let chart_types = {};
+  // //   fetch('./tiles/chart-types.json')
+  // //       .then((res) => {
+  // //           if (!res.ok) {
+  // //               throw new Error
+  // //                   (`HTTP error! Status: ${res.status}`);
+  // //           }
+  // //           return res.json();
+  // //       })
+  // //       .then((data) => {
+  // //           console.log(data);
+  // //           chart_types = data
+  // //       })
+  // //       .catch((error) => 
+  // //           console.error("Unable to fetch data:", error));
+    
+  // //   console.log(chart_types)
+  // // }
+  
+  
+  
+  // // console.log(JSON.stringify(mark_spec))
+  // // var fs = require('fs');
+  // // fs.writeFile("vis_spec.json", mark_spec, function(err) {
+  // //     if (err) {
+  // //         console.log(err);
+  // //     }
+  // // });
  
 
-  // var yourVlSpec = {
-  //   $schema: 'https://vega.github.io/schema/vega-lite/v5.json',
-  //   description: 'A simple bar chart with embedded data.',
-  //   data: {
-  //     values: [
-  //       {a: 'A', b: 28},
-  //       {a: 'B', b: 55},
-  //       {a: 'C', b: 43},
-  //       {a: 'D', b: 91},
-  //       {a: 'E', b: 81},
-  //       {a: 'F', b: 53},
-  //       {a: 'G', b: 19},
-  //       {a: 'H', b: 87},
-  //       {a: 'I', b: 52}
-  //     ]
-  //   },
-  //   mark: 'bar',
-  //   encoding: {
-  //     x: {field: 'a', type: 'ordinal'},
-  //     y: {field: 'b', type: 'quantitative'}
-  //   }
-  // };
-  // var moreSpecificSpec = require("./visSpec.json");
+  // // var yourVlSpec = {
+  // //   $schema: 'https://vega.github.io/schema/vega-lite/v5.json',
+  // //   description: 'A simple bar chart with embedded data.',
+  // //   data: {
+  // //     values: [
+  // //       {a: 'A', b: 28},
+  // //       {a: 'B', b: 55},
+  // //       {a: 'C', b: 43},
+  // //       {a: 'D', b: 91},
+  // //       {a: 'E', b: 81},
+  // //       {a: 'F', b: 53},
+  // //       {a: 'G', b: 19},
+  // //       {a: 'H', b: 87},
+  // //       {a: 'I', b: 52}
+  // //     ]
+  // //   },
+  // //   mark: 'bar',
+  // //   encoding: {
+  // //     x: {field: 'a', type: 'ordinal'},
+  // //     y: {field: 'b', type: 'quantitative'}
+  // //   }
+  // // };
+  // // var moreSpecificSpec = require("./visSpec.json");
   
   
 
   return (
     <div>
-        <QuestionText question={item_bank["item"+currentItem.toString()]["initialize"]["question_text"]}></QuestionText>
+      <ItemComponent 
+      item={1} 
+      item_bank={item_bank}
+      />
+      
+        {/* <QuestionText question={item_bank["item"+currentItem.toString()]["initialize"]["question_text"]}></QuestionText>
         <div id='visContainer'>
             <div id="questionVis"></div>
             <div id="answerVis"></div>
@@ -550,7 +558,7 @@ export default function HomePage() {
         </div>
       <div id="nextButton" onClick={() => nextItem()}>
         <p>Next</p>
-      </div>
+      </div> */}
       {/*<form onSubmit={handleSubmit}>
          <div>
           <label htmlFor='PID'>
