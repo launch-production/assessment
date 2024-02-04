@@ -77,6 +77,15 @@ img {
   flex-direction: row;
 }
 
+#questionVis {
+  height: 300px;
+  width: 600px;
+  padding-bottom: 2rem;
+  overflow-y: scroll;
+  overflow-x: scroll;
+  text-align: center;
+}
+
 .inputSpace {
   width: 62px;
   height: 62px;

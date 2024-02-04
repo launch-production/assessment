@@ -5,15 +5,15 @@
     },
     "datasets": {
       "cars": {
-        "Name":"nominal",
-        "Miles_per_Gallon": "quantitative",
-        "Cylinders": "quantitative",
-        "Displacement": "quantitative",
-        "Horsepower": "quantitative",
-        "Weight_in_lbs": "quantitative",
-        "Acceleration": "quantitative",
-        "Year":"temporal",
-        "Origin":"nominal"
+        "Name": {"type": "nominal", "truncate": null},
+        "Miles_per_Gallon": {"type": "quantitative", "truncate": [20, 60]},
+        "Cylinders": {"type": "quantitative", "truncate": null},
+        "Displacement": {"type": "quantitative", "truncate": [200, 600]},
+        "Horsepower": {"type": "quantitative", "truncate": [20, 60]},
+        "Weight_in_lbs": {"type": "quantitative", "truncate": [3000, 6000]},
+        "Acceleration": {"type": "quantitative", "truncate": [20, 30]},
+        "Year": {"type": "temporal", "truncate": ["1975-01-01", "1980-01-01"]},
+        "Origin": {"type": "nominal", "truncate": null}
       }
     },
     "item1": {

@@ -33,7 +33,7 @@ function updateEncodingMapping(vis_spec, encoding, update_to, data_columns) {
   console.log(encoding)
   console.log(update_to)
   if (encoding.includes("color")) {
-    vis_spec["encoding"]["color"] = {"field": update_to, "type": data_columns[update_to]};
+    vis_spec["encoding"]["color"] = {"field": update_to, "type": data_columns[update_to]["type"]};
     // vis_spec["encoding"]["color"]["field"] = update_to;
     // vis_spec["encoding"]["color"]["type"] = data_columns[update_to];
     // vis_spec["encoding"]["color"]["scale"]["scheme"] = "purplegreen"
@@ -61,7 +61,7 @@ function updateEncodingMapping(vis_spec, encoding, update_to, data_columns) {
       vis_spec["encoding"]["color"]["scale"] = {"scheme": "dark2"};
     }
   } else {
-    vis_spec["encoding"][encoding] = {"field": update_to, "type": data_columns[update_to]};
+    vis_spec["encoding"][encoding] = {"field": update_to, "type": data_columns[update_to]["type"]};
   }
 
   embed('#questionVis', vis_spec, {"actions": false});
@@ -94,6 +94,64 @@ function updateMark(vis_spec, mark) {
   return vis_spec
 }
 
+function updateTransformationMapping(vis_spec, transformation_encoding, add_transformation, data_columns) {
+  console.log("in update transformation!")
+  console.log(transformation_encoding)
+  console.log(add_transformation)
+  if (transformation_encoding.includes("color")) {
+    transformation_encoding = "color"
+  }
+  if (add_transformation == "bin") {
+    vis_spec["encoding"][transformation_encoding][add_transformation] = true
+  } else if (add_transformation == "count" || add_transformation == "sum") {
+    vis_spec["encoding"][transformation_encoding]["aggregate"] = add_transformation;
+  } else if (add_transformation == "asc_sort") {
+    vis_spec["encoding"][transformation_encoding]["sort"] = "ascending";
+  } else if (add_transformation == "des_sort") {
+    vis_spec["encoding"][transformation_encoding]["sort"] = "descending";
+  } else if (add_transformation == "stack") {
+    vis_spec["encoding"][transformation_encoding]["stack"] = true;
+  } else if (add_transformation == "reverse") {
+    vis_spec["encoding"][transformation_encoding]["scale"] = {"reverse": true};
+  } 
+  // else if (add_transformation == "truncate") {
+  //   let data_var = vis_spec["encoding"][transformation_encoding]["field"]
+  //   if (data_columns[data_var]["truncate"]) {
+  //     vis_spec["encoding"][transformation_encoding]["scale"] = {...vis_spec["encoding"][transformation_encoding]["scale"], domain: data_columns[data_var]["truncate"], nice: true};
+  //     vis_spec["mark"] = {...vis_spec["mark"], clip: true}
+  //   }
+    
+  // }
+  console.log(vis_spec)
+  embed('#questionVis', vis_spec, {"actions": false});
+  return vis_spec
+}
+
+function removeTransformationEncoding(vis_spec, transformation_encoding, remove_transformation) {
+  console.log("in remove transformation!")
+  console.log(transformation_encoding)
+  console.log(remove_transformation)
+  if (transformation_encoding.includes("color")) {
+    transformation_encoding = "color"
+  }
+  if (remove_transformation == "bin") {
+    vis_spec["encoding"][transformation_encoding][remove_transformation] = false
+  } else if (remove_transformation == "count" || remove_transformation == "sum") {
+    vis_spec["encoding"][transformation_encoding]["aggregate"] = "";
+  } else if (remove_transformation == "asc_sort") {
+    vis_spec["encoding"][transformation_encoding]["sort"] = null;
+  } else if (remove_transformation == "des_sort") {
+    vis_spec["encoding"][transformation_encoding]["sort"] = null;
+  } else if (remove_transformation == "stack") {
+    vis_spec["encoding"][transformation_encoding]["stack"] = "";
+  } else if (remove_transformation == "reverse") {
+    vis_spec["encoding"][transformation_encoding]["scale"] = {"reverse": false};
+  }
+  console.log(vis_spec)
+  embed('#questionVis', vis_spec, {"actions": false});
+  return vis_spec
+}
+
 const ItemComponent = (props) => {
   const router = useRouter()
   const pathname = usePathname()
@@ -112,6 +170,7 @@ const ItemComponent = (props) => {
   const [loadVis, setLoadVis] = useState(props.item_bank["item"+props.item]["question_vis"]);
   const [currentItemState, setCurrentItemState] = useState(props.item_bank["item"+props.item]["initialize"]);
   const [bankStatus, setBankStatus] = useState({});
+  const [noTransformationDisplay, setNoTransformationDisplay] = useState(["truncate"]);
   
   console.log("in item component!")
   console.log(props)
@@ -215,6 +274,10 @@ const ItemComponent = (props) => {
     console.log("in drag")
     console.log(element.dataTransfer)
     console.log(element.target)
+    // let element_id = element.target.id.split("-")
+    // if (element_id.length == 3) {
+    //   element.target.id = element_id[0] + "-" + element_id[1]
+    // }
     element.dataTransfer.setData("text", element.target.id);
     // setDraggedTile(element.target);
     // element.dataTransfer.setData("text", "");
@@ -299,21 +362,24 @@ const ItemComponent = (props) => {
       let add_transformation = data.split("-")[1]
       console.log(drop_container)
       let find_transformation_encoding = drop_container.previousSibling.firstChild.id.split("-")[1]
+      drop_container.firstChild.id += "-";
+      drop_container.firstChild.id += find_transformation_encoding;
       let vis_update = loadVis
-      let extract_transformation_encoding = find_transformation_encoding
-      if (find_transformation_encoding.includes("color")) {
-        extract_transformation_encoding = find_transformation_encoding.split("_")[1];
-        // vis_update["encoding"][find_transformation_encoding.split("_")[1]]["aggregation"] = add_transformation; // TODO need a dictionary for looking up each data column type and where the transformaiton should be
-      } else if (find_transformation_encoding.includes("axis")) {
-        extract_transformation_encoding = find_transformation_encoding.split("_")[0];
-        // vis_update["encoding"][find_transformation_encoding.split("_")[0]] = {"field": add_transformation, "type": "nominal"}; // TODO need a dictionary for looking up each data column type
-      }
-      vis_update["encoding"][extract_transformation_encoding]["aggregate"] = add_transformation; // TODO need a dictionary for looking up each data column type and where the transformaiton should be
+      let updated_spec = updateTransformationMapping(vis_update, find_transformation_encoding, add_transformation, dataset);
+      // let extract_transformation_encoding = find_transformation_encoding
+      // if (find_transformation_encoding.includes("color")) {
+      //   extract_transformation_encoding = find_transformation_encoding.split("_")[1];
+      //   // vis_update["encoding"][find_transformation_encoding.split("_")[1]]["aggregation"] = add_transformation; // TODO need a dictionary for looking up each data column type and where the transformaiton should be
+      // } else if (find_transformation_encoding.includes("axis")) {
+      //   extract_transformation_encoding = find_transformation_encoding.split("_")[0];
+      //   // vis_update["encoding"][find_transformation_encoding.split("_")[0]] = {"field": add_transformation, "type": "nominal"}; // TODO need a dictionary for looking up each data column type
+      // }
+      // vis_update["encoding"][extract_transformation_encoding]["aggregate"] = add_transformation; // TODO need a dictionary for looking up each data column type and where the transformaiton should be
       // ev.preventDefault();
-      console.log(vis_update)
-      setLoadVis(vis_update)
-      console.log(loadVis)
-      embed('#questionVis', loadVis, {"actions": false});
+      console.log(updated_spec)
+      setLoadVis(updated_spec)
+      // console.log(loadVis)
+      // embed('#questionVis', loadVis, {"actions": false});
     }
     // if (data.includes("data")) {
     //   
@@ -365,41 +431,42 @@ const ItemComponent = (props) => {
     console.log(loadVis)
     console.log(currentItemState)
     if (ev.target.id.includes("transformation")) {
-      
       let state_change = currentItemState
       let vis_update = loadVis
-      for (var [key, value] of Object.entries(currentItemState)) {
-        // console.log(key, value);
-        let extract_transformation = ev.target.id.split("-")[1]
-        // console.log(extract_data)
-        console.log(value["transformation"])
-        if (value["transformation"] == extract_transformation) {
-          console.log(key)
-          // TODO: fix this portion
-          console.log(ev.target.parentNode.previousSibling.firstChild.id)
-          let corresponding_encoding = ev.target.parentNode.previousSibling.firstChild.id.split("-")[1]
-          // let extract_encoding = key.split("_")[0];
-          // console.log(extract_encoding)
-          if (key == corresponding_encoding) {
-            if (key == "x_axis" || key == "y_axis") {
-              console.log("deleting for"+key.split("_")[0])
-              delete vis_update["encoding"][key.split("_")[0]]["aggregate"]
-              state_change[key]["transformation"] = ""
-            } else {
-              vis_update["encoding"][key]["aggregate"] = ""
-            }
+      let mapping_info = ev.target.id.split("-")
+      removeTransformationEncoding(vis_update, mapping_info[2], mapping_info[1]);
+      // for (var [key, value] of Object.entries(currentItemState)) {
+      //   // console.log(key, value);
+      //   let extract_transformation = ev.target.id.split("-")[1]
+      //   // console.log(extract_data)
+      //   console.log(value["transformation"])
+      //   if (value["transformation"] == extract_transformation) {
+      //     console.log(key)
+      //     // TODO: fix this portion
+      //     console.log(ev.target.parentNode.previousSibling.firstChild.id)
+      //     let corresponding_encoding = ev.target.parentNode.previousSibling.firstChild.id.split("-")[1]
+      //     // let extract_encoding = key.split("_")[0];
+      //     // console.log(extract_encoding)
+      //     if (key == corresponding_encoding) {
+      //       if (key == "x_axis" || key == "y_axis") {
+      //         console.log("deleting for"+key.split("_")[0])
+      //         delete vis_update["encoding"][key.split("_")[0]]["aggregate"]
+      //         state_change[key]["transformation"] = ""
+      //       } else {
+      //         vis_update["encoding"][key]["aggregate"] = ""
+      //       }
               
-          }
+      //     }
           
           
-        }
-      }
+      //   }
+      // }
       setLoadVis(vis_update);
-      setCurrentItemState(state_change)
-      embed('#questionVis', loadVis, {"actions": false});
-      console.log(vis_update)
-      console.log(state_change)
-      console.log(ev.target.parentNode)
+      // setCurrentItemState(state_change)
+      // embed('#questionVis', loadVis, {"actions": false});
+      // console.log(vis_update)
+      // console.log(state_change)
+      // console.log(ev.target.parentNode)
       ev.target.parentNode.innerHTML = "";
     }
   }
@@ -626,7 +693,7 @@ const ItemComponent = (props) => {
                       <div className='inputSpace' key={"input-transform"+index} data-draggable="transformation_target" onDrop={(event) => transformationDrop(event)} onDragOver={(event) => allowDrop(event)} onClick={(event) => removeTransformationTile(event)}>
                       { Object.entries(currentItemState["encodings"]).map((data_mapping, index) => (
                           (data_mapping[0] == encoding_icon[0] && data_mapping[1]["transformation"]) ? 
-                            <img key={"fill-transformation-"+index} src={transformations[data_mapping[1]["transformation"]]} id={"transformation-"+data_mapping[1]["transformation"]} className="transformationTiles"></img>
+                            <img key={"fill-transformation-"+index} src={transformations[data_mapping[1]["transformation"]]} id={"transformation-"+data_mapping[1]["transformation"]+"-"+encoding_icon[0]} className="transformationTiles"></img>
                           : null
                           ))}
                       </div>
@@ -640,6 +707,7 @@ const ItemComponent = (props) => {
                 <p>Transformations</p>
                 <div>
                   {Object.entries(transformations).map((transformation_tiles, index) => (
+                    noTransformationDisplay.includes(transformation_tiles[0]) ? null :
                     <div key={"action"+index} >
                       <img  src={transformation_tiles[1]} id={"transformation-"+transformation_tiles[0]} className="transformationTiles" draggable="true" onDragStart={(event) => drag(event)}></img>
                     </div>
