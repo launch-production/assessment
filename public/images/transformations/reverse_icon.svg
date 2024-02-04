@@ -9,14 +9,12 @@
 </style>
 <g>
 	<rect x="1.5" y="1.5" class="st0" width="65" height="65"/>
-	<text transform="matrix(1 0 0 1 23.5422 57.7215)" class="st1 st2">sort</text>
+	<text transform="matrix(1 0 0 1 13.4861 55.6163)" class="st1 st2">reverse</text>
 	<g>
-		<rect x="14" y="33.22" width="5" height="7"/>
-		<rect x="21" y="30.72" width="5" height="9.5"/>
-		<rect x="28" y="27.72" width="5" height="12.5"/>
-		<rect x="35" y="24.72" width="5" height="15.5"/>
-		<rect x="42" y="21.72" width="5" height="18.5"/>
-		<rect x="49" y="16.72" width="5" height="23.5"/>
+		<path class="st0" d="M27,12c-0.9,0.7-6.6,5.2-7,13c-0.3,6.4,3.2,12.6,9,16"/>
+		<path class="st0" d="M41,40.6c0.9-0.7,6.6-5.2,7-13c0.3-6.4-3.2-12.6-9-16"/>
 	</g>
+	<path class="st0" d="M24.5,41.5c1.7,0,3.3,0,5,0c-0.3-1.7-0.7-3.3-1-5"/>
+	<path class="st0" d="M44.5,11.5c-2,0-4,0-6,0c0.7,1.7,1.3,3.3,2,5"/>
 </g>
 </svg>

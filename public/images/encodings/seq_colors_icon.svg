@@ -4,19 +4,19 @@
 	 viewBox="0 0 68 68" style="enable-background:new 0 0 68 68;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:none;stroke:#000000;stroke-miterlimit:10;}
-	.st1{fill:#006837;stroke:#000000;stroke-miterlimit:10;}
-	.st2{fill:#009245;stroke:#000000;stroke-miterlimit:10;}
-	.st3{fill:#39B54A;stroke:#000000;stroke-miterlimit:10;}
-	.st4{fill:#8CC63F;stroke:#000000;stroke-miterlimit:10;}
-	.st5{fill:#1B1464;stroke:#000000;stroke-miterlimit:10;}
-	.st6{fill:#2E3192;stroke:#000000;stroke-miterlimit:10;}
-	.st7{fill:#0071BC;stroke:#000000;stroke-miterlimit:10;}
-	.st8{fill:#29ABE2;stroke:#000000;stroke-miterlimit:10;}
+	.st1{fill:#02818A;stroke:#000000;stroke-miterlimit:10;}
+	.st2{fill:#67A9CF;stroke:#000000;stroke-miterlimit:10;}
+	.st3{fill:#BDC9E1;stroke:#000000;stroke-miterlimit:10;}
+	.st4{fill:#F6EFF7;stroke:#000000;stroke-miterlimit:10;}
+	.st5{fill:#88419D;stroke:#000000;stroke-miterlimit:10;}
+	.st6{fill:#8C96C6;stroke:#000000;stroke-miterlimit:10;}
+	.st7{fill:#B3CDE3;stroke:#000000;stroke-miterlimit:10;}
+	.st8{fill:#EDF8FB;stroke:#000000;stroke-miterlimit:10;}
 	.st9{font-family:'AvenirNext-Medium';}
 	.st10{font-size:12px;}
 </style>
 <g>
-	<rect x="1.44" y="1.5" class="st0" width="65" height="65"/>
+	<rect x="1.4" y="1.5" class="st0" width="65" height="65"/>
 	<g>
 		<g>
 			<rect x="8.5" y="8.5" class="st1" width="13" height="13"/>
@@ -31,6 +31,7 @@
 			<rect x="47.5" y="21.5" class="st8" width="13" height="13"/>
 		</g>
 	</g>
-	<text transform="matrix(1 0 0 1 5.6233 49.5621)"><tspan x="0" y="0" class="st9 st10">sequential </tspan><tspan x="13.48" y="14" class="st9 st10">colors</tspan></text>
+	<text transform="matrix(1 0 0 1 5.6233 49.5621)" class="st9 st10">sequential </text>
+	<text transform="matrix(1 0 0 1 19.1033 63.5621)" class="st9 st10">colors</text>
 </g>
 </svg>

@@ -3,55 +3,121 @@
         "item1": false,
         "item2": false
     },
+    "datasets": {
+      "cars": {
+        "Name":"nominal",
+        "Miles_per_Gallon": "quantitative",
+        "Cylinders": "quantitative",
+        "Displacement": "quantitative",
+        "Horsepower": "quantitative",
+        "Weight_in_lbs": "quantitative",
+        "Acceleration": "quantitative",
+        "Year":"temporal",
+        "Origin":"nominal"
+      }
+    },
     "item1": {
+      "question_text": "Cars that have horsepower greater than 200 are generally originated from where?",
+      "dataset": "cars",
+      "question_vis": {
+          "data": {
+            "url": "data/cars.json"
+          },
+          "mark": "point",
+          "encoding": {
+            "x": {
+              "field": "Horsepower",
+              "type": "quantitative"
+            },
+            "y": {
+              "field": "Miles_per_Gallon",
+              "type": "quantitative"
+            },
+            "size": {
+              "field": "Origin",
+              "type": "nominal"
+            }
+          }
+        },
         "initialize": {
-            "chart_type": "scatter",
-            "dataset": "./data/cars.json",
-            "question_text": "Cars that have horsepower greater than 200 are generally originated from where?",
-            "question_vis": {
-                "data": {
-                  "url": "data/cars.json"
-                },
-                "mark": "point",
-                "encoding": {
-                  "x": {
-                    "field": "Horsepower",
-                    "type": "quantitative"
-                  },
-                  "y": {
-                    "field": "Miles_per_Gallon",
-                    "type": "quantitative"
-                  },
-                  "size": {
-                    "field": "Origin",
-                    "type": "nominal"
-                  }
-                }
+            "chart_type": "point",
+            "encodings": {
+              "x": {
+                  "data": "Horsepower", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "Miles_per_Gallon",
+                  "tranasformation": ""
+              },
+              "size": {
+                  "data": "Origin",
+                  "tranasformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "tranasformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "tranasformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "tranasformation": ""
               }
+          }  
         }
         
     },
     "item2": {
+      "question_text": "Approximately how many cars originated from the country that had the highest production?",
+      "dataset": "cars",
+      "question_vis": {
+          "data": {
+            "url": "data/cars.json"
+          },
+          "mark": "bar",
+          "encoding": {
+            "x": {
+              "field": "Origin",
+              "aggregate": "count",
+              "type": "nominal"
+            },
+            "y": {
+              "aggregate": "count"
+            }
+          }
+        },
         "initialize": {
             "chart_type": "bar",
-            "dataset": "./data/cars.json",
-            "question_text": "Approximately how many cars originated from the country that had the highest production?",
-            "question_vis": {
-                "data": {
-                  "url": "data/cars.json"
-                },
-                "mark": "bar",
-                "encoding": {
-                  "x": {
-                    "field": "Origin",
-                    "aggregate": "count",
-                    "type": "nominal"
-                  },
-                  "y": {
-                    "aggregate": "count"
-                  }
-                }
+            "encodings": {
+              "x": {
+                  "data": "Origin", 
+                  "transformation": "count"
+              },
+              "y": {
+                  "data": "",
+                  "transformation": "count"
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "tranasformation": ""
               }
+          }
+            
         }
     }
 }

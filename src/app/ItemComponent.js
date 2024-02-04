@@ -5,12 +5,12 @@ import * as vl from 'vega-lite-api';
 import { db } from './firebaseConfig';
 import { collection, addDoc } from "firebase/firestore";
 import QuestionText from './question-text.js';
-import QuestionVis from './question-vis.js';
-import TilesChartTypes from './tiles-chart-types.js';
-import TilesEncodings from './tiles-encodings.js';
-import TilesMappings from './tiles-mappings.js';
-import TilesTransformations from './tiles-transformations.js';
-import { DraftModeProvider } from 'next/dist/server/async-storage/draft-mode-provider';
+// import QuestionVis from './question-vis.js';
+// import TilesChartTypes from './tiles-chart-types.js';
+// import TilesEncodings from './tiles-encodings.js';
+// import TilesMappings from './tiles-mappings.js';
+// import TilesTransformations from './tiles-transformations.js';
+// import { DraftModeProvider } from 'next/dist/server/async-storage/draft-mode-provider';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 
 async function addDataToFireStore(prolificID, score) {
@@ -27,6 +27,73 @@ async function addDataToFireStore(prolificID, score) {
   }
 }
 
+function updateEncodingMapping(vis_spec, encoding, update_to, data_columns) {
+  console.log("in update x")
+  console.log(vis_spec)
+  console.log(encoding)
+  console.log(update_to)
+  if (encoding.includes("color")) {
+    vis_spec["encoding"]["color"] = {"field": update_to, "type": data_columns[update_to]};
+    // vis_spec["encoding"]["color"]["field"] = update_to;
+    // vis_spec["encoding"]["color"]["type"] = data_columns[update_to];
+    // vis_spec["encoding"]["color"]["scale"]["scheme"] = "purplegreen"
+    // {"field": update_to, "type": data_columns[update_to]};
+    console.log(vis_spec);
+    let color_scheme = encoding.split("_")[0];
+    console.log(color_scheme)
+    // diverging color scheme
+    if (color_scheme == "div") {
+      vis_spec["encoding"]["color"]["scale"] = {"scheme": "purpleorange"};
+      // vis_spec["encoding"]["color"] = {...vis_spec["encoding"]["color"], scale: {scheme: "purplegreen"}}
+      // let scale_value = {}
+      // scale_value["scale"] = {"scheme": "purplegreen"}
+      // // vis_spec["encoding"]["color"]["scale"] = new Map();
+      // console.log(scale_value);
+      // vis_spec["encoding"]["color"].scale = {};
+      // vis_spec["encoding"]["color"].scale.scheme = "purplegreen"
+      console.log(vis_spec)
+      // ["scheme"] = "purplegreen";
+    } else if (color_scheme == "seq") {
+      vis_spec["encoding"]["color"]["scale"] = {"scheme": "purplebluegreen"};
+      // console.log(vis_spec["encoding"]["color"])
+      // embed('#questionVis', vis_spec, {"actions": false});
+    } else if (color_scheme == "qual") {
+      vis_spec["encoding"]["color"]["scale"] = {"scheme": "dark2"};
+    }
+  } else {
+    vis_spec["encoding"][encoding] = {"field": update_to, "type": data_columns[update_to]};
+  }
+
+  embed('#questionVis', vis_spec, {"actions": false});
+  return vis_spec
+
+}
+
+function removeDataEncoding(vis_spec, encoding, remove_data) {
+  console.log("in remove data encoding")
+  console.log(vis_spec)
+  console.log(encoding)
+  console.log(remove_data)
+  // console.log(mapping_state)
+  if (encoding.includes("color")) {
+    console.log(encoding);
+    vis_spec["encoding"]["color"] = {};
+  } else {
+    vis_spec["encoding"][encoding] = {};
+  }
+
+  embed('#questionVis', vis_spec, {"actions": false});
+  return vis_spec
+}
+
+function updateMark(vis_spec, mark) {
+  console.log("in update mark")
+  console.log(vis_spec, mark)
+  vis_spec["mark"] = mark;
+  embed('#questionVis', vis_spec, {"actions": false});
+  return vis_spec
+}
+
 const ItemComponent = (props) => {
   const router = useRouter()
   const pathname = usePathname()
@@ -37,13 +104,17 @@ const ItemComponent = (props) => {
   const [chartTypeSelected, setChartTypeSelected] = useState("");
   const [encodingsDisplay, setEncodingDisplay] = useState({});
   const [draggedTile, setDraggedTile] = useState(null);
-  const [currentItem, setCurrentItem] = useState(props.item);
+  const [currentItem, setCurrentItem] = useState("item"+props.item);
   const [itemBank, SetItemBank] = useState(props.item_bank);
-  const [loadVis, setLoadVis] = useState({});
-  const [currentItemState, setCurrentItemState] = useState({});
+  const [tileSets, setTileSets] = useState(props.tile_sets);
+  const [currentChartType, setCurrentChartType] = useState(props.item_bank["item"+props.item]["initialize"]["chart_type"]);
+  const [dataset, setDataset] = useState(props.item_bank["datasets"][props.item_bank["item"+props.item]["dataset"]]);
+  const [loadVis, setLoadVis] = useState(props.item_bank["item"+props.item]["question_vis"]);
+  const [currentItemState, setCurrentItemState] = useState(props.item_bank["item"+props.item]["initialize"]);
   const [bankStatus, setBankStatus] = useState({});
   
   console.log("in item component!")
+  console.log(props)
   console.log(props.item_bank)
   console.log(pathname)
   console.log(searchParams)
@@ -71,15 +142,15 @@ const ItemComponent = (props) => {
 
   useEffect(() => {
       setIsClient(true);
-      setChartTypeSelected("scatter");
-      setEncodingDisplay(encodings[chartTypeSelected]);
-      setLoadVis(itemBank["item"+currentItem.toString()]["initialize"]["question_vis"])
-      itemBank["status"]["item"+currentItem] = true
-      setBankStatus(itemBank["status"])
-      var item_state = require("./item_bank_config/item"+currentItem+"_initialize.json");
-      setCurrentItemState(item_state);
-      console.log(item_state)
-      console.log(itemBank["status"])
+      // setChartTypeSelected("scatter");
+      // setEncodingDisplay(encodings[chartTypeSelected]);
+      // setLoadVis(itemBank["item"+currentItem.toString()]["initialize"]["question_vis"])
+      // itemBank["status"]["item"+currentItem] = true
+      // setBankStatus(itemBank["status"])
+      // var item_state = require("./item_bank_config/item"+currentItem+"_initialize.json");
+      // setCurrentItemState(item_state);
+      // console.log(item_state)
+      // console.log(itemBank["status"])
     }, [])
 
 //   var item_bank = require("./item_bank.json");
@@ -110,31 +181,33 @@ const ItemComponent = (props) => {
 
   
 
-  let chart_types = require("./tiles/chart-types.json");
-  let types_list = chart_types.charts_index;
-  let tile_types = chart_types.types
-  console.log(tile_types)
+  let chart_types = Object.keys(tileSets)
+  // let types_list = chart_types.charts_index;
+  // let tile_types = chart_types.types
+  console.log(chart_types)
 
-  let transformations = require("./tiles/transformations.json");
-  let actions_list = transformations.transformation_index;
-  let action_types = transformations.actions
-  console.log(action_types)
+  let transformations = tileSets[currentChartType]["transformations"];
+  // let actions_list = transformations.transformation_index;
+  // let action_types = transformations.actions
+  // console.log(action_types)
 
-  let encodings = require("./tiles/encodings.json");
+  let encodings = tileSets[currentChartType]["encodings"];
   console.log(encodings)
-  console.log(chartTypeSelected)
-  console.log(encodings[chartTypeSelected])
+  // console.log(chartTypeSelected)
+  // console.log(encodings[chartTypeSelected])
 
-  let dataset = require("./data/cars.json");
-  console.log(dataset)
-  let data_columns = Object.keys(dataset[0])
+  let read_dataset = dataset;
+  console.log(read_dataset)
+  let data_columns = Object.keys(read_dataset)
   console.log(data_columns)
   
   const changeChartType = (clicked_chart) => {
     console.log("clicked")
     console.log(clicked_chart)
     setChartTypeSelected(clicked_chart);
-    setEncodingDisplay(encodings[chartTypeSelected]);
+    // setEncodingDisplay(tileSets[clicked_chart]["encodings"]);
+    let vis_update = loadVis
+    updateMark(vis_update, clicked_chart)
   }
 
 
@@ -169,16 +242,21 @@ const ItemComponent = (props) => {
       drop_container.appendChild(document.getElementById(data).cloneNode(true));
       let add_data = data.split("-")[1]
       let find_encoding = drop_container.nextSibling.firstChild.id.split("-")[1] // TODO fix; check have an unique separator
+      drop_container.firstChild.id += "-";
+      drop_container.firstChild.id += find_encoding;
       console.log(find_encoding)
       let vis_update = loadVis
-      if (find_encoding.includes("color")) {
-        vis_update["encoding"][find_encoding.split("_")[1]] = {"field": add_data, "type": "nominal"}; // TODO need a dictionary for looking up each data column type
-      }
-      
-      console.log(vis_update)
-      setLoadVis(vis_update)
+      let updated_spec = updateEncodingMapping(vis_update, find_encoding, add_data, dataset);
+      console.log(updated_spec)
       console.log(loadVis)
-      embed('#questionVis', loadVis, {"actions": false});
+      // if (find_encoding.includes("color")) {
+      //   vis_update["encoding"][find_encoding.split("_")[1]] = {"field": add_data, "type": "nominal"}; // TODO need a dictionary for looking up each data column type
+      // }
+      
+      // console.log(vis_update)
+      setLoadVis(updated_spec)
+      // console.log(loadVis)
+      // embed('#questionVis', loadVis, {"actions": false});
       // let state_change = currentItemState
       
       // for (var [key, value] of Object.entries(currentItemState)) {
@@ -251,30 +329,32 @@ const ItemComponent = (props) => {
     if (ev.target.id.includes("data")) {
       let state_change = currentItemState
       let vis_update = loadVis
-      for (var [key, value] of Object.entries(currentItemState)) {
-        // console.log(key, value);
-        let extract_data = ev.target.id.split("-")[1]
-        // console.log(extract_data)
-        console.log(value["data"])
-        if (value["data"] == extract_data) {
-          console.log(key)
-          // TODO: fix this portion
-          if (key == "x_axis" || key == "y_axis") {
-            let extract_encoding = key.split("_")[0];
-            console.log(extract_encoding)
-            vis_update["encoding"][extract_encoding] = ""
-          } else {
-            vis_update["encoding"][key] = ""
-          }
+      let mapping_info = ev.target.id.split("-")
+      removeDataEncoding(vis_update, mapping_info[2], mapping_info[1])
+      // for (var [key, value] of Object.entries(currentItemState)) {
+      //   // console.log(key, value);
+      //   let extract_data = ev.target.id.split("-")[1]
+      //   // console.log(extract_data)
+      //   console.log(value["data"])
+      //   if (value["data"] == extract_data) {
+      //     console.log(key)
+      //     // TODO: fix this portion
+      //     if (key == "x_axis" || key == "y_axis") {
+      //       let extract_encoding = key.split("_")[0];
+      //       console.log(extract_encoding)
+      //       vis_update["encoding"][extract_encoding] = ""
+      //     } else {
+      //       vis_update["encoding"][key] = ""
+      //     }
           
-          state_change[key]["data"] = ""
-        }
-      }
+      //     state_change[key]["data"] = ""
+      //   }
+      // }
       setLoadVis(vis_update);
-      setCurrentItemState(state_change)
-      embed('#questionVis', loadVis, {"actions": false});
-      console.log(vis_update)
-      console.log(ev.target.parentNode)
+      // setCurrentItemState(state_change)
+      // embed('#questionVis', loadVis, {"actions": false});
+      // console.log(vis_update)
+      // console.log(ev.target.parentNode)
       ev.target.parentNode.innerHTML = "";
     }
   }
@@ -325,8 +405,10 @@ const ItemComponent = (props) => {
   }
 
   const nextItem = () => {
-    let current_item = currentItem;
+    console.log("clicking next")
+    let current_item = props.item;
     let next_item = current_item + 1
+    console.log(next_item)
     if (next_item <= 2) {
     //   setCurrentItem(next_item);
     //   setLoadVis(itemBank["item"+next_item.toString()]["initialize"]["question_vis"])
@@ -370,7 +452,7 @@ const ItemComponent = (props) => {
     //   setBankStatus(itemBank["status"])
     //   console.log(currentItemState)
     //   console.log(itemBank["status"])
-      router.push('/Q2')
+      router.push('/Q'+next_item)
     }
     
 
@@ -501,7 +583,7 @@ const ItemComponent = (props) => {
 
   return (
     <div>
-        {isClient ? <QuestionText question={itemBank["item"+currentItem.toString()]["initialize"]["question_text"]}></QuestionText> : null}
+        {isClient ? <QuestionText question={itemBank[currentItem]["question_text"]}></QuestionText> : null}
         <div id='visContainer'>
             <div id="questionVis"></div>
             <div id="answerVis"></div>
@@ -510,9 +592,9 @@ const ItemComponent = (props) => {
           <div id='chartTypes'>
             <p>Chart Types</p>
             <div>
-              {types_list.map(chart_tiles => (
+              {chart_types.map(chart_tiles => (
                   <div key={chart_tiles}>
-                      <img className="chartTiles" src={tile_types[chart_tiles]} onClick={() => changeChartType(chart_tiles)}></img>
+                      <img className="chartTiles" src={tileSets[chart_tiles]["chart"]} onClick={() => changeChartType(chart_tiles)}></img>
                   </div>
               ))}
             </div>
@@ -529,12 +611,12 @@ const ItemComponent = (props) => {
             <div id='encodings'>
                 <p>Encodings</p>
                 <div>
-                  { itemBank["status"]["item"+currentItem] ? Object.entries(encodings[chartTypeSelected]).map((encoding_icon, index) => (
+                  { Object.entries(encodings).map((encoding_icon, index) => (
                     <div className='mappingContainer' key={"mapping-"+index}>
                       <div className='inputSpace' key={"input-"+index} data-draggable="target" onDrop={(event) => dataDrop(event)} onDragOver={(event) => allowDrop(event)} onClick={(event) => removeDataTile(event)}>
-                        { Object.entries(currentItemState).map((data_mapping, index) => (
+                        { Object.entries(currentItemState["encodings"]).map((data_mapping, index) => (
                           (data_mapping[0] == encoding_icon[0] && data_mapping[1]["data"]) ? 
-                            <div key={"fill-data-"+index} className="dataTiles" id={"data-"+data_mapping[1]["data"]}><p>{data_mapping[1]["data"]}</p></div>
+                            <div key={"fill-data-"+index} className="dataTiles" id={"data-"+data_mapping[1]["data"]+"-"+encoding_icon[0]}><p>{data_mapping[1]["data"]}</p></div>
                           : null
                           ))}
                       </div>
@@ -542,14 +624,14 @@ const ItemComponent = (props) => {
                         <img id={"encoding-"+encoding_icon[0]} src={encoding_icon[1]}></img>
                       </div>
                       <div className='inputSpace' key={"input-transform"+index} data-draggable="transformation_target" onDrop={(event) => transformationDrop(event)} onDragOver={(event) => allowDrop(event)} onClick={(event) => removeTransformationTile(event)}>
-                      { Object.entries(currentItemState).map((data_mapping, index) => (
+                      { Object.entries(currentItemState["encodings"]).map((data_mapping, index) => (
                           (data_mapping[0] == encoding_icon[0] && data_mapping[1]["transformation"]) ? 
-                            <img key={"fill-transformation-"+index} src={action_types[data_mapping[1]["transformation"]]} id={"transformation-"+data_mapping[1]["transformation"]} className="transformationTiles"></img>
+                            <img key={"fill-transformation-"+index} src={transformations[data_mapping[1]["transformation"]]} id={"transformation-"+data_mapping[1]["transformation"]} className="transformationTiles"></img>
                           : null
                           ))}
                       </div>
                     </div>
-                  )): null}
+                  ))}
                   
                 </div>
 
@@ -557,9 +639,9 @@ const ItemComponent = (props) => {
               <div id='transformations'>
                 <p>Transformations</p>
                 <div>
-                  {actions_list.map(transformation_tiles => (
-                    <div key={transformation_tiles} >
-                      <img  src={action_types[transformation_tiles]} id={"transformation-"+transformation_tiles} className="transformationTiles" draggable="true" onDragStart={(event) => drag(event)}></img>
+                  {Object.entries(transformations).map((transformation_tiles, index) => (
+                    <div key={"action"+index} >
+                      <img  src={transformation_tiles[1]} id={"transformation-"+transformation_tiles[0]} className="transformationTiles" draggable="true" onDragStart={(event) => drag(event)}></img>
                     </div>
                   ))}
                   

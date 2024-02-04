@@ -1,4 +1,6 @@
 {
+  "width": 250,
+  "height": 250,
     "data": {
       "url": "data/cars.json"
     },

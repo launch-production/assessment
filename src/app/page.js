@@ -4,13 +4,13 @@ import embed from 'vega-embed';
 import * as vl from 'vega-lite-api';
 import { db } from './firebaseConfig';
 import { collection, addDoc } from "firebase/firestore";
-import QuestionText from './question-text.js';
-import QuestionVis from './question-vis.js';
-import TilesChartTypes from './tiles-chart-types.js';
-import TilesEncodings from './tiles-encodings.js';
-import TilesMappings from './tiles-mappings.js';
-import TilesTransformations from './tiles-transformations.js';
-import { DraftModeProvider } from 'next/dist/server/async-storage/draft-mode-provider';
+// import QuestionText from './question-text.js';
+// import QuestionVis from './question-vis.js';
+// import TilesChartTypes from './tiles-chart-types.js';
+// import TilesEncodings from './tiles-encodings.js';
+// import TilesMappings from './tiles-mappings.js';
+// import TilesTransformations from './tiles-transformations.js';
+// import { DraftModeProvider } from 'next/dist/server/async-storage/draft-mode-provider';
 import ItemComponent from './ItemComponent';
 // import { useRouter } from 'next/router'
 
@@ -78,6 +78,9 @@ export default function HomePage() {
 
   var item_bank = require("./item_bank.json");
   console.log(item_bank)
+
+  var tile_sets = require("./tile_sets.json");
+  console.log(tile_sets)
 
 
   // if (isClient) {
@@ -488,6 +491,7 @@ export default function HomePage() {
       <ItemComponent 
       item={1} 
       item_bank={item_bank}
+      tile_sets={tile_sets}
       />
       
         {/* <QuestionText question={item_bank["item"+currentItem.toString()]["initialize"]["question_text"]}></QuestionText>
