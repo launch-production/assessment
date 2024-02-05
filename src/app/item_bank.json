@@ -17,6 +17,49 @@
       }
     },
     "item1": {
+      "question_text": "Which country or countries are cars with acceleration between 22 to 24 originated from?",
+      "dataset": "cars",
+      "question_vis": {
+          "data": {
+            "url": "data/cars.json"
+          },
+          "mark": "point",
+          "encoding": {
+            
+          }
+        },
+        "initialize": {
+            "chart_type": "point",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "tranasformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "tranasformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "tranasformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "tranasformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "tranasformation": ""
+              }
+          }  
+        }
+        
+    },
+    "item2": {
       "question_text": "Cars that have horsepower greater than 200 are generally originated from where?",
       "dataset": "cars",
       "question_vis": {
@@ -70,7 +113,7 @@
         }
         
     },
-    "item2": {
+    "item3": {
       "question_text": "Approximately how many cars originated from the country that had the highest production?",
       "dataset": "cars",
       "question_vis": {

@@ -3,7 +3,7 @@ const QuestionText = (question) => {
     return (
         <div>
             <div id='questionContainer'>
-                <p><b>Reconstruct or fix the following chart for answering the question:</b></p>
+                <p><b>Construct or fix the chart to answer the following question:</b></p>
                 <p>{question.question}</p>
             </div>
         </div>

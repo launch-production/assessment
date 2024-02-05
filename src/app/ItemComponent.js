@@ -33,7 +33,11 @@ function updateEncodingMapping(vis_spec, encoding, update_to, data_columns) {
   console.log(encoding)
   console.log(update_to)
   if (encoding.includes("color")) {
-    vis_spec["encoding"]["color"] = {"field": update_to, "type": data_columns[update_to]["type"]};
+    if (!vis_spec["encoding"]["color"]) {
+      vis_spec["encoding"]["color"] = {}
+    }
+    vis_spec["encoding"]["color"]["field"] = update_to;
+    vis_spec["encoding"]["color"]["type"] = data_columns[update_to]["type"];
     // vis_spec["encoding"]["color"]["field"] = update_to;
     // vis_spec["encoding"]["color"]["type"] = data_columns[update_to];
     // vis_spec["encoding"]["color"]["scale"]["scheme"] = "purplegreen"
@@ -61,7 +65,11 @@ function updateEncodingMapping(vis_spec, encoding, update_to, data_columns) {
       vis_spec["encoding"]["color"]["scale"] = {"scheme": "dark2"};
     }
   } else {
-    vis_spec["encoding"][encoding] = {"field": update_to, "type": data_columns[update_to]["type"]};
+    if (!vis_spec["encoding"][encoding]) {
+      vis_spec["encoding"][encoding] = {}
+    }
+    vis_spec["encoding"][encoding]["field"] = update_to
+    vis_spec["encoding"][encoding]["type"] = data_columns[update_to]["type"];
   }
 
   embed('#questionVis', vis_spec, {"actions": false});
@@ -77,9 +85,11 @@ function removeDataEncoding(vis_spec, encoding, remove_data) {
   // console.log(mapping_state)
   if (encoding.includes("color")) {
     console.log(encoding);
-    vis_spec["encoding"]["color"] = {};
+    vis_spec["encoding"]["color"]["field"] = "";
+    vis_spec["encoding"]["color"]["type"] = "";
   } else {
-    vis_spec["encoding"][encoding] = {};
+    vis_spec["encoding"][encoding]["field"] = "";
+    vis_spec["encoding"][encoding]["type"] = "";
   }
 
   embed('#questionVis', vis_spec, {"actions": false});
@@ -98,8 +108,12 @@ function updateTransformationMapping(vis_spec, transformation_encoding, add_tran
   console.log("in update transformation!")
   console.log(transformation_encoding)
   console.log(add_transformation)
+  console.log(vis_spec)
   if (transformation_encoding.includes("color")) {
     transformation_encoding = "color"
+  }
+  if (!vis_spec["encoding"][transformation_encoding]) {
+    vis_spec["encoding"][transformation_encoding] = {};
   }
   if (add_transformation == "bin") {
     vis_spec["encoding"][transformation_encoding][add_transformation] = true
@@ -264,6 +278,7 @@ const ItemComponent = (props) => {
     console.log("clicked")
     console.log(clicked_chart)
     setChartTypeSelected(clicked_chart);
+    setCurrentChartType(clicked_chart)
     // setEncodingDisplay(tileSets[clicked_chart]["encodings"]);
     let vis_update = loadVis
     updateMark(vis_update, clicked_chart)
@@ -276,7 +291,12 @@ const ItemComponent = (props) => {
     console.log(element.target)
     // let element_id = element.target.id.split("-")
     // if (element_id.length == 3) {
-    //   element.target.id = element_id[0] + "-" + element_id[1]
+    //   element.target.id = "redrag+"+element_id[0] + "-" + element_id[1]
+    // }
+    // let transfer_id = element.target.id
+    // // dragging from input area
+    // if (element.target.id.includes("input")) {
+    //   transfer_id = element.target.firstChild.id
     // }
     element.dataTransfer.setData("text", element.target.id);
     // setDraggedTile(element.target);
@@ -296,13 +316,32 @@ const ItemComponent = (props) => {
     console.log(ev.target)
     // console.log(ev.target.getAttribute('data-draggable'))
     var data = ev.dataTransfer.getData("text");
+    
     console.log(data)
+    console.log(ev.dataTransfer)
     if (data.includes("data") && ev.target.getAttribute('data-draggable') == "target") {
       console.log("dropping!")
+      let dragged_element_id = data; // save id of the dragged tile
+      let element_id = data.split("-")
+      console.log(element_id)
+      // if the tile has been dragged before (encoding is in id already)
+      if (element_id.length == 3) {
+        let remove_from_encoding = element_id[2];
+        removeDataEncoding(loadVis, remove_from_encoding, element_id[1]) // remove encoding mapping from previous spot
+        data = "redrag+"+element_id[0] + "-" + element_id[1]
+      }
       // ev.target.appendChild(draggedTile); // todo try not using setstate, and append by id?
       let drop_container = ev.target;
       // drop_container.innerHTML = "";
-      drop_container.appendChild(document.getElementById(data).cloneNode(true));
+      if (data.includes("redrag")) {
+        console.log(document.getElementById(data))
+        drop_container.appendChild(document.getElementById(dragged_element_id)); // move instead of clone
+        data = data.split("+")[1];
+        drop_container.firstChild.id = data // reset id to not include "redrag" tag
+      } else {
+        drop_container.appendChild(document.getElementById(data).cloneNode(true));
+      }
+      console.log(drop_container.firstChild)
       let add_data = data.split("-")[1]
       let find_encoding = drop_container.nextSibling.firstChild.id.split("-")[1] // TODO fix; check have an unique separator
       drop_container.firstChild.id += "-";
@@ -352,13 +391,30 @@ const ItemComponent = (props) => {
     console.log(ev.target)
     // console.log(ev.target.getAttribute('data-draggable'))
     var data = ev.dataTransfer.getData("text");
-    console.log(data)
+    
     if (data.includes("transformation") && ev.target.getAttribute('data-draggable') == "transformation_target") {
       console.log("dropping transformation!")
+      let dragged_element_id = data; // save id of the dragged tile
+      let element_id = data.split("-")
+      console.log(element_id)
+      console.log(data)
+      // if the tile has been dragged before (encoding is in id already)
+      if (element_id.length == 3) {
+        let remove_from_encoding = element_id[2];
+        removeTransformationEncoding(loadVis, remove_from_encoding, element_id[1]) // remove encoding mapping from previous spot
+        data = "redrag+"+element_id[0] + "-" + element_id[1]
+      }
       // ev.target.appendChild(draggedTile); // todo try not using setstate, and append by id?
       let drop_container = ev.target;
       // drop_container.innerHTML = "";
-      drop_container.appendChild(document.getElementById(data).cloneNode(true));
+      if (data.includes("redrag")) {
+        console.log(document.getElementById(data))
+        drop_container.appendChild(document.getElementById(dragged_element_id)); // move instead of clone
+        data = data.split("+")[1];
+        drop_container.firstChild.id = data // reset id to not include "redrag" tag
+      } else {
+        drop_container.appendChild(document.getElementById(data).cloneNode(true));
+      }
       let add_transformation = data.split("-")[1]
       console.log(drop_container)
       let find_transformation_encoding = drop_container.previousSibling.firstChild.id.split("-")[1]
@@ -471,12 +527,34 @@ const ItemComponent = (props) => {
     }
   }
 
+  const opacityChange = (ev) => {
+    console.log("in hover opacity")
+    console.log(ev.target.id)
+    let check_mapped = ev.target.id.split("-")
+    if (check_mapped.length == 3) {
+      document.getElementById(ev.target.id).classList.remove("removeMouseOut")
+      document.getElementById(ev.target.id).classList.add("removeMouseOver");
+    }
+    
+  }
+
+  const restoreOpacity = (ev) => {
+    console.log("in hover opacity")
+    console.log(ev.target.id)
+    let check_mapped = ev.target.id.split("-")
+    if (check_mapped.length == 3) {
+      document.getElementById(ev.target.id).classList.add("removeMouseOut")
+      document.getElementById(ev.target.id).classList.remove("removeMouseOver");
+    }
+    
+  }
+
   const nextItem = () => {
     console.log("clicking next")
     let current_item = props.item;
     let next_item = current_item + 1
     console.log(next_item)
-    if (next_item <= 2) {
+    if (next_item <= 3) {
     //   setCurrentItem(next_item);
     //   setLoadVis(itemBank["item"+next_item.toString()]["initialize"]["question_vis"])
     //   console.log(document.getElementsByClassName("inputSpace"))
@@ -680,20 +758,20 @@ const ItemComponent = (props) => {
                 <div>
                   { Object.entries(encodings).map((encoding_icon, index) => (
                     <div className='mappingContainer' key={"mapping-"+index}>
-                      <div className='inputSpace' key={"input-"+index} data-draggable="target" onDrop={(event) => dataDrop(event)} onDragOver={(event) => allowDrop(event)} onClick={(event) => removeDataTile(event)}>
+                      <div className='inputSpace' key={"input-"+index} data-draggable="target" onDrop={(event) => dataDrop(event)} onDragOver={(event) => allowDrop(event)} onClick={(event) => removeDataTile(event)} onMouseOver={(event) => opacityChange(event)} onMouseOut={(event) => restoreOpacity(event)} draggable="true" onDragStart={(event) => drag(event)}>
                         { Object.entries(currentItemState["encodings"]).map((data_mapping, index) => (
                           (data_mapping[0] == encoding_icon[0] && data_mapping[1]["data"]) ? 
-                            <div key={"fill-data-"+index} className="dataTiles" id={"data-"+data_mapping[1]["data"]+"-"+encoding_icon[0]}><p>{data_mapping[1]["data"]}</p></div>
+                            <div key={"fill-data-"+index} className="dataTiles" id={"data-"+data_mapping[1]["data"]+"-"+encoding_icon[0]} draggable="true" onDragStart={(event) => drag(event)}><p>{data_mapping[1]["data"]}</p></div>
                           : null
                           ))}
                       </div>
                       <div className='staticColumn' key={index}>
                         <img id={"encoding-"+encoding_icon[0]} src={encoding_icon[1]}></img>
                       </div>
-                      <div className='inputSpace' key={"input-transform"+index} data-draggable="transformation_target" onDrop={(event) => transformationDrop(event)} onDragOver={(event) => allowDrop(event)} onClick={(event) => removeTransformationTile(event)}>
+                      <div className='inputSpace' key={"input-transform"+index} data-draggable="transformation_target" onDrop={(event) => transformationDrop(event)} onDragOver={(event) => allowDrop(event)} onClick={(event) => removeTransformationTile(event)} onMouseOver={(event) => opacityChange(event)} onMouseOut={(event) => restoreOpacity(event)} draggable="true" onDragStart={(event) => drag(event)}>
                       { Object.entries(currentItemState["encodings"]).map((data_mapping, index) => (
                           (data_mapping[0] == encoding_icon[0] && data_mapping[1]["transformation"]) ? 
-                            <img key={"fill-transformation-"+index} src={transformations[data_mapping[1]["transformation"]]} id={"transformation-"+data_mapping[1]["transformation"]+"-"+encoding_icon[0]} className="transformationTiles"></img>
+                            <img key={"fill-transformation-"+index} src={transformations[data_mapping[1]["transformation"]]} id={"transformation-"+data_mapping[1]["transformation"]+"-"+encoding_icon[0]} className="transformationTiles" draggable="true" onDragStart={(event) => drag(event)}></img>
                           : null
                           ))}
                       </div>
