@@ -246,6 +246,7 @@ const ItemComponent = (props) => {
     // setCurrentItemState(item_state);
     // console.log(item_state)
     // console.log(itemBank["status"])
+    document.getElementById(currentChartType+"_container").classList.add("selectedChart")
     console.log(loadVis)
     // let mark_spec = require(item_bank["item"+currentItem.toString()]["initialize"]["question_vis"]);
     embed('#questionVis', loadVis, {"actions": false});
@@ -282,13 +283,75 @@ const ItemComponent = (props) => {
     // setEncodingDisplay(tileSets[clicked_chart]["encodings"]);
     let vis_update = loadVis
     updateMark(vis_update, clicked_chart)
+    let chart_tiles = document.getElementsByClassName("chartTilesContainer")
+    console.log(chart_tiles)
+    for (let index = 0; index < chart_tiles.length; index += 1) {
+      if (chart_tiles[index].classList.contains("selectedChart")) {
+        chart_tiles[index].classList.remove("selectedChart");
+      }
+    }
+    document.getElementById(clicked_chart+"_container").classList.add("selectedChart")
   }
+
+  // const initiateIndicators = () => {
+  //   let data_inputs = document.getElementsByClassName("inputData")
+  //   console.log(data_inputs)
+  // }
 
 
   const drag = (element) => {
     console.log("in drag")
     console.log(element.dataTransfer)
     console.log(element.target)
+    
+    if (element.target.id.includes("data")) {
+      let transformation_inputs = document.getElementsByClassName("inputTransformation")
+      console.log(transformation_inputs)
+      for (let index = 0; index < transformation_inputs.length; index += 1) {
+        console.log(transformation_inputs[index].innerHTML)
+        transformation_inputs[index].classList.remove("tileMovableSpace");
+        transformation_inputs[index].classList.add("tileMoved")
+        // highlight empty input spaces
+        // if (data_inputs[index].innerHTML == "") {
+        //   data_inputs[index].classList.add("dataMovableSpace")
+        // }
+      }
+      let data_inputs = document.getElementsByClassName("inputData")
+      console.log(data_inputs)
+      for (let index = 0; index < data_inputs.length; index += 1) {
+        console.log("moveable???")
+        console.log(data_inputs[index].innerHTML)
+        data_inputs[index].classList.remove("tileMoved")
+        // highlight empty input spaces
+        if (data_inputs[index].innerHTML == "") {
+          data_inputs[index].classList.add("tileMovableSpace")
+        }
+      }
+    } else if (element.target.id.includes("transformation")) {
+      let data_inputs = document.getElementsByClassName("inputData")
+      console.log(data_inputs)
+      for (let index = 0; index < data_inputs.length; index += 1) {
+        console.log(data_inputs[index].innerHTML)
+        data_inputs[index].classList.remove("tileMovableSpace");
+        data_inputs[index].classList.add("tileMoved")
+        // highlight empty input spaces
+        // if (data_inputs[index].innerHTML == "") {
+        //   data_inputs[index].classList.add("dataMovableSpace")
+        // }
+      }
+      let transformation_inputs = document.getElementsByClassName("inputTransformation")
+      console.log(transformation_inputs)
+      for (let index = 0; index < transformation_inputs.length; index += 1) {
+        console.log("moveable???")
+        console.log(transformation_inputs[index].innerHTML)
+        transformation_inputs[index].classList.remove("tileMoved")
+        // highlight empty input spaces
+        if (transformation_inputs[index].innerHTML == "") {
+          transformation_inputs[index].classList.add("tileMovableSpace")
+        }
+      }
+    }
+    
     // let element_id = element.target.id.split("-")
     // if (element_id.length == 3) {
     //   element.target.id = "redrag+"+element_id[0] + "-" + element_id[1]
@@ -357,6 +420,17 @@ const ItemComponent = (props) => {
       
       // console.log(vis_update)
       setLoadVis(updated_spec)
+      let data_inputs = document.getElementsByClassName("inputData")
+      console.log(data_inputs)
+      for (let index = 0; index < data_inputs.length; index += 1) {
+        console.log(data_inputs[index].innerHTML)
+        data_inputs[index].classList.remove("tileMovableSpace");
+        data_inputs[index].classList.add("tileMoved")
+        // highlight empty input spaces
+        // if (data_inputs[index].innerHTML == "") {
+        //   data_inputs[index].classList.add("dataMovableSpace")
+        // }
+      }
       // console.log(loadVis)
       // embed('#questionVis', loadVis, {"actions": false});
       // let state_change = currentItemState
@@ -434,6 +508,17 @@ const ItemComponent = (props) => {
       // ev.preventDefault();
       console.log(updated_spec)
       setLoadVis(updated_spec)
+      let transformation_inputs = document.getElementsByClassName("inputTransformation")
+      console.log(transformation_inputs)
+      for (let index = 0; index < transformation_inputs.length; index += 1) {
+        console.log(transformation_inputs[index].innerHTML)
+        transformation_inputs[index].classList.remove("tileMovableSpace");
+        transformation_inputs[index].classList.add("tileMoved")
+        // highlight empty input spaces
+        // if (data_inputs[index].innerHTML == "") {
+        //   data_inputs[index].classList.add("dataMovableSpace")
+        // }
+      }
       // console.log(loadVis)
       // embed('#questionVis', loadVis, {"actions": false});
     }
@@ -738,7 +823,7 @@ const ItemComponent = (props) => {
             <p>Chart Types</p>
             <div>
               {chart_types.map(chart_tiles => (
-                  <div key={chart_tiles}>
+                  <div className="chartTilesContainer" key={chart_tiles} id={chart_tiles+"_container"}>
                       <img className="chartTiles" src={tileSets[chart_tiles]["chart"]} onClick={() => changeChartType(chart_tiles)}></img>
                   </div>
               ))}
@@ -758,7 +843,7 @@ const ItemComponent = (props) => {
                 <div>
                   { Object.entries(encodings).map((encoding_icon, index) => (
                     <div className='mappingContainer' key={"mapping-"+index}>
-                      <div className='inputSpace' key={"input-"+index} data-draggable="target" onDrop={(event) => dataDrop(event)} onDragOver={(event) => allowDrop(event)} onClick={(event) => removeDataTile(event)} onMouseOver={(event) => opacityChange(event)} onMouseOut={(event) => restoreOpacity(event)} draggable="true" onDragStart={(event) => drag(event)}>
+                      <div className='inputSpace inputData' key={"input-"+index} data-draggable="target" onDrop={(event) => dataDrop(event)} onDragOver={(event) => allowDrop(event)} onClick={(event) => removeDataTile(event)} onMouseOver={(event) => opacityChange(event)} onMouseOut={(event) => restoreOpacity(event)} draggable="true" onDragStart={(event) => drag(event)}>
                         { Object.entries(currentItemState["encodings"]).map((data_mapping, index) => (
                           (data_mapping[0] == encoding_icon[0] && data_mapping[1]["data"]) ? 
                             <div key={"fill-data-"+index} className="dataTiles" id={"data-"+data_mapping[1]["data"]+"-"+encoding_icon[0]} draggable="true" onDragStart={(event) => drag(event)}><p>{data_mapping[1]["data"]}</p></div>
@@ -768,7 +853,7 @@ const ItemComponent = (props) => {
                       <div className='staticColumn' key={index}>
                         <img id={"encoding-"+encoding_icon[0]} src={encoding_icon[1]}></img>
                       </div>
-                      <div className='inputSpace' key={"input-transform"+index} data-draggable="transformation_target" onDrop={(event) => transformationDrop(event)} onDragOver={(event) => allowDrop(event)} onClick={(event) => removeTransformationTile(event)} onMouseOver={(event) => opacityChange(event)} onMouseOut={(event) => restoreOpacity(event)} draggable="true" onDragStart={(event) => drag(event)}>
+                      <div className='inputSpace inputTransformation' key={"input-transform"+index} data-draggable="transformation_target" onDrop={(event) => transformationDrop(event)} onDragOver={(event) => allowDrop(event)} onClick={(event) => removeTransformationTile(event)} onMouseOver={(event) => opacityChange(event)} onMouseOut={(event) => restoreOpacity(event)} draggable="true" onDragStart={(event) => drag(event)}>
                       { Object.entries(currentItemState["encodings"]).map((data_mapping, index) => (
                           (data_mapping[0] == encoding_icon[0] && data_mapping[1]["transformation"]) ? 
                             <img key={"fill-transformation-"+index} src={transformations[data_mapping[1]["transformation"]]} id={"transformation-"+data_mapping[1]["transformation"]+"-"+encoding_icon[0]} className="transformationTiles" draggable="true" onDragStart={(event) => drag(event)}></img>

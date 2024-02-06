@@ -161,3 +161,23 @@ img {
   opacity: 1;
   text-decoration: none;
 }
+
+.selectedChart {
+  width: fit-content;
+  margin: auto;
+  background-color: #0033ff1c;
+}
+
+.unselectChart {
+  width: fit-content;
+  margin: auto;
+  background-color: transparent;
+}
+
+.tileMovableSpace {
+  background-color: #20994d45;
+}
+
+.tileMoved {
+  background-color: transparent;
+}
