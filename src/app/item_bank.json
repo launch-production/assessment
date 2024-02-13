@@ -7,7 +7,7 @@
       "cars": {
         "Name": {"type": "nominal", "truncate": null},
         "Miles_per_Gallon": {"type": "quantitative", "truncate": [20, 60]},
-        "Cylinders": {"type": "quantitative", "truncate": null},
+        "Cylinders": {"type": "ordinal", "truncate": null},
         "Displacement": {"type": "quantitative", "truncate": [200, 600]},
         "Horsepower": {"type": "quantitative", "truncate": [20, 60]},
         "Weight_in_lbs": {"type": "quantitative", "truncate": [3000, 6000]},

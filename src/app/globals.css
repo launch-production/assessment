@@ -40,8 +40,8 @@ img {
 }
 
 #chartTypes, #encodings, #data, #transformations {
-  padding-left: 4rem;
-  padding-right: 4rem;
+  margin-left: 4rem;
+  margin-right: 4rem;
   width: 8rem;
   text-align: center;
 }
