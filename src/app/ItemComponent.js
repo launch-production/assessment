@@ -480,9 +480,15 @@ const ItemComponent = (props) => {
     if (ev.target.id != new_data) {
       if (overwriting_space && document.getElementById(new_data) && overwriting.length == 3 && new_data_split[0] == "data") {
         ev.target.parentNode.innerHTML = "";
+        if (new_data_split.length == 3) {
+          removeDataEncoding(loadVis, new_data_split[2], new_data_split[1]) // remove encoding mapping from previous spot
+          overwriting_space.appendChild(document.getElementById(new_data)); // move instead of clone
+        } else {
+          overwriting_space.appendChild(document.getElementById(new_data).cloneNode(true)); // from original set so need to clone
+        }
         removeDataEncoding(loadVis, overwriting[2], overwriting[1]) // remove encoding mapping from previous spot
         updateEncodingMapping(loadVis, overwriting[2], new_data_split[1], dataset);
-        overwriting_space.appendChild(document.getElementById(new_data).cloneNode(true));
+        
         overwriting_space.firstChild.id = new_data_split[0] + "-" + new_data_split[1]
         overwriting_space.firstChild.id += "-";
         overwriting_space.firstChild.id += overwriting[2];
@@ -588,9 +594,14 @@ const ItemComponent = (props) => {
     if (ev.target.id != new_transformation) {
       if (overwriting_space && document.getElementById(new_transformation) && overwriting.length == 3 && new_transformation_split[0] == "transformation") {
         ev.target.parentNode.innerHTML = "";
+        if (new_transformation_split.length == 3) {
+          removeTransformationEncoding(loadVis, new_transformation_split[2], new_transformation_split[1]) // remove encoding mapping from previous spot
+          overwriting_space.appendChild(document.getElementById(new_transformation)); // move instead of clone
+        } else {
+          overwriting_space.appendChild(document.getElementById(new_transformation).cloneNode(true)); // from original set so need to clone
+        }
         removeTransformationEncoding(loadVis, overwriting[2], overwriting[1]) // remove encoding mapping from previous spot
         updateTransformationMapping(loadVis, overwriting[2], new_transformation_split[1], dataset);
-        overwriting_space.appendChild(document.getElementById(new_transformation).cloneNode(true));
         overwriting_space.firstChild.id = new_transformation_split[0] + "-" + new_transformation_split[1]
         overwriting_space.firstChild.id += "-";
         overwriting_space.firstChild.id += overwriting[2];
