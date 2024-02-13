@@ -453,6 +453,8 @@ const ItemComponent = (props) => {
       // }
       // setCurrentItemState(state_change)
       // ev.preventDefault();
+    } else if (data.includes("data") && ev.target.getAttribute('data-draggable').includes("overwrite")) {
+      dataOverwrite(ev);
     }
     // if (data.includes("data")) {
     //   
@@ -464,21 +466,41 @@ const ItemComponent = (props) => {
     ev.preventDefault();
     console.log("in data overwrite!!")
     console.log(ev.target.id)
+    console.log(ev.target.getAttribute('data-draggable'))
+    if (ev.target.getAttribute('data-draggable') == "overwrite-parent") {
+      ev.target = ev.target.parentNode
+    }
     let overwriting_space = ev.target.parentNode
     console.log(overwriting_space)
     let overwriting = ev.target.id.split("-")
     var new_data = ev.dataTransfer.getData("text");
+    let new_data_split = new_data.split("-")
     console.log(new_data)
     // let drop_container = ev.target;
-    if (overwriting.length == 3) {
-      ev.target.parentNode.innerHTML = "";
-      removeDataEncoding(loadVis, overwriting[2], overwriting[1]) // remove encoding mapping from previous spot
-      updateEncodingMapping(loadVis, overwriting[2], new_data.split("-")[1], dataset);
-      overwriting_space.appendChild(document.getElementById(new_data).cloneNode(true));
-      overwriting_space.firstChild.id += "-";
-      overwriting_space.firstChild.id += overwriting[2];
-      console.log(overwriting_space.firstChild.id) // todo fix
+    if (ev.target.id != new_data) {
+      if (overwriting_space && document.getElementById(new_data) && overwriting.length == 3 && new_data_split[0] == "data") {
+        ev.target.parentNode.innerHTML = "";
+        removeDataEncoding(loadVis, overwriting[2], overwriting[1]) // remove encoding mapping from previous spot
+        updateEncodingMapping(loadVis, overwriting[2], new_data_split[1], dataset);
+        overwriting_space.appendChild(document.getElementById(new_data).cloneNode(true));
+        overwriting_space.firstChild.id = new_data_split[0] + "-" + new_data_split[1]
+        overwriting_space.firstChild.id += "-";
+        overwriting_space.firstChild.id += overwriting[2];
+        console.log(overwriting_space.firstChild.id) // todo fix
+        let data_inputs = document.getElementsByClassName("inputData")
+          console.log(data_inputs)
+          for (let index = 0; index < data_inputs.length; index += 1) {
+            console.log(data_inputs[index].innerHTML)
+            data_inputs[index].classList.remove("tileMovableSpace");
+            data_inputs[index].classList.add("tileMoved")
+            // highlight empty input spaces
+            // if (data_inputs[index].innerHTML == "") {
+            //   data_inputs[index].classList.add("dataMovableSpace")
+            // }
+          }
+      }
     }
+    
   }
 
   const transformationDrop = (ev) => {
@@ -543,11 +565,52 @@ const ItemComponent = (props) => {
       }
       // console.log(loadVis)
       // embed('#questionVis', loadVis, {"actions": false});
+    } else if (data.includes("transformation") && ev.target.getAttribute('data-draggable') == "overwrite") {
+      transformationOverwrite(ev);
     }
     // if (data.includes("data")) {
     //   
     // }
     
+  }
+
+  const transformationOverwrite = (ev) => {
+    ev.preventDefault();
+    console.log("in transformation overwrite!!")
+    console.log(ev.target.id)
+    let overwriting_space = ev.target.parentNode
+    console.log(overwriting_space)
+    let overwriting = ev.target.id.split("-")
+    var new_transformation = ev.dataTransfer.getData("text");
+    let new_transformation_split = new_transformation.split("-")
+    console.log(new_transformation)
+    // let drop_container = ev.target;
+    if (ev.target.id != new_transformation) {
+      if (overwriting_space && document.getElementById(new_transformation) && overwriting.length == 3 && new_transformation_split[0] == "transformation") {
+        ev.target.parentNode.innerHTML = "";
+        removeTransformationEncoding(loadVis, overwriting[2], overwriting[1]) // remove encoding mapping from previous spot
+        updateTransformationMapping(loadVis, overwriting[2], new_transformation_split[1], dataset);
+        overwriting_space.appendChild(document.getElementById(new_transformation).cloneNode(true));
+        overwriting_space.firstChild.id = new_transformation_split[0] + "-" + new_transformation_split[1]
+        overwriting_space.firstChild.id += "-";
+        overwriting_space.firstChild.id += overwriting[2];
+        console.log(overwriting_space.firstChild.id) // todo fix
+        let transformation_inputs = document.getElementsByClassName("inputTransformation")
+        console.log(transformation_inputs)
+        for (let index = 0; index < transformation_inputs.length; index += 1) {
+          console.log(transformation_inputs[index].innerHTML)
+          transformation_inputs[index].classList.remove("tileMovableSpace");
+          transformation_inputs[index].classList.add("tileMoved")
+          // highlight empty input spaces
+          // if (data_inputs[index].innerHTML == "") {
+          //   data_inputs[index].classList.add("dataMovableSpace")
+          // }
+        }
+        // console.log(loadVis)
+        // embed('#questionVis', loadVis, {"actions": false});
+        
+      }
+    }
   }
 
   const removeDataTile = (ev) => {
@@ -915,7 +978,7 @@ const ItemComponent = (props) => {
               <p>Data</p>
               {data_columns.map(variable => (
                   <div key={variable} className="dataTileContainer">
-                    <div className="dataTiles" id={"data-"+variable} draggable="true" onDragStart={(event) => drag(event)}><p>{variable}</p></div>
+                    <div className="dataTiles" id={"data-"+variable} draggable="true" onDragStart={(event) => drag(event)} data-draggable="overwrite" onDrop={(event) => dataOverwrite(event)} onDragOver={(event) => allowDrop(event)}><p data-draggable="overwrite-parent" onDrop={(event) => dataOverwrite(event)} onDragOver={(event) => allowDrop(event)}>{variable}</p></div>
                   </div>
                 ))}
             </div>
@@ -927,7 +990,7 @@ const ItemComponent = (props) => {
                       <div className='inputSpace inputData' key={"input-"+index} data-draggable="target" onDrop={(event) => dataDrop(event)} onDragOver={(event) => allowDrop(event)} draggable="true" onDragStart={(event) => drag(event)}>
                         { Object.entries(currentItemState["encodings"]).map((data_mapping, index) => (
                           (data_mapping[0] == encoding_icon[0] && data_mapping[1]["data"]) ? 
-                            <div key={"fill-data-"+index} className="dataTiles" id={"data-"+data_mapping[1]["data"]+"-"+encoding_icon[0]} draggable="true" onDragStart={(event) => drag(event)} data-draggable="overwrite" onDrop={(event) => dataOverwrite(event)} onDragOver={(event) => allowDrop(event)}><p>{data_mapping[1]["data"]}</p></div>
+                            <div key={"fill-data-"+index} className="dataTiles" id={"data-"+data_mapping[1]["data"]+"-"+encoding_icon[0]} draggable="true" onDragStart={(event) => drag(event)} data-draggable="overwrite" onDrop={(event) => dataOverwrite(event)} onDragOver={(event) => allowDrop(event)}><p data-draggable="overwrite-parent" onDrop={(event) => dataOverwrite(event)} onDragOver={(event) => allowDrop(event)}>{data_mapping[1]["data"]}</p></div>
                           : null
                           ))}
                       </div>
@@ -937,7 +1000,7 @@ const ItemComponent = (props) => {
                       <div className='inputSpace inputTransformation' key={"input-transform"+index} data-draggable="transformation_target" onDrop={(event) => transformationDrop(event)} onDragOver={(event) => allowDrop(event)} draggable="true" onDragStart={(event) => drag(event)}>
                       { Object.entries(currentItemState["encodings"]).map((data_mapping, index) => (
                           (data_mapping[0] == encoding_icon[0] && data_mapping[1]["transformation"]) ? 
-                            <img key={"fill-transformation-"+index} src={transformations[data_mapping[1]["transformation"]]} id={"transformation-"+data_mapping[1]["transformation"]+"-"+encoding_icon[0]} className="transformationTiles" draggable="true" onDragStart={(event) => drag(event)}></img>
+                            <img key={"fill-transformation-"+index} src={transformations[data_mapping[1]["transformation"]]} id={"transformation-"+data_mapping[1]["transformation"]+"-"+encoding_icon[0]} className="transformationTiles" draggable="true" onDragStart={(event) => drag(event)} data-draggable="overwrite" onDrop={(event) => transformationOverwrite(event)} onDragOver={(event) => allowDrop(event)}></img>
                           : null
                           ))}
                       </div>
@@ -953,7 +1016,7 @@ const ItemComponent = (props) => {
                   {Object.entries(transformations).map((transformation_tiles, index) => (
                     noTransformationDisplay.includes(transformation_tiles[0]) ? null :
                     <div key={"action"+index} >
-                      <img  src={transformation_tiles[1]} id={"transformation-"+transformation_tiles[0]} className="transformationTiles" draggable="true" onDragStart={(event) => drag(event)}></img>
+                      <img  src={transformation_tiles[1]} id={"transformation-"+transformation_tiles[0]} className="transformationTiles" draggable="true" onDragStart={(event) => drag(event)} data-draggable="overwrite" onDrop={(event) => transformationOverwrite(event)} onDragOver={(event) => allowDrop(event)}></img>
                     </div>
                   ))}
                   
