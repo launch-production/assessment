@@ -42,13 +42,37 @@ img {
 #chartTypes, #encodings, #data, #transformations {
   margin-left: 4rem;
   margin-right: 4rem;
+  margin-bottom: 1rem;
   width: 8rem;
   text-align: center;
 }
 
-#data {
-  width: fit-content;
+#encodings {
+  margin-left: 0px;
 }
+
+#data {
+  margin-right: 0px;
+}
+
+.marginRight {
+  margin-right: 0px !important;
+}
+
+.marginLeft {
+  margin-left: 0px !important;
+}
+
+#data, #encodings, #transformations {
+  width: fit-content;
+  height: fit-content;
+}
+
+/* #transformations {
+  height: 500px;
+  flex-direction: column;
+  flex-wrap: wrap;
+} */
 
 #chartTypes {
   margin-right: 4rem;
@@ -63,6 +87,10 @@ img {
 #questionContainer {
   overflow-wrap: normal;
   width: 800px;
+}
+
+#answerVis {
+  margin-left: 2rem;
 }
 
 #nextButton {
@@ -105,13 +133,32 @@ img {
   flex-direction: row;
 }
 
-#encodings {
-  width: fit-content;
-}
-
 .dataTileContainer {
   margin-bottom: 0.4rem;
-  
+
+}
+
+/* .dataDescriptionsContainer {
+  margin-bottom: 0.6rem;
+} */
+
+#metaData {
+  margin-bottom: 0.4rem;
+  display: flex;
+  flex-direction: row;
+}
+
+#metaDataColumn {
+  margin-left: 2rem;
+}
+
+
+.showDescription {
+  display: block;
+}
+
+.hideDescription {
+  display: none;
 }
 
 .dataTiles {
@@ -122,6 +169,14 @@ img {
   /* z-index: 2; */
   overflow-x: scroll;
   
+}
+
+.dataDescriptionsContainer {
+  width: 100px;
+  margin-right: 2rem;
+  height: 60px;
+  font-size: small;
+  margin-bottom: 0.6rem;
 }
 
 .dataTiles p{

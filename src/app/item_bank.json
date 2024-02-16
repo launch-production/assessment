@@ -5,33 +5,36 @@
     },
     "datasets": {
       "cars": {
-        "Name": {"type": "nominal", "truncate": null},
-        "Miles_per_Gallon": {"type": "quantitative", "truncate": [20, 60]},
-        "Cylinders": {"type": "ordinal", "truncate": null},
-        "Displacement": {"type": "quantitative", "truncate": [200, 600]},
-        "Horsepower": {"type": "quantitative", "truncate": [20, 60]},
-        "Weight_in_lbs": {"type": "quantitative", "truncate": [3000, 6000]},
-        "Acceleration": {"type": "quantitative", "truncate": [20, 30]},
-        "Year": {"type": "temporal", "truncate": ["1975-01-01", "1980-01-01"]},
-        "Origin": {"type": "nominal", "truncate": null}
+        "Name": {"type": "nominal", "full_name": "Car name", "description": "The name for each car in this dataset.", "truncate": null},
+        "Miles_per_Gallon": {"type": "quantitative", "full_name": "Miles per Gallon", "description": "The distance a car can travel per gallon of fuel. ", "truncate": [20, 60]},
+        "Cylinders": {"type": "ordinal", "full_name": "Cylinders", "description": "This generates power for a car. Generally, more cylinders produce more power.", "truncate": null},
+        "Displacement": {"type": "quantitative", "full_name": "Displacement", "description": "This also helps to generate power for a car. Bigger displacement helps to generate more power.", "truncate": [200, 600]},
+        "Horsepower": {"type": "quantitative", "full_name": "Horsepower", "description": "A measure for the power of an engine. The higher the horsepower, the faster the car can go.", "truncate": [20, 60]},
+        "Weight_in_lbs": {"type": "quantitative", "full_name": "Weight in lbs", "description": "The weight of a car in pounds.", "truncate": [3000, 6000]},
+        "Acceleration": {"type": "quantitative", "full_name": "Acceleration", "description": "The rate at which a car can increase its speed.", "truncate": [20, 30]},
+        "Year": {"type": "temporal", "full_name": "Year", "description": "The year of production", "truncate": ["1975-01-01", "1980-01-01"]},
+        "Origin": {"type": "nominal", "full_name": "Origin", "description": "The origin of the car.", "truncate": null}
       },
       "seattle-weather": {
-        "date": {"type": "temporal", "truncate": ["2014-07-01", "2015-01-02"]},
-        "precipitation": {"type": "quantitative", "truncate": [20, 60], "truncate_bar": []},
-        "temp_max": {"type": "quantitative", "truncate": [10, 40]},
-        "temp_min": {"type": "quantitative", "truncate": [0, 20]},
-        "wind": {"type": "quantitative", "truncate": [4, 10]},
-        "weather": {"type": "nominal", "truncate": null}
+        "date": {"type": "temporal", "full_name": "Date", "description": "Seattle on this date.", "truncate": ["2014-07-01", "2015-01-02"]},
+        "precipitation": {"type": "quantitative", "full_name": "Precipitation (mm)", "description": "Water that fall from clouds and reach the ground.", "truncate": [20, 60], "truncate_bar": []},
+        "temp_max": {"type": "quantitative", "full_name": "Maximum temperature", "description": "Maximum temperature on a particular day in Seattle.", "truncate": [10, 40]},
+        "temp_min": {"type": "quantitative", "full_name": "Minimum temperature", "description": "Minimum temperature on a particular day in Seattle.", "truncate": [0, 20]},
+        "wind": {"type": "quantitative", "full_name": "Wind speed (m/s)", "description": "The speed of wind in meters per second.", "truncate": [4, 10]},
+        "weather": {"type": "nominal", "full_name": "Weather", "description": "Weather on a particular day in Seattle.", "truncate": null}
       },
       "region-cases": {
-        "region": {"type": "nominal", "truncate": null},
-        "total_population": {"type": "quantitative", "truncate": null},
-        "total_cases": {"type": "quantitative", "truncate": null},
-        "cases_per_100_people": {"type": "quantitative", "truncate": null}
+        "region": {"type": "nominal", "full_name": "Region code", "description": "The code for a region in this dataset.", "truncate": null},
+        "total_population": {"type": "quantitative", "full_name": "Total population", "description": "Total population in a region.", "truncate": null},
+        "total_cases": {"type": "quantitative", "full_name": "Total confirmed cases", "description": "Total number of confirmed cases in a region.", "truncate": null},
+        "cases_per_100_people": {"type": "quantitative", "full_name": "Cases per 100 people", "description": "Confirmed cases per 100 people in a region.", "truncate": null}
       }
     },
     "item1": {
-      "question_text": "Below is a chart that shows information about weather in Seattle. When the precipitation is less than 10mm but greater than 0mm, what is weather in which Seattle reaches the lowest minimum temperature?",
+      "question_meta_data": {
+        "question_text": "When the precipitation is less than 10mm but greater than 0mm, what is weather in which Seattle reaches the lowest minimum temperature?",
+        "question_topic": "weather in Seattle"
+      },
       "dataset": "seattle-weather",
       "question_vis": {
           "data": {
@@ -91,7 +94,10 @@
         
     },
     "item2": {
-      "question_text": "Cars that have horsepower greater than 200 are generally originated from where?",
+      "question_meta_data": {
+        "question_text": "Cars that have horsepower greater than 200 are generally originated from where?",
+        "question_topic": "cars with different origins"
+      },
       "dataset": "cars",
       "question_vis": {
           "data": {
@@ -147,7 +153,10 @@
         
     },
     "item3": {
-      "question_text": "Approximately how many cars are from the origin that had the highest production?",
+      "question_meta_data": {
+        "question_text": "Approximately how many cars are from the origin that had the highest production?",
+        "question_topic": "cars with different origins"
+      },
       "dataset": "cars",
       "question_vis": {
           "data": {
@@ -199,7 +208,10 @@
         }
     },
     "item4": {
-      "question_text": "What is the trend of the acceleration as miles per gallon increases for cars shown below?",
+      "question_meta_data": {
+        "question_text": "What is the trend of the acceleration as miles per gallon increases for cars shown below?",
+        "question_topic": "cars with different origins"
+      },
       "dataset": "cars",
       "question_vis": {
           "data": {
@@ -251,7 +263,10 @@
         }
     },
     "item5": {
-      "question_text": "What is the approximate minimum temperature when Seattle snows and has wind speed between 4 to 6 meters per second?",
+      "question_meta_data": {
+        "question_text": "What is the approximate minimum temperature when it snows in Seattle and the wind speed is between 4 to 6 meters per second?",
+        "question_topic": "weather in Seattle"
+      },
       "dataset": "seattle-weather",
       "question_vis": {
           "data": {
@@ -307,7 +322,10 @@
         }
     },
     "item6": {
-      "question_text": "What is the trend of the maximum temperature between 2014 and 2015?",
+      "question_meta_data": {
+        "question_text": "What is the trend of the maximum temperature between 2014 and 2015?",
+        "question_topic": "weather in Seattle"
+      },
       "dataset": "seattle-weather",
       "question_vis": {
           "data": {
@@ -362,7 +380,10 @@
         }
     },
     "item7": {
-      "question_text": "What is the name of the car that has the highest horsepower?",
+      "question_meta_data": {
+        "question_text": "What is the name of the car that has the highest horsepower?",
+        "question_topic": "cars with different origins"
+      },
       "dataset": "cars",
       "question_vis": {
           "data": {
@@ -417,7 +438,10 @@
         }
     },
     "item8": {
-      "question_text": "Is the total precipitation higher when it snows in Seattle or when it rains?",
+      "question_meta_data": {
+        "question_text": "Is the total precipitation higher when it snows in Seattle or when it rains?",
+        "question_topic": "weather in Seattle"
+      },
       "dataset": "seattle-weather",
       "question_vis": {
           "data": {
@@ -470,7 +494,10 @@
         }
     },
     "item9": {
-      "question_text": "What is the range of wind speed in Seattle?",
+      "question_meta_data": {
+        "question_text": "What is the range of wind speed in Seattle?",
+        "question_topic": "weather in Seattle"
+      },
       "dataset": "seattle-weather",
       "question_vis": {
           "data": {
@@ -519,7 +546,10 @@
         }
     },
     "item10": {
-      "question_text": "What is the range of weight in lbs for cars originated from Japan?",
+      "question_meta_data": {
+        "question_text": "What is the range of weight in lbs for cars originated from Japan?",
+        "question_topic": "cars with different origins"
+      },
       "dataset": "cars",
       "question_vis": {
           "data": {
@@ -574,7 +604,10 @@
         }
     },
     "item11": {
-      "question_text": "How did maximum temperature change between 2014 to 2015?",
+      "question_meta_data": {
+        "question_text": "How did maximum temperature change between 2014 to 2015?",
+        "question_topic": "weather in Seattle"
+      },
       "dataset": "seattle-weather",
       "question_vis": {
           "data": {
@@ -630,7 +663,10 @@
         }
     },
     "item12": {
-      "question_text": "Which region has the highest risk and should mandate vaccines?",
+      "question_meta_data": {
+        "question_text": "Which region has the highest risk and should mandate vaccines?",
+        "question_topic": "confirmed cases for an unknown virus"
+      },
       "dataset": "region-cases",
       "question_vis": {
           "data": {

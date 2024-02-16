@@ -38,6 +38,8 @@ function updateEncodingMapping(vis_spec, encoding, update_to, data_columns) {
     }
     vis_spec["encoding"]["color"]["field"] = update_to;
     vis_spec["encoding"]["color"]["type"] = data_columns[update_to]["type"];
+    // console.log(vis_spec["encoding"]["color"]["title"])
+    // vis_spec["encoding"]["color"]["title"] = data_columns[update_to]["full_name"]
     // vis_spec["encoding"]["color"]["field"] = update_to;
     // vis_spec["encoding"]["color"]["type"] = data_columns[update_to];
     // vis_spec["encoding"]["color"]["scale"]["scheme"] = "purplegreen"
@@ -744,6 +746,12 @@ const ItemComponent = (props) => {
     console.log(ev.target)
     var data = ev.dataTransfer.getData("text");
     console.log(data)
+    let tile_parentNode = document.getElementById(data)
+    if (document.getElementById(data)) {
+      tile_parentNode = document.getElementById(data).parentNode
+    }
+    
+    console.log(tile_parentNode)
     if (data.split("-").length == 3 && ev.target.getAttribute('data-draggable') == "removing") {
       if (data.includes("data")) {
         let state_change = currentItemState
@@ -756,7 +764,11 @@ const ItemComponent = (props) => {
         // console.log(vis_update)
         // console.log(ev.target.parentNode)
         // ev.target.parentNode.innerHTML = "";
-        document.getElementById(data).parentNode.innerHTML = "";
+        console.log(tile_parentNode)
+        if (tile_parentNode) {
+          tile_parentNode.innerHTML = "";
+        }
+        
         let data_inputs = document.getElementsByClassName("inputData")
         console.log(data_inputs)
         for (let index = 0; index < data_inputs.length; index += 1) {
@@ -780,7 +792,9 @@ const ItemComponent = (props) => {
         // console.log(state_change)
         // console.log(ev.target.parentNode)
         // ev.target.parentNode.innerHTML = "";
-        document.getElementById(data).parentNode.innerHTML = "";
+        if (tile_parentNode) {
+          tile_parentNode.innerHTML = "";
+        }
         let transformation_inputs = document.getElementsByClassName("inputTransformation")
         console.log(transformation_inputs)
         for (let index = 0; index < transformation_inputs.length; index += 1) {
@@ -863,6 +877,25 @@ const ItemComponent = (props) => {
       document.getElementById(ev.target.id).classList.remove("removeMouseOver");
     }
     
+  }
+
+  const displayDescription = (for_data) => {
+    console.log("in display descriptions for data!")
+    console.log(for_data)
+    document.getElementById("descriptionTitle").classList.remove("hideDescription")
+    document.getElementById(for_data+"_description").classList.add("showDescription")
+    document.getElementById(for_data+"_description").classList.remove("hideDescription")
+
+    // document.getElementById("encodings").classList.add("marginLeft")
+    // document.getElementById("data").classList.add("marginRight")
+  }
+
+  const removeDescription = (for_data) => {
+    console.log("in remove descriptions for data!")
+    console.log(for_data)
+    document.getElementById("descriptionTitle").classList.add("hideDescription")
+    // document.getElementById(for_data+"_description").classList.add("showDescription")
+    document.getElementById(for_data+"_description").classList.add("hideDescription")
   }
 
   const nextItem = () => {
@@ -1044,10 +1077,13 @@ const ItemComponent = (props) => {
 
   return (
     <div>
-        {isClient ? <QuestionText question={itemBank[currentItem]["question_text"]}></QuestionText> : null}
+        {isClient ? <QuestionText question={itemBank[currentItem]["question_meta_data"]}></QuestionText> : null}
         <div id='visContainer'>
             <div id="questionVis"></div>
-            <div id="answerVis"></div>
+            <div id="answerVis">
+              <p><label for="questionAnswer">Enter your answer to the question below <span style={{color:"red"}}>*</span>:</label></p>
+              <textarea id="questionAnswer" name="questionAnswer" rows="2" cols="35"></textarea>
+            </div>
         </div>
         <div id='tilesContainer'>
           <div id='chartTypes'>
@@ -1061,14 +1097,26 @@ const ItemComponent = (props) => {
             </div>
           </div>
           <div id='mappingZone' data-draggable="removing" onDrop={(event) => dragOff(event)} onDragOver={(event) => allowDrop(event)}>
-            <div id='data'>
-              <p>Data</p>
-              {data_columns.map(variable => (
-                  <div key={variable} className="dataTileContainer">
-                    <div className="dataTiles" id={"data-"+variable} draggable="true" onDragStart={(event) => drag(event)} data-draggable="overwrite" onDrop={(event) => dataOverwrite(event)} onDragOver={(event) => allowDrop(event)}><p data-draggable="overwrite-parent" onDrop={(event) => dataOverwrite(event)} onDragOver={(event) => allowDrop(event)}>{variable}</p></div>
-                  </div>
-                ))}
-            </div>
+              <div id='data'>
+                <p>Data</p>
+                {data_columns.map(variable => (
+                    <div key={variable} className="dataTileContainer">
+                      <div className="dataTiles" id={"data-"+variable} onMouseOver={() => displayDescription(variable)} onMouseLeave={() => removeDescription(variable)} draggable="true" onDragStart={(event) => drag(event)} data-draggable="overwrite" onDrop={(event) => dataOverwrite(event)} onDragOver={(event) => allowDrop(event)}><p data-draggable="overwrite-parent" onDrop={(event) => dataOverwrite(event)} onDragOver={(event) => allowDrop(event)}>{variable}</p></div>
+                    </div>
+                  ))}
+              </div>
+              <div className="" id="metaDataColumn">
+                <p className="hideDescription" id="descriptionTitle">Description</p>
+                {data_columns.map(variable => (
+                    <div key={variable} className="dataDescriptionsContainer" data-draggable="removing" onDrop={(event) => dragOff(event)} onDragOver={(event) => allowDrop(event)}>
+                      <p className="hideDescription dataDescriptions" id={variable+"_description"}>
+                        <b>{dataset[variable]["full_name"]}</b>
+                        <br />
+                        <span>{dataset[variable]["description"]}</span>
+                      </p>
+                    </div>
+                  ))}
+              </div>
             <div id='encodings'>
                 <p>Encodings</p>
                 <div>
