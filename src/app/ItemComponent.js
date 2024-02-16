@@ -64,7 +64,8 @@ function updateEncodingMapping(vis_spec, encoding, update_to, data_columns) {
     } else if (color_scheme == "qual") {
       vis_spec["encoding"]["color"]["scale"] = {"scheme": "dark2"};
     }
-  } else {
+  }
+  else {
     if (!vis_spec["encoding"][encoding]) {
       vis_spec["encoding"][encoding] = {}
     }
@@ -99,7 +100,7 @@ function removeDataEncoding(vis_spec, encoding, remove_data) {
 function updateMark(vis_spec, mark) {
   console.log("in update mark")
   console.log(vis_spec, mark)
-  vis_spec["mark"] = mark;
+  vis_spec["mark"]["type"] = mark;
   embed('#questionVis', vis_spec, {"actions": false});
   return vis_spec
 }
@@ -119,15 +120,46 @@ function updateTransformationMapping(vis_spec, transformation_encoding, add_tran
     vis_spec["encoding"][transformation_encoding][add_transformation] = true
   } else if (add_transformation == "count" || add_transformation == "sum") {
     vis_spec["encoding"][transformation_encoding]["aggregate"] = add_transformation;
-  } else if (add_transformation == "asc_sort") {
-    vis_spec["encoding"][transformation_encoding]["sort"] = "ascending";
-  } else if (add_transformation == "des_sort") {
-    vis_spec["encoding"][transformation_encoding]["sort"] = "descending";
+  } 
+  // else if (add_transformation == "asc_sort") {
+  //   vis_spec["encoding"][transformation_encoding]["sort"] = "ascending";
+  // } 
+  else if (add_transformation == "des_sort") {
+    if (transformation_encoding == "x") {
+      vis_spec["encoding"]["y"]["sort"] = "-x";
+    } else if (transformation_encoding == "y") {
+      vis_spec["encoding"]["x"]["sort"] = "-y";
+    }
   } else if (add_transformation == "stack") {
     vis_spec["encoding"][transformation_encoding]["stack"] = true;
   } else if (add_transformation == "reverse") {
-    vis_spec["encoding"][transformation_encoding]["scale"] = {"reverse": true};
-  } 
+    if (transformation_encoding.includes("color")) {
+      vis_spec["encoding"][transformation_encoding]["scale"]["reverse"] = true;
+    } else {
+      vis_spec["encoding"][transformation_encoding]["scale"] = {"reverse": true};
+    }
+    
+  } else if (add_transformation == "mean") {
+    // averaging anything other than x or y doesn't make sense
+    if (transformation_encoding == "x" || transformation_encoding == "y") {
+      vis_spec["encoding"][transformation_encoding]["aggregate"] = "mean";
+    }
+  } else if (add_transformation == "truncate") {
+    console.log(data_columns)
+    console.log(vis_spec)
+    let encoding_data = vis_spec["encoding"][transformation_encoding]["field"] // constraint: truncate only works when there's data mapped to encoding
+    // if able to perform domain adjustments
+    if (encoding_data && data_columns[encoding_data]["truncate"]) {
+      if (!vis_spec["encoding"][transformation_encoding]["scale"]) {
+        vis_spec["encoding"][transformation_encoding]["scale"] = {}
+      }
+      vis_spec["encoding"][transformation_encoding]["scale"]["domain"] = data_columns[encoding_data]["truncate"];
+      // let marking = vis_spec["mark"]["type"]
+      // vis_spec["mark"] = {}
+      // vis_spec["mark"]["type"] = marking
+      vis_spec["mark"]["clip"] = true
+    }
+  }
   // else if (add_transformation == "truncate") {
   //   let data_var = vis_spec["encoding"][transformation_encoding]["field"]
   //   if (data_columns[data_var]["truncate"]) {
@@ -152,14 +184,39 @@ function removeTransformationEncoding(vis_spec, transformation_encoding, remove_
     vis_spec["encoding"][transformation_encoding][remove_transformation] = false
   } else if (remove_transformation == "count" || remove_transformation == "sum") {
     vis_spec["encoding"][transformation_encoding]["aggregate"] = "";
-  } else if (remove_transformation == "asc_sort") {
-    vis_spec["encoding"][transformation_encoding]["sort"] = null;
-  } else if (remove_transformation == "des_sort") {
-    vis_spec["encoding"][transformation_encoding]["sort"] = null;
+  } 
+  // else if (remove_transformation == "asc_sort") {
+  //   vis_spec["encoding"][transformation_encoding]["sort"] = null;
+  // } 
+  else if (remove_transformation == "des_sort") {
+    if (transformation_encoding == "x") {
+      vis_spec["encoding"]["y"]["sort"] = "y";
+    } else if (transformation_encoding == "y") {
+      vis_spec["encoding"]["x"]["sort"] = "x";
+    }
   } else if (remove_transformation == "stack") {
     vis_spec["encoding"][transformation_encoding]["stack"] = "";
   } else if (remove_transformation == "reverse") {
-    vis_spec["encoding"][transformation_encoding]["scale"] = {"reverse": false};
+    if (transformation_encoding.includes("color")) {
+      vis_spec["encoding"][transformation_encoding]["scale"]["reverse"] = false;
+    } else {
+      vis_spec["encoding"][transformation_encoding]["scale"] = {"reverse": false};
+    }
+  } else if (remove_transformation == "mean") {
+    // averaging anything other than x or y doesn't make sense
+    if (transformation_encoding == "x" || transformation_encoding == "y") {
+      vis_spec["encoding"][transformation_encoding]["aggregate"] = "";
+    }
+  } else if (remove_transformation == "truncate") {
+    // if able to perform domain adjustments
+    if (vis_spec["encoding"][transformation_encoding]["scale"] && vis_spec["encoding"][transformation_encoding]["scale"]["domain"]) {
+      delete vis_spec["encoding"][transformation_encoding]["scale"]["domain"];
+      // let marking = vis_spec["mark"]["type"]
+      // vis_spec["mark"] = {}
+      // vis_spec["mark"]["type"] = marking
+      vis_spec["mark"]["clip"] = false
+    }
+    
   }
   console.log(vis_spec)
   embed('#questionVis', vis_spec, {"actions": false});
@@ -184,7 +241,7 @@ const ItemComponent = (props) => {
   const [loadVis, setLoadVis] = useState(props.item_bank["item"+props.item]["question_vis"]);
   const [currentItemState, setCurrentItemState] = useState(props.item_bank["item"+props.item]["initialize"]);
   const [bankStatus, setBankStatus] = useState({});
-  const [noTransformationDisplay, setNoTransformationDisplay] = useState(["truncate"]);
+  const [noTransformationDisplay, setNoTransformationDisplay] = useState([]);
   
   console.log("in item component!")
   console.log(props)
@@ -813,7 +870,7 @@ const ItemComponent = (props) => {
     let current_item = props.item;
     let next_item = current_item + 1
     console.log(next_item)
-    if (next_item <= 4) {
+    if (next_item <= 12) {
     //   setCurrentItem(next_item);
     //   setLoadVis(itemBank["item"+next_item.toString()]["initialize"]["question_vis"])
     //   console.log(document.getElementsByClassName("inputSpace"))
@@ -994,7 +1051,7 @@ const ItemComponent = (props) => {
         </div>
         <div id='tilesContainer'>
           <div id='chartTypes'>
-            <p>Chart Types</p>
+            <p>Marks</p>
             <div>
               {chart_types.map(chart_tiles => (
                   <div className="chartTilesContainer" key={chart_tiles} id={chart_tiles+"_container"}>

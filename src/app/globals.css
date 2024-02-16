@@ -60,6 +60,11 @@ img {
   margin-top: 4rem;
 }
 
+#questionContainer {
+  overflow-wrap: normal;
+  width: 800px;
+}
+
 #nextButton {
   margin: auto;
   width: 6rem;

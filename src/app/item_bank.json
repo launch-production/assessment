@@ -14,29 +14,60 @@
         "Acceleration": {"type": "quantitative", "truncate": [20, 30]},
         "Year": {"type": "temporal", "truncate": ["1975-01-01", "1980-01-01"]},
         "Origin": {"type": "nominal", "truncate": null}
+      },
+      "seattle-weather": {
+        "date": {"type": "temporal", "truncate": ["2014-07-01", "2015-01-02"]},
+        "precipitation": {"type": "quantitative", "truncate": [20, 60], "truncate_bar": []},
+        "temp_max": {"type": "quantitative", "truncate": [10, 40]},
+        "temp_min": {"type": "quantitative", "truncate": [0, 20]},
+        "wind": {"type": "quantitative", "truncate": [4, 10]},
+        "weather": {"type": "nominal", "truncate": null}
+      },
+      "region-cases": {
+        "region": {"type": "nominal", "truncate": null},
+        "total_population": {"type": "quantitative", "truncate": null},
+        "total_cases": {"type": "quantitative", "truncate": null},
+        "cases_per_100_people": {"type": "quantitative", "truncate": null}
       }
     },
     "item1": {
-      "question_text": "Which country or countries are cars with acceleration between 22 to 24 originated from?",
-      "dataset": "cars",
+      "question_text": "Below is a chart that shows information about weather in Seattle. When the precipitation is less than 10mm but greater than 0mm, what is weather in which Seattle reaches the lowest minimum temperature?",
+      "dataset": "seattle-weather",
       "question_vis": {
           "data": {
-            "url": "data/cars.json"
+            "url": "data/seattle-weather.json"
           },
-          "mark": "point",
+          "mark": {
+            "type": "point"
+          },
           "encoding": {
-            
+            "x": {
+              "field": "weather",
+              "type": "nominal"
+            },
+            "y": {
+              "field": "precipitation",
+              "type": "quantitative"
+              
+            },
+            "color": {
+              "field": "temp_min",
+              "type": "quantitative",
+              "scale": {
+                "scheme": "dark2"
+              }
+            }
           }
         },
         "initialize": {
             "chart_type": "point",
             "encodings": {
               "x": {
-                  "data": "", 
+                  "data": "weather", 
                   "transformation": ""
               },
               "y": {
-                  "data": "",
+                  "data": "precipitation",
                   "tranasformation": ""
               },
               "size": {
@@ -52,7 +83,7 @@
                   "tranasformation": ""
               },
               "qual_color": {
-                "data": "",
+                "data": "temp_min",
                 "tranasformation": ""
               }
           }  
@@ -66,7 +97,9 @@
           "data": {
             "url": "data/cars.json"
           },
-          "mark": "point",
+          "mark": {
+            "type": "point"
+          },
           "encoding": {
             "x": {
               "field": "Horsepower",
@@ -114,13 +147,15 @@
         
     },
     "item3": {
-      "question_text": "Approximately how many cars originated from the country that had the highest production?",
+      "question_text": "Approximately how many cars are from the origin that had the highest production?",
       "dataset": "cars",
       "question_vis": {
           "data": {
             "url": "data/cars.json"
           },
-          "mark": "bar",
+          "mark": {
+            "type": "bar"
+          },
           "encoding": {
             "x": {
               "field": "Origin",
@@ -142,6 +177,489 @@
               "y": {
                   "data": "",
                   "transformation": "count"
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "tranasformation": ""
+              }
+          }
+            
+        }
+    },
+    "item4": {
+      "question_text": "What is the trend of the acceleration as miles per gallon increases for cars shown below?",
+      "dataset": "cars",
+      "question_vis": {
+          "data": {
+            "url": "data/cars.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "Miles_per_Gallon",
+              "type": "quantitative"
+            },
+            "y": {
+              "field": "Acceleration",
+              "type": "quantitative"
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "Miles_per_Gallon", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "Acceleration",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "tranasformation": ""
+              }
+          }
+            
+        }
+    },
+    "item5": {
+      "question_text": "What is the approximate minimum temperature when Seattle snows and has wind speed between 4 to 6 meters per second?",
+      "dataset": "seattle-weather",
+      "question_vis": {
+          "data": {
+            "url": "data/seattle-weather.json"
+          },
+          "mark": {
+            "type": "point"
+          },
+          "encoding": {
+            "x": {
+              "field": "weather",
+              "type": "nominal"
+            },
+            "y": {
+              "field": "wind",
+              "type": "quantitative"
+            },
+            "size": {
+              "field": "temp_min",
+              "type": "quantitative"
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "point",
+            "encodings": {
+              "x": {
+                  "data": "weather", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "wind",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "temp_min",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "tranasformation": ""
+              }
+          }
+            
+        }
+    },
+    "item6": {
+      "question_text": "What is the trend of the maximum temperature between 2014 and 2015?",
+      "dataset": "seattle-weather",
+      "question_vis": {
+          "data": {
+            "url": "data/seattle-weather.json"
+          },
+          "mark": {
+            "type": "line"
+          },
+          "encoding": {
+            "x": {
+              "field": "date",
+              "type": "temporal"
+            },
+            "y": {
+              "field": "temp_max",
+              "type": "quantitative",
+              "scale": {
+                "reverse": true
+              }
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "line",
+            "encodings": {
+              "x": {
+                  "data": "date", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "temp_max",
+                  "transformation": "reverse"
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "tranasformation": ""
+              }
+          }
+            
+        }
+    },
+    "item7": {
+      "question_text": "What is the name of the car that has the highest horsepower?",
+      "dataset": "cars",
+      "question_vis": {
+          "data": {
+            "url": "data/cars.json"
+          },
+          "mark": {
+            "type": "point"
+          },
+          "encoding": {
+            "x": {
+              "field": "Horsepower",
+              "type": "quantitative"
+            },
+            "color": {
+              "field": "Name",
+              "type": "nominal",
+              "scale": {
+                "scheme": "dark2"
+              }
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "point",
+            "encodings": {
+              "x": {
+                  "data": "Horsepower", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "Name",
+                "tranasformation": ""
+              }
+          }
+            
+        }
+    },
+    "item8": {
+      "question_text": "Is the total precipitation higher when it snows in Seattle or when it rains?",
+      "dataset": "seattle-weather",
+      "question_vis": {
+          "data": {
+            "url": "data/seattle-weather.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "weather",
+              "type": "nominal"
+            },
+            "y": {
+              "field": "precipitation",
+              "type": "quantitative",
+              "aggregate": "mean"
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "weather", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "precipitation",
+                  "transformation": "mean"
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "tranasformation": ""
+              }
+          }
+            
+        }
+    },
+    "item9": {
+      "question_text": "What is the range of wind speed in Seattle?",
+      "dataset": "seattle-weather",
+      "question_vis": {
+          "data": {
+            "url": "data/seattle-weather.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "wind",
+              "type": "quantitative",
+              "aggregate": "mean"
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "wind", 
+                  "transformation": "mean"
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "tranasformation": ""
+              }
+          }
+            
+        }
+    },
+    "item10": {
+      "question_text": "What is the range of weight in lbs for cars originated from Japan?",
+      "dataset": "cars",
+      "question_vis": {
+          "data": {
+            "url": "data/cars.json"
+          },
+          "mark": {
+            "type": "point"
+          },
+          "encoding": {
+            "x": {
+              "field": "Weight_in_lbs",
+              "type": "quantitative"
+            },
+            "color": {
+              "field": "Origin",
+              "type": "nominal",
+              "scale": {
+                "scheme": "dark2"
+              }
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "point",
+            "encodings": {
+              "x": {
+                  "data": "Weight_in_lbs", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "Origin",
+                "tranasformation": ""
+              }
+          }
+            
+        }
+    },
+    "item11": {
+      "question_text": "How did maximum temperature change between 2014 to 2015?",
+      "dataset": "seattle-weather",
+      "question_vis": {
+          "data": {
+            "url": "data/seattle-weather.json"
+          },
+          "mark": {
+            "type": "line",
+            "clip": true
+          },
+          "encoding": {
+            "x": {
+              "field": "date",
+              "type": "temporal",
+              "scale": {
+                "domain": ["2014-07-01", "2015-01-02"]
+              }
+            },
+            "y": {
+              "field": "temp_max",
+              "type": "quantitative"
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "line",
+            "encodings": {
+              "x": {
+                  "data": "date", 
+                  "transformation": "truncate"
+              },
+              "y": {
+                  "data": "temp_max",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "tranasformation": ""
+              }
+          }
+            
+        }
+    },
+    "item12": {
+      "question_text": "Which region has the highest risk and should mandate vaccines?",
+      "dataset": "region-cases",
+      "question_vis": {
+          "data": {
+            "url": "data/region-cases.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "total_cases",
+              "type": "quantitative"
+            },
+            "y": {
+              "field": "region",
+              "type": "nominal"
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "total_cases", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "region",
+                  "transformation": ""
               },
               "size": {
                   "data": "",
