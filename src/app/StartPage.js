@@ -352,598 +352,603 @@ const StartPage = (props) => {
     // setCurrentItemState(item_state);
     // console.log(item_state)
     // console.log(itemBank["status"])
-    document.getElementById(currentChartType+"_container").classList.add("selectedChart")
+    // document.getElementById(currentChartType+"_container").classList.add("selectedChart")
     console.log(loadVis)
     // let mark_spec = require(training_set["item"+currentItem.toString()]["initialize"]["question_vis"]);
     embed('#questionVis', loadVis, {"actions": false});
+    // console.log(itemBank[currentItem]["question_meta_data"]["highlight_component"])
+    // if (itemBank[currentItem]["question_meta_data"]["highlight_component"] == "question") {
+    //     document.getElementById("answerVis").classList.add("highlightBackground")
+    //     document.getElementById("questionAnswer").classList.add("highlightBackground")
+    //   }
     // console.log(require(mark_spec))
   }
 
   
 
-  let chart_types = Object.keys(tileSets)
-  // let types_list = chart_types.charts_index;
-  // let tile_types = chart_types.types
-  console.log(chart_types)
+//   let chart_types = Object.keys(tileSets)
+//   // let types_list = chart_types.charts_index;
+//   // let tile_types = chart_types.types
+//   console.log(chart_types)
 
-  let transformations = tileSets[currentChartType]["transformations"];
-  // let actions_list = transformations.transformation_index;
-  // let action_types = transformations.actions
-  // console.log(action_types)
+//   let transformations = tileSets[currentChartType]["transformations"];
+//   // let actions_list = transformations.transformation_index;
+//   // let action_types = transformations.actions
+//   // console.log(action_types)
 
-  let encodings = tileSets[currentChartType]["encodings"];
-  console.log(encodings)
-  // console.log(chartTypeSelected)
-  // console.log(encodings[chartTypeSelected])
+//   let encodings = tileSets[currentChartType]["encodings"];
+//   console.log(encodings)
+//   // console.log(chartTypeSelected)
+//   // console.log(encodings[chartTypeSelected])
 
-  let read_dataset = dataset;
-  console.log(read_dataset)
-  let data_columns = Object.keys(read_dataset)
-  console.log(data_columns)
+//   let read_dataset = dataset;
+//   console.log(read_dataset)
+//   let data_columns = Object.keys(read_dataset)
+//   console.log(data_columns)
   
-  const changeChartType = (clicked_chart) => {
-    console.log("clicked")
-    console.log(clicked_chart)
-    setChartTypeSelected(clicked_chart);
-    setCurrentChartType(clicked_chart)
-    // setEncodingDisplay(tileSets[clicked_chart]["encodings"]);
-    let vis_update = loadVis
-    updateMark(vis_update, clicked_chart)
-    let chart_tiles = document.getElementsByClassName("chartTilesContainer")
-    console.log(chart_tiles)
-    for (let index = 0; index < chart_tiles.length; index += 1) {
-      if (chart_tiles[index].classList.contains("selectedChart")) {
-        chart_tiles[index].classList.remove("selectedChart");
-      }
-    }
-    document.getElementById(clicked_chart+"_container").classList.add("selectedChart")
-  }
+//   const changeChartType = (clicked_chart) => {
+//     console.log("clicked")
+//     console.log(clicked_chart)
+//     setChartTypeSelected(clicked_chart);
+//     setCurrentChartType(clicked_chart)
+//     // setEncodingDisplay(tileSets[clicked_chart]["encodings"]);
+//     let vis_update = loadVis
+//     updateMark(vis_update, clicked_chart)
+//     let chart_tiles = document.getElementsByClassName("chartTilesContainer")
+//     console.log(chart_tiles)
+//     for (let index = 0; index < chart_tiles.length; index += 1) {
+//       if (chart_tiles[index].classList.contains("selectedChart")) {
+//         chart_tiles[index].classList.remove("selectedChart");
+//       }
+//     }
+//     document.getElementById(clicked_chart+"_container").classList.add("selectedChart")
+//   }
 
-  // const initiateIndicators = () => {
-  //   let data_inputs = document.getElementsByClassName("inputData")
-  //   console.log(data_inputs)
-  // }
+//   // const initiateIndicators = () => {
+//   //   let data_inputs = document.getElementsByClassName("inputData")
+//   //   console.log(data_inputs)
+//   // }
 
 
-  const drag = (element) => {
-    console.log("in drag")
-    console.log(element.dataTransfer)
-    console.log(element.target)
+//   const drag = (element) => {
+//     console.log("in drag")
+//     console.log(element.dataTransfer)
+//     console.log(element.target)
     
-    if (element.target.id.includes("data")) {
-      let transformation_inputs = document.getElementsByClassName("inputTransformation")
-      console.log(transformation_inputs)
-      for (let index = 0; index < transformation_inputs.length; index += 1) {
-        console.log(transformation_inputs[index].innerHTML)
-        transformation_inputs[index].classList.remove("tileMovableSpace");
-        transformation_inputs[index].classList.add("tileMoved")
-        // highlight empty input spaces
-        // if (data_inputs[index].innerHTML == "") {
-        //   data_inputs[index].classList.add("dataMovableSpace")
-        // }
-      }
-      let data_inputs = document.getElementsByClassName("inputData")
-      console.log(data_inputs)
-      for (let index = 0; index < data_inputs.length; index += 1) {
-        console.log("moveable???")
-        console.log(data_inputs[index].innerHTML)
-        data_inputs[index].classList.remove("tileMoved")
-        // highlight empty input spaces
-        if (data_inputs[index].innerHTML == "") {
-          data_inputs[index].classList.add("tileMovableSpace")
-        }
-      }
-    } else if (element.target.id.includes("transformation")) {
-      let data_inputs = document.getElementsByClassName("inputData")
-      console.log(data_inputs)
-      for (let index = 0; index < data_inputs.length; index += 1) {
-        console.log(data_inputs[index].innerHTML)
-        data_inputs[index].classList.remove("tileMovableSpace");
-        data_inputs[index].classList.add("tileMoved")
-        // highlight empty input spaces
-        // if (data_inputs[index].innerHTML == "") {
-        //   data_inputs[index].classList.add("dataMovableSpace")
-        // }
-      }
-      let transformation_inputs = document.getElementsByClassName("inputTransformation")
-      console.log(transformation_inputs)
-      for (let index = 0; index < transformation_inputs.length; index += 1) {
-        console.log("moveable???")
-        console.log(transformation_inputs[index].innerHTML)
-        transformation_inputs[index].classList.remove("tileMoved")
-        // highlight empty input spaces
-        if (transformation_inputs[index].innerHTML == "") {
-          transformation_inputs[index].classList.add("tileMovableSpace")
-        }
-      }
-    }
+//     if (element.target.id.includes("data")) {
+//       let transformation_inputs = document.getElementsByClassName("inputTransformation")
+//       console.log(transformation_inputs)
+//       for (let index = 0; index < transformation_inputs.length; index += 1) {
+//         console.log(transformation_inputs[index].innerHTML)
+//         transformation_inputs[index].classList.remove("tileMovableSpace");
+//         transformation_inputs[index].classList.add("tileMoved")
+//         // highlight empty input spaces
+//         // if (data_inputs[index].innerHTML == "") {
+//         //   data_inputs[index].classList.add("dataMovableSpace")
+//         // }
+//       }
+//       let data_inputs = document.getElementsByClassName("inputData")
+//       console.log(data_inputs)
+//       for (let index = 0; index < data_inputs.length; index += 1) {
+//         console.log("moveable???")
+//         console.log(data_inputs[index].innerHTML)
+//         data_inputs[index].classList.remove("tileMoved")
+//         // highlight empty input spaces
+//         if (data_inputs[index].innerHTML == "") {
+//           data_inputs[index].classList.add("tileMovableSpace")
+//         }
+//       }
+//     } else if (element.target.id.includes("transformation")) {
+//       let data_inputs = document.getElementsByClassName("inputData")
+//       console.log(data_inputs)
+//       for (let index = 0; index < data_inputs.length; index += 1) {
+//         console.log(data_inputs[index].innerHTML)
+//         data_inputs[index].classList.remove("tileMovableSpace");
+//         data_inputs[index].classList.add("tileMoved")
+//         // highlight empty input spaces
+//         // if (data_inputs[index].innerHTML == "") {
+//         //   data_inputs[index].classList.add("dataMovableSpace")
+//         // }
+//       }
+//       let transformation_inputs = document.getElementsByClassName("inputTransformation")
+//       console.log(transformation_inputs)
+//       for (let index = 0; index < transformation_inputs.length; index += 1) {
+//         console.log("moveable???")
+//         console.log(transformation_inputs[index].innerHTML)
+//         transformation_inputs[index].classList.remove("tileMoved")
+//         // highlight empty input spaces
+//         if (transformation_inputs[index].innerHTML == "") {
+//           transformation_inputs[index].classList.add("tileMovableSpace")
+//         }
+//       }
+//     }
     
-    // let element_id = element.target.id.split("-")
-    // if (element_id.length == 3) {
-    //   element.target.id = "redrag+"+element_id[0] + "-" + element_id[1]
-    // }
-    // let transfer_id = element.target.id
-    // // dragging from input area
-    // if (element.target.id.includes("input")) {
-    //   transfer_id = element.target.firstChild.id
-    // }
-    element.dataTransfer.setData("text", element.target.id);
-    // setDraggedTile(element.target);
-    // element.dataTransfer.setData("text", "");
-  }
+//     // let element_id = element.target.id.split("-")
+//     // if (element_id.length == 3) {
+//     //   element.target.id = "redrag+"+element_id[0] + "-" + element_id[1]
+//     // }
+//     // let transfer_id = element.target.id
+//     // // dragging from input area
+//     // if (element.target.id.includes("input")) {
+//     //   transfer_id = element.target.firstChild.id
+//     // }
+//     element.dataTransfer.setData("text", element.target.id);
+//     // setDraggedTile(element.target);
+//     // element.dataTransfer.setData("text", "");
+//   }
 
-  const allowDrop = (ev) => {
-    // if (draggedTile) {
-      ev.preventDefault();
-      ev.dataTransfer.dropEffect = "move";
-    // }
+//   const allowDrop = (ev) => {
+//     // if (draggedTile) {
+//       ev.preventDefault();
+//       ev.dataTransfer.dropEffect = "move";
+//     // }
     
-  }
+//   }
 
-  const dataDrop = (ev) => {
-    ev.preventDefault();
-    console.log("in drop")
-    console.log(ev.target)
-    // console.log(ev.target.getAttribute('data-draggable'))
-    var data = ev.dataTransfer.getData("text");
+//   const dataDrop = (ev) => {
+//     ev.preventDefault();
+//     console.log("in drop")
+//     console.log(ev.target)
+//     // console.log(ev.target.getAttribute('data-draggable'))
+//     var data = ev.dataTransfer.getData("text");
     
-    console.log(data)
-    console.log(ev.dataTransfer)
-    if (data.includes("data") && ev.target.getAttribute('data-draggable') == "target") {
-      // if dragged tile to border and input has content
-      if (ev.target.innerHTML != "") {
-        dataOverwrite(ev);
-      } else {
-        console.log("dropping!")
-        let dragged_element_id = data; // save id of the dragged tile
-        let element_id = data.split("-")
-        console.log(element_id)
-        // if the tile has been dragged before (encoding is in id already)
-        if (element_id.length == 3) {
-          let remove_from_encoding = element_id[2];
-          removeDataEncoding(loadVis, remove_from_encoding, element_id[1]) // remove encoding mapping from previous spot
-          data = "redrag+"+element_id[0] + "-" + element_id[1]
-        }
-        // ev.target.appendChild(draggedTile); // todo try not using setstate, and append by id?
-        let drop_container = ev.target;
-        drop_container.innerHTML = "";
-        if (data.includes("redrag")) {
-          console.log(document.getElementById(data))
-          drop_container.appendChild(document.getElementById(dragged_element_id)); // move instead of clone
-          data = data.split("+")[1];
-          drop_container.firstChild.id = data // reset id to not include "redrag" tag
-        } else {
-          drop_container.appendChild(document.getElementById(data).cloneNode(true));
-        }
-        console.log(drop_container.firstChild)
-        let add_data = data.split("-")[1]
-        let find_encoding = drop_container.nextSibling.firstChild.id.split("-")[1] // TODO fix; check have an unique separator
-        drop_container.firstChild.id += "-";
-        drop_container.firstChild.id += find_encoding;
-        console.log(find_encoding)
-        let vis_update = loadVis
-        let updated_spec = updateEncodingMapping(vis_update, find_encoding, add_data, dataset);
-        console.log(updated_spec)
-        console.log(loadVis)
-        // if (find_encoding.includes("color")) {
-        //   vis_update["encoding"][find_encoding.split("_")[1]] = {"field": add_data, "type": "nominal"}; // TODO need a dictionary for looking up each data column type
-        // }
+//     console.log(data)
+//     console.log(ev.dataTransfer)
+//     if (data.includes("data") && ev.target.getAttribute('data-draggable') == "target") {
+//       // if dragged tile to border and input has content
+//       if (ev.target.innerHTML != "") {
+//         dataOverwrite(ev);
+//       } else {
+//         console.log("dropping!")
+//         let dragged_element_id = data; // save id of the dragged tile
+//         let element_id = data.split("-")
+//         console.log(element_id)
+//         // if the tile has been dragged before (encoding is in id already)
+//         if (element_id.length == 3) {
+//           let remove_from_encoding = element_id[2];
+//           removeDataEncoding(loadVis, remove_from_encoding, element_id[1]) // remove encoding mapping from previous spot
+//           data = "redrag+"+element_id[0] + "-" + element_id[1]
+//         }
+//         // ev.target.appendChild(draggedTile); // todo try not using setstate, and append by id?
+//         let drop_container = ev.target;
+//         drop_container.innerHTML = "";
+//         if (data.includes("redrag")) {
+//           console.log(document.getElementById(data))
+//           drop_container.appendChild(document.getElementById(dragged_element_id)); // move instead of clone
+//           data = data.split("+")[1];
+//           drop_container.firstChild.id = data // reset id to not include "redrag" tag
+//         } else {
+//           drop_container.appendChild(document.getElementById(data).cloneNode(true));
+//         }
+//         console.log(drop_container.firstChild)
+//         let add_data = data.split("-")[1]
+//         let find_encoding = drop_container.nextSibling.firstChild.id.split("-")[1] // TODO fix; check have an unique separator
+//         drop_container.firstChild.id += "-";
+//         drop_container.firstChild.id += find_encoding;
+//         console.log(find_encoding)
+//         let vis_update = loadVis
+//         let updated_spec = updateEncodingMapping(vis_update, find_encoding, add_data, dataset);
+//         console.log(updated_spec)
+//         console.log(loadVis)
+//         // if (find_encoding.includes("color")) {
+//         //   vis_update["encoding"][find_encoding.split("_")[1]] = {"field": add_data, "type": "nominal"}; // TODO need a dictionary for looking up each data column type
+//         // }
         
-        // console.log(vis_update)
-        setLoadVis(updated_spec)
-        let data_inputs = document.getElementsByClassName("inputData")
-        console.log(data_inputs)
-        for (let index = 0; index < data_inputs.length; index += 1) {
-          console.log(data_inputs[index].innerHTML)
-          data_inputs[index].classList.remove("tileMovableSpace");
-          data_inputs[index].classList.add("tileMoved")
-          // highlight empty input spaces
-          // if (data_inputs[index].innerHTML == "") {
-          //   data_inputs[index].classList.add("dataMovableSpace")
-          // }
-        }
-      }
-      // console.log(loadVis)
-      // embed('#questionVis', loadVis, {"actions": false});
-      // let state_change = currentItemState
+//         // console.log(vis_update)
+//         setLoadVis(updated_spec)
+//         let data_inputs = document.getElementsByClassName("inputData")
+//         console.log(data_inputs)
+//         for (let index = 0; index < data_inputs.length; index += 1) {
+//           console.log(data_inputs[index].innerHTML)
+//           data_inputs[index].classList.remove("tileMovableSpace");
+//           data_inputs[index].classList.add("tileMoved")
+//           // highlight empty input spaces
+//           // if (data_inputs[index].innerHTML == "") {
+//           //   data_inputs[index].classList.add("dataMovableSpace")
+//           // }
+//         }
+//       }
+//       // console.log(loadVis)
+//       // embed('#questionVis', loadVis, {"actions": false});
+//       // let state_change = currentItemState
       
-      // for (var [key, value] of Object.entries(currentItemState)) {
-      //   // console.log(key, value);
+//       // for (var [key, value] of Object.entries(currentItemState)) {
+//       //   // console.log(key, value);
         
-      //   // console.log(extract_data)
-      //   console.log(value["data"])
-      //   // TODO: fix this portion
-      //   if (key == "seq_color" || key == "div_color") {
-      //       // let extract_encoding = key.split("_")[0];
-      //       // console.log(extract_encoding)
-      //       vis_update["encoding"]["color"] = {"field": add_data}
-      //   }
+//       //   // console.log(extract_data)
+//       //   console.log(value["data"])
+//       //   // TODO: fix this portion
+//       //   if (key == "seq_color" || key == "div_color") {
+//       //       // let extract_encoding = key.split("_")[0];
+//       //       // console.log(extract_encoding)
+//       //       vis_update["encoding"]["color"] = {"field": add_data}
+//       //   }
           
       
-      //   }
-      // }
-      // setCurrentItemState(state_change)
-      // ev.preventDefault();
-    } else if (data.includes("data") && ev.target.getAttribute('data-draggable').includes("overwrite")) {
-      dataOverwrite(ev);
-    }
-    // if (data.includes("data")) {
-    //   
-    // }
+//       //   }
+//       // }
+//       // setCurrentItemState(state_change)
+//       // ev.preventDefault();
+//     } else if (data.includes("data") && ev.target.getAttribute('data-draggable').includes("overwrite")) {
+//       dataOverwrite(ev);
+//     }
+//     // if (data.includes("data")) {
+//     //   
+//     // }
     
-  }
+//   }
 
-  const dataOverwrite = (ev) => {
-    ev.preventDefault();
-    console.log("in data overwrite!!")
-    console.log(ev.target.id)
-    console.log(ev.target.getAttribute('data-draggable'))
-    // dragged tile to border
-    if (ev.target.getAttribute('data-draggable') == "target" && ev.target.innerHTML != "") {
-      ev.target = ev.target.firstChild // overwrite tile content if any
-    }
-    if (ev.target.getAttribute('data-draggable') == "overwrite-parent") {
-      ev.target = ev.target.parentNode
-    }
-    let overwriting_space = ev.target.parentNode
-    console.log(overwriting_space)
-    let overwriting = ev.target.id.split("-")
-    var new_data = ev.dataTransfer.getData("text");
-    let new_data_split = new_data.split("-")
-    console.log(new_data)
-    // let drop_container = ev.target;
-    if (ev.target.id != new_data) {
-      if (overwriting_space && document.getElementById(new_data) && overwriting.length == 3 && new_data_split[0] == "data") {
-        overwriting_space.innerHTML = "";
-        if (new_data_split.length == 3) {
-          removeDataEncoding(loadVis, new_data_split[2], new_data_split[1]) // remove encoding mapping from previous spot
-          overwriting_space.appendChild(document.getElementById(new_data)); // move instead of clone
-        } else {
-          overwriting_space.appendChild(document.getElementById(new_data).cloneNode(true)); // from original set so need to clone
-        }
-        removeDataEncoding(loadVis, overwriting[2], overwriting[1]) // remove encoding mapping from previous spot
-        updateEncodingMapping(loadVis, overwriting[2], new_data_split[1], dataset);
+//   const dataOverwrite = (ev) => {
+//     ev.preventDefault();
+//     console.log("in data overwrite!!")
+//     console.log(ev.target.id)
+//     console.log(ev.target.getAttribute('data-draggable'))
+//     // dragged tile to border
+//     if (ev.target.getAttribute('data-draggable') == "target" && ev.target.innerHTML != "") {
+//       ev.target = ev.target.firstChild // overwrite tile content if any
+//     }
+//     if (ev.target.getAttribute('data-draggable') == "overwrite-parent") {
+//       ev.target = ev.target.parentNode
+//     }
+//     let overwriting_space = ev.target.parentNode
+//     console.log(overwriting_space)
+//     let overwriting = ev.target.id.split("-")
+//     var new_data = ev.dataTransfer.getData("text");
+//     let new_data_split = new_data.split("-")
+//     console.log(new_data)
+//     // let drop_container = ev.target;
+//     if (ev.target.id != new_data) {
+//       if (overwriting_space && document.getElementById(new_data) && overwriting.length == 3 && new_data_split[0] == "data") {
+//         overwriting_space.innerHTML = "";
+//         if (new_data_split.length == 3) {
+//           removeDataEncoding(loadVis, new_data_split[2], new_data_split[1]) // remove encoding mapping from previous spot
+//           overwriting_space.appendChild(document.getElementById(new_data)); // move instead of clone
+//         } else {
+//           overwriting_space.appendChild(document.getElementById(new_data).cloneNode(true)); // from original set so need to clone
+//         }
+//         removeDataEncoding(loadVis, overwriting[2], overwriting[1]) // remove encoding mapping from previous spot
+//         updateEncodingMapping(loadVis, overwriting[2], new_data_split[1], dataset);
         
-        overwriting_space.firstChild.id = new_data_split[0] + "-" + new_data_split[1]
-        overwriting_space.firstChild.id += "-";
-        overwriting_space.firstChild.id += overwriting[2];
-        console.log(overwriting_space.firstChild.id) // todo fix
-        let data_inputs = document.getElementsByClassName("inputData")
-          console.log(data_inputs)
-          for (let index = 0; index < data_inputs.length; index += 1) {
-            console.log(data_inputs[index].innerHTML)
-            data_inputs[index].classList.remove("tileMovableSpace");
-            data_inputs[index].classList.add("tileMoved")
-            // highlight empty input spaces
-            // if (data_inputs[index].innerHTML == "") {
-            //   data_inputs[index].classList.add("dataMovableSpace")
-            // }
-          }
-      }
-    }
+//         overwriting_space.firstChild.id = new_data_split[0] + "-" + new_data_split[1]
+//         overwriting_space.firstChild.id += "-";
+//         overwriting_space.firstChild.id += overwriting[2];
+//         console.log(overwriting_space.firstChild.id) // todo fix
+//         let data_inputs = document.getElementsByClassName("inputData")
+//           console.log(data_inputs)
+//           for (let index = 0; index < data_inputs.length; index += 1) {
+//             console.log(data_inputs[index].innerHTML)
+//             data_inputs[index].classList.remove("tileMovableSpace");
+//             data_inputs[index].classList.add("tileMoved")
+//             // highlight empty input spaces
+//             // if (data_inputs[index].innerHTML == "") {
+//             //   data_inputs[index].classList.add("dataMovableSpace")
+//             // }
+//           }
+//       }
+//     }
     
-  }
+//   }
 
-  const transformationDrop = (ev) => {
-    ev.preventDefault();
-    console.log("in transformation drop")
-    console.log(ev.target)
-    // console.log(ev.target.getAttribute('data-draggable'))
-    var data = ev.dataTransfer.getData("text");
-    console.log(data)
-    if (data.includes("transformation") && ev.target.getAttribute('data-draggable') == "transformation_target") {
-      // if dragged tile to border and input has content
-      if (ev.target.innerHTML != "") {
-        transformationOverwrite(ev);
-      } else {
-        console.log("dropping transformation!")
-        let dragged_element_id = data; // save id of the dragged tile
-        let element_id = data.split("-")
-        console.log(element_id)
-        console.log(data)
-        // if the tile has been dragged before (encoding is in id already)
-        if (element_id.length == 3) {
-          let remove_from_encoding = element_id[2];
-          removeTransformationEncoding(loadVis, remove_from_encoding, element_id[1]) // remove encoding mapping from previous spot
-          data = "redrag+"+element_id[0] + "-" + element_id[1]
-        }
-        // ev.target.appendChild(draggedTile); // todo try not using setstate, and append by id?
-        let drop_container = ev.target;
-        drop_container.innerHTML = "";
-        if (data.includes("redrag")) {
-          console.log(document.getElementById(data))
-          drop_container.appendChild(document.getElementById(dragged_element_id)); // move instead of clone
-          data = data.split("+")[1];
-          drop_container.firstChild.id = data // reset id to not include "redrag" tag
-        } else {
-          drop_container.appendChild(document.getElementById(data).cloneNode(true));
-        }
-        let add_transformation = data.split("-")[1]
-        console.log(drop_container)
-        let find_transformation_encoding = drop_container.previousSibling.firstChild.id.split("-")[1]
-        drop_container.firstChild.id += "-";
-        drop_container.firstChild.id += find_transformation_encoding;
-        let vis_update = loadVis
-        let updated_spec = updateTransformationMapping(vis_update, find_transformation_encoding, add_transformation, dataset);
-        // let extract_transformation_encoding = find_transformation_encoding
-        // if (find_transformation_encoding.includes("color")) {
-        //   extract_transformation_encoding = find_transformation_encoding.split("_")[1];
-        //   // vis_update["encoding"][find_transformation_encoding.split("_")[1]]["aggregation"] = add_transformation; // TODO need a dictionary for looking up each data column type and where the transformaiton should be
-        // } else if (find_transformation_encoding.includes("axis")) {
-        //   extract_transformation_encoding = find_transformation_encoding.split("_")[0];
-        //   // vis_update["encoding"][find_transformation_encoding.split("_")[0]] = {"field": add_transformation, "type": "nominal"}; // TODO need a dictionary for looking up each data column type
-        // }
-        // vis_update["encoding"][extract_transformation_encoding]["aggregate"] = add_transformation; // TODO need a dictionary for looking up each data column type and where the transformaiton should be
-        // ev.preventDefault();
-        console.log(updated_spec)
-        setLoadVis(updated_spec)
-        let transformation_inputs = document.getElementsByClassName("inputTransformation")
-        console.log(transformation_inputs)
-        for (let index = 0; index < transformation_inputs.length; index += 1) {
-          console.log(transformation_inputs[index].innerHTML)
-          transformation_inputs[index].classList.remove("tileMovableSpace");
-          transformation_inputs[index].classList.add("tileMoved")
-          // highlight empty input spaces
-          // if (data_inputs[index].innerHTML == "") {
-          //   data_inputs[index].classList.add("dataMovableSpace")
-          // }
-        }
-      }
-      // console.log(loadVis)
-      // embed('#questionVis', loadVis, {"actions": false});
-    } else if (data.includes("transformation") && ev.target.getAttribute('data-draggable') == "overwrite") {
-      transformationOverwrite(ev);
-    }
-    // if (data.includes("data")) {
-    //   
-    // }
+//   const transformationDrop = (ev) => {
+//     ev.preventDefault();
+//     console.log("in transformation drop")
+//     console.log(ev.target)
+//     // console.log(ev.target.getAttribute('data-draggable'))
+//     var data = ev.dataTransfer.getData("text");
+//     console.log(data)
+//     if (data.includes("transformation") && ev.target.getAttribute('data-draggable') == "transformation_target") {
+//       // if dragged tile to border and input has content
+//       if (ev.target.innerHTML != "") {
+//         transformationOverwrite(ev);
+//       } else {
+//         console.log("dropping transformation!")
+//         let dragged_element_id = data; // save id of the dragged tile
+//         let element_id = data.split("-")
+//         console.log(element_id)
+//         console.log(data)
+//         // if the tile has been dragged before (encoding is in id already)
+//         if (element_id.length == 3) {
+//           let remove_from_encoding = element_id[2];
+//           removeTransformationEncoding(loadVis, remove_from_encoding, element_id[1]) // remove encoding mapping from previous spot
+//           data = "redrag+"+element_id[0] + "-" + element_id[1]
+//         }
+//         // ev.target.appendChild(draggedTile); // todo try not using setstate, and append by id?
+//         let drop_container = ev.target;
+//         drop_container.innerHTML = "";
+//         if (data.includes("redrag")) {
+//           console.log(document.getElementById(data))
+//           drop_container.appendChild(document.getElementById(dragged_element_id)); // move instead of clone
+//           data = data.split("+")[1];
+//           drop_container.firstChild.id = data // reset id to not include "redrag" tag
+//         } else {
+//           drop_container.appendChild(document.getElementById(data).cloneNode(true));
+//         }
+//         let add_transformation = data.split("-")[1]
+//         console.log(drop_container)
+//         let find_transformation_encoding = drop_container.previousSibling.firstChild.id.split("-")[1]
+//         drop_container.firstChild.id += "-";
+//         drop_container.firstChild.id += find_transformation_encoding;
+//         let vis_update = loadVis
+//         let updated_spec = updateTransformationMapping(vis_update, find_transformation_encoding, add_transformation, dataset);
+//         // let extract_transformation_encoding = find_transformation_encoding
+//         // if (find_transformation_encoding.includes("color")) {
+//         //   extract_transformation_encoding = find_transformation_encoding.split("_")[1];
+//         //   // vis_update["encoding"][find_transformation_encoding.split("_")[1]]["aggregation"] = add_transformation; // TODO need a dictionary for looking up each data column type and where the transformaiton should be
+//         // } else if (find_transformation_encoding.includes("axis")) {
+//         //   extract_transformation_encoding = find_transformation_encoding.split("_")[0];
+//         //   // vis_update["encoding"][find_transformation_encoding.split("_")[0]] = {"field": add_transformation, "type": "nominal"}; // TODO need a dictionary for looking up each data column type
+//         // }
+//         // vis_update["encoding"][extract_transformation_encoding]["aggregate"] = add_transformation; // TODO need a dictionary for looking up each data column type and where the transformaiton should be
+//         // ev.preventDefault();
+//         console.log(updated_spec)
+//         setLoadVis(updated_spec)
+//         let transformation_inputs = document.getElementsByClassName("inputTransformation")
+//         console.log(transformation_inputs)
+//         for (let index = 0; index < transformation_inputs.length; index += 1) {
+//           console.log(transformation_inputs[index].innerHTML)
+//           transformation_inputs[index].classList.remove("tileMovableSpace");
+//           transformation_inputs[index].classList.add("tileMoved")
+//           // highlight empty input spaces
+//           // if (data_inputs[index].innerHTML == "") {
+//           //   data_inputs[index].classList.add("dataMovableSpace")
+//           // }
+//         }
+//       }
+//       // console.log(loadVis)
+//       // embed('#questionVis', loadVis, {"actions": false});
+//     } else if (data.includes("transformation") && ev.target.getAttribute('data-draggable') == "overwrite") {
+//       transformationOverwrite(ev);
+//     }
+//     // if (data.includes("data")) {
+//     //   
+//     // }
     
-  }
+//   }
 
-  const transformationOverwrite = (ev) => {
-    ev.preventDefault();
-    console.log("in transformation overwrite!!")
-    console.log(ev.target.id)
-    // dragged tile to border
-    if (ev.target.getAttribute('data-draggable') == "transformation_target" && ev.target.innerHTML != "") {
-      ev.target = ev.target.firstChild // overwrite tile content if any
-    }
-    let overwriting_space = ev.target.parentNode
-    console.log(overwriting_space)
-    let overwriting = ev.target.id.split("-")
-    console.log(overwriting)
-    var new_transformation = ev.dataTransfer.getData("text");
-    let new_transformation_split = new_transformation.split("-")
-    console.log(new_transformation)
-    // let drop_container = ev.target;
-    if (ev.target.id != new_transformation) {
-      if (overwriting_space && document.getElementById(new_transformation) && overwriting.length == 3 && new_transformation_split[0] == "transformation") {
-        ev.target.parentNode.innerHTML = "";
-        if (new_transformation_split.length == 3) {
-          removeTransformationEncoding(loadVis, new_transformation_split[2], new_transformation_split[1]) // remove encoding mapping from previous spot
-          overwriting_space.appendChild(document.getElementById(new_transformation)); // move instead of clone
-        } else {
-          overwriting_space.appendChild(document.getElementById(new_transformation).cloneNode(true)); // from original set so need to clone
-        }
-        removeTransformationEncoding(loadVis, overwriting[2], overwriting[1]) // remove encoding mapping from previous spot
-        updateTransformationMapping(loadVis, overwriting[2], new_transformation_split[1], dataset);
-        overwriting_space.firstChild.id = new_transformation_split[0] + "-" + new_transformation_split[1]
-        overwriting_space.firstChild.id += "-";
-        overwriting_space.firstChild.id += overwriting[2];
-        console.log(overwriting_space.firstChild.id) // todo fix
-        let transformation_inputs = document.getElementsByClassName("inputTransformation")
-        console.log(transformation_inputs)
-        for (let index = 0; index < transformation_inputs.length; index += 1) {
-          console.log(transformation_inputs[index].innerHTML)
-          transformation_inputs[index].classList.remove("tileMovableSpace");
-          transformation_inputs[index].classList.add("tileMoved")
-          // highlight empty input spaces
-          // if (data_inputs[index].innerHTML == "") {
-          //   data_inputs[index].classList.add("dataMovableSpace")
-          // }
-        }
-        // console.log(loadVis)
-        // embed('#questionVis', loadVis, {"actions": false});
+//   const transformationOverwrite = (ev) => {
+//     ev.preventDefault();
+//     console.log("in transformation overwrite!!")
+//     console.log(ev.target.id)
+//     // dragged tile to border
+//     if (ev.target.getAttribute('data-draggable') == "transformation_target" && ev.target.innerHTML != "") {
+//       ev.target = ev.target.firstChild // overwrite tile content if any
+//     }
+//     let overwriting_space = ev.target.parentNode
+//     console.log(overwriting_space)
+//     let overwriting = ev.target.id.split("-")
+//     console.log(overwriting)
+//     var new_transformation = ev.dataTransfer.getData("text");
+//     let new_transformation_split = new_transformation.split("-")
+//     console.log(new_transformation)
+//     // let drop_container = ev.target;
+//     if (ev.target.id != new_transformation) {
+//       if (overwriting_space && document.getElementById(new_transformation) && overwriting.length == 3 && new_transformation_split[0] == "transformation") {
+//         ev.target.parentNode.innerHTML = "";
+//         if (new_transformation_split.length == 3) {
+//           removeTransformationEncoding(loadVis, new_transformation_split[2], new_transformation_split[1]) // remove encoding mapping from previous spot
+//           overwriting_space.appendChild(document.getElementById(new_transformation)); // move instead of clone
+//         } else {
+//           overwriting_space.appendChild(document.getElementById(new_transformation).cloneNode(true)); // from original set so need to clone
+//         }
+//         removeTransformationEncoding(loadVis, overwriting[2], overwriting[1]) // remove encoding mapping from previous spot
+//         updateTransformationMapping(loadVis, overwriting[2], new_transformation_split[1], dataset);
+//         overwriting_space.firstChild.id = new_transformation_split[0] + "-" + new_transformation_split[1]
+//         overwriting_space.firstChild.id += "-";
+//         overwriting_space.firstChild.id += overwriting[2];
+//         console.log(overwriting_space.firstChild.id) // todo fix
+//         let transformation_inputs = document.getElementsByClassName("inputTransformation")
+//         console.log(transformation_inputs)
+//         for (let index = 0; index < transformation_inputs.length; index += 1) {
+//           console.log(transformation_inputs[index].innerHTML)
+//           transformation_inputs[index].classList.remove("tileMovableSpace");
+//           transformation_inputs[index].classList.add("tileMoved")
+//           // highlight empty input spaces
+//           // if (data_inputs[index].innerHTML == "") {
+//           //   data_inputs[index].classList.add("dataMovableSpace")
+//           // }
+//         }
+//         // console.log(loadVis)
+//         // embed('#questionVis', loadVis, {"actions": false});
         
-      }
-    }
-  }
+//       }
+//     }
+//   }
 
-  const removeDataTile = (ev) => {
-    console.log("in click")
-    console.log(ev.target)
-    console.log(ev.target.id)
-    console.log(loadVis)
-    console.log(currentItemState)
-    if (ev.target.id.includes("data")) {
-      let state_change = currentItemState
-      let vis_update = loadVis
-      let mapping_info = ev.target.id.split("-")
-      removeDataEncoding(vis_update, mapping_info[2], mapping_info[1])
-      // for (var [key, value] of Object.entries(currentItemState)) {
-      //   // console.log(key, value);
-      //   let extract_data = ev.target.id.split("-")[1]
-      //   // console.log(extract_data)
-      //   console.log(value["data"])
-      //   if (value["data"] == extract_data) {
-      //     console.log(key)
-      //     // TODO: fix this portion
-      //     if (key == "x_axis" || key == "y_axis") {
-      //       let extract_encoding = key.split("_")[0];
-      //       console.log(extract_encoding)
-      //       vis_update["encoding"][extract_encoding] = ""
-      //     } else {
-      //       vis_update["encoding"][key] = ""
-      //     }
+//   const removeDataTile = (ev) => {
+//     console.log("in click")
+//     console.log(ev.target)
+//     console.log(ev.target.id)
+//     console.log(loadVis)
+//     console.log(currentItemState)
+//     if (ev.target.id.includes("data")) {
+//       let state_change = currentItemState
+//       let vis_update = loadVis
+//       let mapping_info = ev.target.id.split("-")
+//       removeDataEncoding(vis_update, mapping_info[2], mapping_info[1])
+//       // for (var [key, value] of Object.entries(currentItemState)) {
+//       //   // console.log(key, value);
+//       //   let extract_data = ev.target.id.split("-")[1]
+//       //   // console.log(extract_data)
+//       //   console.log(value["data"])
+//       //   if (value["data"] == extract_data) {
+//       //     console.log(key)
+//       //     // TODO: fix this portion
+//       //     if (key == "x_axis" || key == "y_axis") {
+//       //       let extract_encoding = key.split("_")[0];
+//       //       console.log(extract_encoding)
+//       //       vis_update["encoding"][extract_encoding] = ""
+//       //     } else {
+//       //       vis_update["encoding"][key] = ""
+//       //     }
           
-      //     state_change[key]["data"] = ""
-      //   }
-      // }
-      setLoadVis(vis_update);
-      // setCurrentItemState(state_change)
-      // embed('#questionVis', loadVis, {"actions": false});
-      // console.log(vis_update)
-      // console.log(ev.target.parentNode)
-      ev.target.parentNode.innerHTML = "";
-    }
-  }
+//       //     state_change[key]["data"] = ""
+//       //   }
+//       // }
+//       setLoadVis(vis_update);
+//       // setCurrentItemState(state_change)
+//       // embed('#questionVis', loadVis, {"actions": false});
+//       // console.log(vis_update)
+//       // console.log(ev.target.parentNode)
+//       ev.target.parentNode.innerHTML = "";
+//     }
+//   }
 
-  const dragOff = (ev) => {
-    console.log("in dragOff!")
-    console.log(ev.target)
-    var data = ev.dataTransfer.getData("text");
-    console.log(data)
-    let tile_parentNode = document.getElementById(data)
-    if (document.getElementById(data)) {
-      tile_parentNode = document.getElementById(data).parentNode
-    }
+//   const dragOff = (ev) => {
+//     console.log("in dragOff!")
+//     console.log(ev.target)
+//     var data = ev.dataTransfer.getData("text");
+//     console.log(data)
+//     let tile_parentNode = document.getElementById(data)
+//     if (document.getElementById(data)) {
+//       tile_parentNode = document.getElementById(data).parentNode
+//     }
     
-    console.log(tile_parentNode)
-    if (data.split("-").length == 3 && ev.target.getAttribute('data-draggable') == "removing") {
-      if (data.includes("data")) {
-        let state_change = currentItemState
-        let vis_update = loadVis
-        let mapping_info = data.split("-")
-        removeDataEncoding(vis_update, mapping_info[2], mapping_info[1])
-        setLoadVis(vis_update);
-        // setCurrentItemState(state_change)
-        // embed('#questionVis', loadVis, {"actions": false});
-        // console.log(vis_update)
-        // console.log(ev.target.parentNode)
-        // ev.target.parentNode.innerHTML = "";
-        console.log(tile_parentNode)
-        if (tile_parentNode) {
-          tile_parentNode.innerHTML = "";
-        }
+//     console.log(tile_parentNode)
+//     if (data.split("-").length == 3 && ev.target.getAttribute('data-draggable') == "removing") {
+//       if (data.includes("data")) {
+//         let state_change = currentItemState
+//         let vis_update = loadVis
+//         let mapping_info = data.split("-")
+//         removeDataEncoding(vis_update, mapping_info[2], mapping_info[1])
+//         setLoadVis(vis_update);
+//         // setCurrentItemState(state_change)
+//         // embed('#questionVis', loadVis, {"actions": false});
+//         // console.log(vis_update)
+//         // console.log(ev.target.parentNode)
+//         // ev.target.parentNode.innerHTML = "";
+//         console.log(tile_parentNode)
+//         if (tile_parentNode) {
+//           tile_parentNode.innerHTML = "";
+//         }
         
-        let data_inputs = document.getElementsByClassName("inputData")
-        console.log(data_inputs)
-        for (let index = 0; index < data_inputs.length; index += 1) {
-          console.log(data_inputs[index].innerHTML)
-          data_inputs[index].classList.remove("tileMovableSpace");
-          data_inputs[index].classList.add("tileMoved")
-          // highlight empty input spaces
-          // if (data_inputs[index].innerHTML == "") {
-          //   data_inputs[index].classList.add("dataMovableSpace")
-          // }
-        }
-      } else if (data.includes("transformation")) {
-        let state_change = currentItemState
-        let vis_update = loadVis
-        let mapping_info = data.split("-")
-        removeTransformationEncoding(vis_update, mapping_info[2], mapping_info[1]);
-        setLoadVis(vis_update);
-        // setCurrentItemState(state_change)
-        // embed('#questionVis', loadVis, {"actions": false});
-        // console.log(vis_update)
-        // console.log(state_change)
-        // console.log(ev.target.parentNode)
-        // ev.target.parentNode.innerHTML = "";
-        if (tile_parentNode) {
-          tile_parentNode.innerHTML = "";
-        }
-        let transformation_inputs = document.getElementsByClassName("inputTransformation")
-        console.log(transformation_inputs)
-        for (let index = 0; index < transformation_inputs.length; index += 1) {
-          console.log(transformation_inputs[index].innerHTML)
-          transformation_inputs[index].classList.remove("tileMovableSpace");
-          transformation_inputs[index].classList.add("tileMoved")
-          // highlight empty input spaces
-          // if (data_inputs[index].innerHTML == "") {
-          //   data_inputs[index].classList.add("dataMovableSpace")
-          // }
-        }
-      }
-    }
+//         let data_inputs = document.getElementsByClassName("inputData")
+//         console.log(data_inputs)
+//         for (let index = 0; index < data_inputs.length; index += 1) {
+//           console.log(data_inputs[index].innerHTML)
+//           data_inputs[index].classList.remove("tileMovableSpace");
+//           data_inputs[index].classList.add("tileMoved")
+//           // highlight empty input spaces
+//           // if (data_inputs[index].innerHTML == "") {
+//           //   data_inputs[index].classList.add("dataMovableSpace")
+//           // }
+//         }
+//       } else if (data.includes("transformation")) {
+//         let state_change = currentItemState
+//         let vis_update = loadVis
+//         let mapping_info = data.split("-")
+//         removeTransformationEncoding(vis_update, mapping_info[2], mapping_info[1]);
+//         setLoadVis(vis_update);
+//         // setCurrentItemState(state_change)
+//         // embed('#questionVis', loadVis, {"actions": false});
+//         // console.log(vis_update)
+//         // console.log(state_change)
+//         // console.log(ev.target.parentNode)
+//         // ev.target.parentNode.innerHTML = "";
+//         if (tile_parentNode) {
+//           tile_parentNode.innerHTML = "";
+//         }
+//         let transformation_inputs = document.getElementsByClassName("inputTransformation")
+//         console.log(transformation_inputs)
+//         for (let index = 0; index < transformation_inputs.length; index += 1) {
+//           console.log(transformation_inputs[index].innerHTML)
+//           transformation_inputs[index].classList.remove("tileMovableSpace");
+//           transformation_inputs[index].classList.add("tileMoved")
+//           // highlight empty input spaces
+//           // if (data_inputs[index].innerHTML == "") {
+//           //   data_inputs[index].classList.add("dataMovableSpace")
+//           // }
+//         }
+//       }
+//     }
     
-  }
+//   }
 
-  const removeTransformationTile =(ev) => {
-    console.log("in transformation click")
-    console.log(ev.target.id)
-    console.log(loadVis)
-    console.log(currentItemState)
-    if (ev.target.id.includes("transformation")) {
-      let state_change = currentItemState
-      let vis_update = loadVis
-      let mapping_info = ev.target.id.split("-")
-      removeTransformationEncoding(vis_update, mapping_info[2], mapping_info[1]);
-      // for (var [key, value] of Object.entries(currentItemState)) {
-      //   // console.log(key, value);
-      //   let extract_transformation = ev.target.id.split("-")[1]
-      //   // console.log(extract_data)
-      //   console.log(value["transformation"])
-      //   if (value["transformation"] == extract_transformation) {
-      //     console.log(key)
-      //     // TODO: fix this portion
-      //     console.log(ev.target.parentNode.previousSibling.firstChild.id)
-      //     let corresponding_encoding = ev.target.parentNode.previousSibling.firstChild.id.split("-")[1]
-      //     // let extract_encoding = key.split("_")[0];
-      //     // console.log(extract_encoding)
-      //     if (key == corresponding_encoding) {
-      //       if (key == "x_axis" || key == "y_axis") {
-      //         console.log("deleting for"+key.split("_")[0])
-      //         delete vis_update["encoding"][key.split("_")[0]]["aggregate"]
-      //         state_change[key]["transformation"] = ""
-      //       } else {
-      //         vis_update["encoding"][key]["aggregate"] = ""
-      //       }
+//   const removeTransformationTile =(ev) => {
+//     console.log("in transformation click")
+//     console.log(ev.target.id)
+//     console.log(loadVis)
+//     console.log(currentItemState)
+//     if (ev.target.id.includes("transformation")) {
+//       let state_change = currentItemState
+//       let vis_update = loadVis
+//       let mapping_info = ev.target.id.split("-")
+//       removeTransformationEncoding(vis_update, mapping_info[2], mapping_info[1]);
+//       // for (var [key, value] of Object.entries(currentItemState)) {
+//       //   // console.log(key, value);
+//       //   let extract_transformation = ev.target.id.split("-")[1]
+//       //   // console.log(extract_data)
+//       //   console.log(value["transformation"])
+//       //   if (value["transformation"] == extract_transformation) {
+//       //     console.log(key)
+//       //     // TODO: fix this portion
+//       //     console.log(ev.target.parentNode.previousSibling.firstChild.id)
+//       //     let corresponding_encoding = ev.target.parentNode.previousSibling.firstChild.id.split("-")[1]
+//       //     // let extract_encoding = key.split("_")[0];
+//       //     // console.log(extract_encoding)
+//       //     if (key == corresponding_encoding) {
+//       //       if (key == "x_axis" || key == "y_axis") {
+//       //         console.log("deleting for"+key.split("_")[0])
+//       //         delete vis_update["encoding"][key.split("_")[0]]["aggregate"]
+//       //         state_change[key]["transformation"] = ""
+//       //       } else {
+//       //         vis_update["encoding"][key]["aggregate"] = ""
+//       //       }
               
-      //     }
+//       //     }
           
           
-      //   }
-      // }
-      setLoadVis(vis_update);
-      // setCurrentItemState(state_change)
-      // embed('#questionVis', loadVis, {"actions": false});
-      // console.log(vis_update)
-      // console.log(state_change)
-      // console.log(ev.target.parentNode)
-      ev.target.parentNode.innerHTML = "";
-    }
-  }
+//       //   }
+//       // }
+//       setLoadVis(vis_update);
+//       // setCurrentItemState(state_change)
+//       // embed('#questionVis', loadVis, {"actions": false});
+//       // console.log(vis_update)
+//       // console.log(state_change)
+//       // console.log(ev.target.parentNode)
+//       ev.target.parentNode.innerHTML = "";
+//     }
+//   }
 
-  const opacityChange = (ev) => {
-    console.log("in hover opacity")
-    console.log(ev.target.id)
-    let check_mapped = ev.target.id.split("-")
-    if (check_mapped.length == 3) {
-      document.getElementById(ev.target.id).classList.remove("removeMouseOut")
-      document.getElementById(ev.target.id).classList.add("removeMouseOver");
-    }
+//   const opacityChange = (ev) => {
+//     console.log("in hover opacity")
+//     console.log(ev.target.id)
+//     let check_mapped = ev.target.id.split("-")
+//     if (check_mapped.length == 3) {
+//       document.getElementById(ev.target.id).classList.remove("removeMouseOut")
+//       document.getElementById(ev.target.id).classList.add("removeMouseOver");
+//     }
     
-  }
+//   }
 
-  const restoreOpacity = (ev) => {
-    console.log("in hover opacity")
-    console.log(ev.target.id)
-    let check_mapped = ev.target.id.split("-")
-    if (check_mapped.length == 3) {
-      document.getElementById(ev.target.id).classList.add("removeMouseOut")
-      document.getElementById(ev.target.id).classList.remove("removeMouseOver");
-    }
+//   const restoreOpacity = (ev) => {
+//     console.log("in hover opacity")
+//     console.log(ev.target.id)
+//     let check_mapped = ev.target.id.split("-")
+//     if (check_mapped.length == 3) {
+//       document.getElementById(ev.target.id).classList.add("removeMouseOut")
+//       document.getElementById(ev.target.id).classList.remove("removeMouseOver");
+//     }
     
-  }
+//   }
 
-  const displayDescription = (for_data) => {
-    console.log("in display descriptions for data!")
-    console.log(for_data)
-    document.getElementById("descriptionTitle").classList.remove("hideDescription")
-    document.getElementById(for_data+"_description").classList.add("showDescription")
-    document.getElementById(for_data+"_description").classList.remove("hideDescription")
+//   const displayDescription = (for_data) => {
+//     console.log("in display descriptions for data!")
+//     console.log(for_data)
+//     document.getElementById("descriptionTitle").classList.remove("hideDescription")
+//     document.getElementById(for_data+"_description").classList.add("showDescription")
+//     document.getElementById(for_data+"_description").classList.remove("hideDescription")
 
-    // document.getElementById("encodings").classList.add("marginLeft")
-    // document.getElementById("data").classList.add("marginRight")
-  }
+//     // document.getElementById("encodings").classList.add("marginLeft")
+//     // document.getElementById("data").classList.add("marginRight")
+//   }
 
-  const removeDescription = (for_data) => {
-    console.log("in remove descriptions for data!")
-    console.log(for_data)
-    document.getElementById("descriptionTitle").classList.add("hideDescription")
-    // document.getElementById(for_data+"_description").classList.add("showDescription")
-    document.getElementById(for_data+"_description").classList.add("hideDescription")
-  }
+//   const removeDescription = (for_data) => {
+//     console.log("in remove descriptions for data!")
+//     console.log(for_data)
+//     document.getElementById("descriptionTitle").classList.add("hideDescription")
+//     // document.getElementById(for_data+"_description").classList.add("showDescription")
+//     document.getElementById(for_data+"_description").classList.add("hideDescription")
+//   }
 
   const nextItem = (e) => {
     
@@ -994,11 +999,11 @@ const StartPage = (props) => {
     //   setBankStatus(itemBank["status"])
     //   console.log(currentItemState)
     //   console.log(itemBank["status"])
-      let text_answer = document.getElementById("questionAnswer").value
-      console.log(text_answer)
-      if (current_item == 100) {
-        let url_pid = "/?PROLIFIC_PID=" + pID;
-        router.push('/start'+next_item+url_pid)
+        let text_answer = document.getElementById("questionAnswer").value
+        console.log(text_answer)
+        if (current_item == 100) {
+            let url_pid = "/?PROLIFIC_PID=" + pID;
+            router.push('/start'+next_item+url_pid)
       } else if (current_item > 100 && text_answer) {
         // handleSubmit(e, "item_"+current_item, startTime, text_answer)
         let url_pid = "/?PROLIFIC_PID=" + pID;
@@ -1136,18 +1141,24 @@ const StartPage = (props) => {
   return (
     <div>
         {isClient ? <div id='questionContainer'>
+                <p><b>- Training -</b></p>
                 <p><b>{itemBank[currentItem]["question_meta_data"]["question_topic"]}</b></p>
                 <p>{itemBank[currentItem]["question_meta_data"]["question_text"]}</p>
             </div> : null}
         <div id='visContainer'>
             <div id="questionVis"></div>
             <div id="answerVis">
-              <p><label htmlFor="questionAnswer">You will need to enter your answer to the question below <span style={{color:"red"}}>*</span>:</label></p>
+              <p><label htmlFor="questionAnswer">You will need to enter your answer to the question in a text box <span style={{color:"red"}}>*</span>:</label></p>
               <textarea id="questionAnswer" name="questionAnswer" rows="2" cols="35"></textarea>
-              {props.item == 100 ? <p>Click 'Start Training' on the bottom of this page to proceed.</p> : null}
             </div>
         </div>
-        <div id='tilesContainer'>
+        <div id='questionContainer'>
+            <p>
+                The following three questions will be training for you to get familiar with the layout of the survey.
+            </p>
+            <p>Click 'Start Training' to proceed.</p>
+        </div>
+        {/* <div id='tilesContainer'>
           <div id='chartTypes'>
             <p>Marks</p>
             <div>
@@ -1220,7 +1231,7 @@ const StartPage = (props) => {
                 </div>
               </div>
           </div>
-        </div>
+        </div> */}
       <div id="nextButton" onClick={(e) => nextItem(e)}>
         <p>Start Training</p>
       </div>

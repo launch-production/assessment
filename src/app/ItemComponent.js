@@ -284,17 +284,21 @@ const ItemComponent = (props) => {
     if (pID) {
       if (questionID.split("_")[1] == 1) {
         const add_time_start = await initializeTime(pID, questionID, time_start)
-        if (add_time_start) {
+        if (!add_time_start) {
           // setPID("");
           setScore("");
-          alert("start time added!");
+          alert("An error occurred. Please contact the survey administrator.");
         }
       }
       const added = await addDataToFireStore(pID, questionID, loadVis, text_answer);
-      if (added) {
+      if (!added) {
         // setPID("");
         setScore("");
-        alert("Data added!");
+        alert("An error occurred. Please contact the survey administrator.");
+      } else {
+        let url_pid = "/?PROLIFIC_PID=" + pID;
+        let next_item = props.item + 1
+        router.push('/Q'+next_item+url_pid)
       }
     }
     
@@ -951,6 +955,13 @@ const ItemComponent = (props) => {
     let current_item = props.item;
     let next_item = current_item + 1
     console.log(next_item)
+    let text_answer = document.getElementById("questionAnswer").value
+    if (!text_answer) {
+      document.getElementById("answerVis").classList.add("highlightRequired")
+      document.getElementById("questionAnswer").classList.add("highlightRequired")
+      document.getElementById("requiredLabel").classList.add("highlightRequired")
+      document.getElementById("requiredLabel").classList.remove("hideDescription")
+    }
     if (next_item <= 12) {
     //   setCurrentItem(next_item);
     //   setLoadVis(itemBank["item"+next_item.toString()]["initialize"]["question_vis"])
@@ -994,12 +1005,14 @@ const ItemComponent = (props) => {
     //   setBankStatus(itemBank["status"])
     //   console.log(currentItemState)
     //   console.log(itemBank["status"])
-      let text_answer = document.getElementById("questionAnswer").value
-      console.log(text_answer)
+      // let text_answer = document.getElementById("questionAnswer").value
+      // console.log(text_answer)
       if (text_answer) {
+        document.getElementById("proceeding").classList.remove("hideDescription")
+        // console.log(document.getElementById("nextButtonValue").value)
         handleSubmit(e, "item_"+current_item, startTime, text_answer)
-        let url_pid = "/?PROLIFIC_PID=" + pID;
-        router.push('/Q'+next_item+url_pid)
+        // let url_pid = "/?PROLIFIC_PID=" + pID;
+        // router.push('/Q'+next_item+url_pid)
       }
       
     }
@@ -1138,6 +1151,7 @@ const ItemComponent = (props) => {
             <div id="answerVis">
               <p><label htmlFor="questionAnswer">Enter your answer to the question below <span style={{color:"red"}}>*</span>:</label></p>
               <textarea id="questionAnswer" name="questionAnswer" rows="2" cols="35"></textarea>
+              <p className="hideDescription" id="requiredLabel" style={{color:"red"}}>* This is required</p>
             </div>
         </div>
         <div id='tilesContainer'>
@@ -1214,9 +1228,11 @@ const ItemComponent = (props) => {
               </div>
           </div>
         </div>
+      <p id='proceeding' className='hideDescription'>Proceeding...</p>  
       <div id="nextButton" onClick={(e) => nextItem(e)}>
         <p>Next</p>
       </div>
+      
       {/*<form onSubmit={handleSubmit}>
          <div>
           <label htmlFor='PID'>

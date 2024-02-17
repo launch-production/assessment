@@ -34,7 +34,7 @@
       "question_meta_data": {
         "question_text": "The question will be associated with a chart, which will be displayed below.",
         "question_topic": "Each question you need to answer will be displayed here:",
-        "highlight_component": ""
+        "highlight_component": "question"
       },
       "dataset": "seattle-weather",
       "question_vis": {
@@ -204,7 +204,7 @@
     "item103": {
       "question_meta_data": {
         "question_text": "Drag 'count' to the 'y-axis' encoding to plot the count of records for each 'weather'. Remove data 'wind' by dragging the tile off. Change the mark type to 'bar'. Enter 'count-weather' in the text box when you're done and click 'Next' on the bottom of this page to proceed.",
-        "question_topic": "The 'Transformation' tiles represent the possible transformations. Drag the desired transformation to encoding to transform that data encoding.",
+        "question_topic": "The 'Transformation' tiles represent the possible set of transformations. Drag the desired transformation to an encoding to transform that data encoding.",
         "highlight_component": "transformations"
       },
       "dataset": "seattle-weather",

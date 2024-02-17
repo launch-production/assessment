@@ -958,6 +958,14 @@ const StartTraining = (props) => {
     let current_item = props.item;
     let next_item = current_item + 1
     console.log(next_item)
+    let text_answer = document.getElementById("questionAnswer").value
+    console.log(text_answer)
+    if (!text_answer) {
+      document.getElementById("answerVis").classList.add("highlightRequired")
+      document.getElementById("questionAnswer").classList.add("highlightRequired")
+      document.getElementById("requiredLabel").classList.add("highlightRequired")
+      document.getElementById("requiredLabel").classList.remove("hideDescription")
+    }
     if (next_item > 100 && next_item <= 103) {
     //   setCurrentItem(next_item);
     //   setLoadVis(itemBank["item"+next_item.toString()]["initialize"]["question_vis"])
@@ -1001,8 +1009,8 @@ const StartTraining = (props) => {
     //   setBankStatus(itemBank["status"])
     //   console.log(currentItemState)
     //   console.log(itemBank["status"])
-      let text_answer = document.getElementById("questionAnswer").value
-      console.log(text_answer)
+      // let text_answer = document.getElementById("questionAnswer").value
+      // console.log(text_answer)
       if (text_answer) {
         // handleSubmit(e, "item_"+current_item, startTime, text_answer)
         let url_pid = "/?PROLIFIC_PID=" + pID;
@@ -1148,6 +1156,7 @@ const StartTraining = (props) => {
   return (
     <div>
         {isClient ? <div id='questionContainer'>
+                <p><b>- Training -</b></p>
                 <p><b>{itemBank[currentItem]["question_meta_data"]["question_topic"]}</b></p>
                 <p>{itemBank[currentItem]["question_meta_data"]["question_text"]}</p>
             </div> : null}
@@ -1156,6 +1165,7 @@ const StartTraining = (props) => {
             <div id="answerVis">
               <p><label htmlFor="questionAnswer">Enter your answer to the question below <span style={{color:"red"}}>*</span>:</label></p>
               <textarea id="questionAnswer" name="questionAnswer" rows="2" cols="35"></textarea>
+              <p className="hideDescription" id="requiredLabel" style={{color:"red"}}>* This is required</p>
             </div>
         </div>
         <div id='tilesContainer'>
@@ -1169,14 +1179,17 @@ const StartTraining = (props) => {
               ))}
             </div>
           </div>
+          
           <div id='mappingZone' data-draggable="removing" onDrop={(event) => dragOff(event)} onDragOver={(event) => allowDrop(event)}>
               <div id='data'>
                 <p>Data</p>
-                {data_columns.map(variable => (
+                {props.item > 101 ? 
+                data_columns.map(variable => (
                     <div key={variable} className="dataTileContainer">
                       <div className="dataTiles" id={"data-"+variable} onMouseOver={() => displayDescription(variable)} onMouseLeave={() => removeDescription(variable)} draggable="true" onDragStart={(event) => drag(event)} data-draggable="overwrite" onDrop={(event) => dataOverwrite(event)} onDragOver={(event) => allowDrop(event)}><p data-draggable="overwrite-parent" onDrop={(event) => dataOverwrite(event)} onDragOver={(event) => allowDrop(event)}>{variable}</p></div>
                     </div>
-                  ))}
+                  ))
+                  : null}
               </div>
               <div className="" id="metaDataColumn">
                 <p className="hideDescription" id="descriptionTitle">Description</p>
@@ -1192,6 +1205,7 @@ const StartTraining = (props) => {
               </div>
             <div id='encodings'>
                 <p>Encodings</p>
+                {props.item > 101 ? 
                 <div>
                   { Object.entries(encodings).map((encoding_icon, index) => (
                     <div className='mappingContainer' key={"mapping-"+index}>
@@ -1215,11 +1229,12 @@ const StartTraining = (props) => {
                     </div>
                   ))}
                   
-                </div>
+                </div> : null}
 
               </div>
               <div id='transformations'>
                 <p>Transformations</p>
+                {props.item > 102 ? 
                 <div>
                   {Object.entries(transformations).map((transformation_tiles, index) => (
                     noTransformationDisplay.includes(transformation_tiles[0]) ? null :
@@ -1228,7 +1243,7 @@ const StartTraining = (props) => {
                     </div>
                   ))}
                   
-                </div>
+                </div> : null}
               </div>
           </div>
         </div>
