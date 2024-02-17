@@ -8,23 +8,23 @@
             },
             "y": {
                 "data": "precipitation",
-                "tranasformation": ""
+                "transformation": ""
             },
             "size": {
                 "data": "",
-                "tranasformation": ""
+                "transformation": ""
             },
             "seq_color": {
                 "data": "",
-                "tranasformation": ""
+                "transformation": ""
             },
             "div_color": {
                 "data": "temp_min",
-                "tranasformation": ""
+                "transformation": ""
             },
             "qual_color": {
                 "data": "",
-                "tranasformation": ""
+                "transformation": ""
             }
         },
         "question_answer": "snow",
@@ -39,23 +39,23 @@
             },
             "y": {
                 "data": "Miles_per_Gallon",
-                "tranasformation": ""
+                "transformation": ""
             },
             "size": {
                 "data": "",
-                "tranasformation": ""
+                "transformation": ""
             },
             "seq_color": {
                 "data": "",
-                "tranasformation": ""
+                "transformation": ""
             },
             "div_color": {
                 "data": "",
-                "tranasformation": ""
+                "transformation": ""
             },
             "qual_color": {
                 "data": "Origin",
-                "tranasformation": ""
+                "transformation": ""
             }
         },
         "question_answer": "USA",
@@ -86,7 +86,7 @@
             },
             "qual_color": {
                 "data": "",
-                "tranasformation": ""
+                "transformation": ""
             }
         },
         "question_answer": "260",
@@ -117,7 +117,7 @@
             },
             "qual_color": {
                 "data": "",
-                "tranasformation": ""
+                "transformation": ""
             }
         },
         "question_answer": "increasing",
@@ -148,7 +148,7 @@
             },
             "qual_color": {
                 "data": "",
-                "tranasformation": ""
+                "transformation": ""
             }
         },
         "question_answer": "-5",
@@ -179,7 +179,7 @@
             },
             "qual_color": {
                 "data": "",
-                "tranasformation": ""
+                "transformation": ""
             }
         },
         "question_answer": "increasing then decreasing",
@@ -210,7 +210,7 @@
             },
             "qual_color": {
                 "data": "",
-                "tranasformation": ""
+                "transformation": ""
             }
         },
         "question_answer": "pontiac grand prix",
@@ -241,7 +241,7 @@
             },
             "qual_color": {
                 "data": "",
-                "tranasformation": ""
+                "transformation": ""
             }
         },
         "question_answer": "rains",
@@ -272,7 +272,7 @@
             },
             "qual_color": {
                 "data": "",
-                "tranasformation": ""
+                "transformation": ""
             }
         },
         "question_answer": "0 to 10",
@@ -303,7 +303,7 @@
             },
             "qual_color": {
                 "data": "Origin",
-                "tranasformation": ""
+                "transformation": ""
             }
         },
         "question_answer": "1500 to 3000",
@@ -334,7 +334,7 @@
             },
             "qual_color": {
                 "data": "",
-                "tranasformation": ""
+                "transformation": ""
             }
         },
         "question_answer": "increasing then decreasing",
@@ -365,7 +365,7 @@
             },
             "qual_color": {
                 "data": "",
-                "tranasformation": ""
+                "transformation": ""
             }
         },
         "question_answer": "Region16",

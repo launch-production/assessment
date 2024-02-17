@@ -11,7 +11,7 @@ import { collection, addDoc } from "firebase/firestore";
 // import TilesMappings from './tiles-mappings.js';
 // import TilesTransformations from './tiles-transformations.js';
 // import { DraftModeProvider } from 'next/dist/server/async-storage/draft-mode-provider';
-import ItemComponent from './ItemComponent';
+import StartPage from './StartPage';
 // import { useRouter } from 'next/router'
 
 async function addDataToFireStore(prolificID, score) {
@@ -76,8 +76,8 @@ export default function HomePage() {
   //     console.log(item_bank["status"])
   //   }, [])
 
-  var item_bank = require("./item_bank.json");
-  console.log(item_bank)
+  var training_set = require("./training_set.json");
+  console.log(training_set)
 
   var tile_sets = require("./tile_sets.json");
   console.log(tile_sets)
@@ -488,10 +488,10 @@ export default function HomePage() {
 
   return (
     <div>
-      <ItemComponent 
-      item={1} 
-      item_bank={item_bank}
-      tile_sets={tile_sets}
+      <StartPage 
+        item={100} 
+        training_set={training_set}
+        tile_sets={tile_sets}
       />
       
         {/* <QuestionText question={item_bank["item"+currentItem.toString()]["initialize"]["question_text"]}></QuestionText>

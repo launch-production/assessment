@@ -47,6 +47,11 @@ img {
   text-align: center;
 }
 
+#chartTypes {
+  padding-bottom: 1rem;
+  margin-bottom: 0px;
+}
+
 #encodings {
   margin-left: 0px;
 }
@@ -240,4 +245,8 @@ img {
 
 .tileMoved {
   background-color: transparent;
+}
+
+.highlightBackground {
+  background-color: antiquewhite;
 }

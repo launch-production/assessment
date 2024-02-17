@@ -13,33 +13,33 @@ import QuestionText from './question-text.js';
 // import { DraftModeProvider } from 'next/dist/server/async-storage/draft-mode-provider';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 
-async function addDataToFireStore(prolificID, questionID, vis_answer, text_answer) {
-  try {
-    const docRef = await setDoc(doc(db, prolificID, questionID), {
-      timestamp: serverTimestamp(),
-      vis_answer: vis_answer,
-      text_answer: text_answer
-    }, { merge: true });
-    console.log("Doc written with ID: ", prolificID);
-    return true;
-  } catch (error) {
-    console.error("Error ", error)
-    return false;
-  }
-}
+// async function addDataToFireStore(prolificID, questionID, vis_answer, text_answer) {
+//   try {
+//     const docRef = await setDoc(doc(db, prolificID, questionID), {
+//       timestamp: serverTimestamp(),
+//       vis_answer: vis_answer,
+//       text_answer: text_answer
+//     }, { merge: true });
+//     console.log("Doc written with ID: ", prolificID);
+//     return true;
+//   } catch (error) {
+//     console.error("Error ", error)
+//     return false;
+//   }
+// }
 
-async function initializeTime(prolificID, questionID, time_start) {
-  try {
-    const docRef = await setDoc(doc(db, prolificID, questionID), {
-      timestamp_start: time_start
-    }, { merge: true });
-    console.log("Doc written with ID: ", prolificID);
-    return true;
-  } catch (error) {
-    console.error("Error ", error)
-    return false;
-  }
-}
+// async function initializeTime(prolificID, questionID, time_start) {
+//   try {
+//     const docRef = await setDoc(doc(db, prolificID, questionID), {
+//       timestamp_start: time_start
+//     }, { merge: true });
+//     console.log("Doc written with ID: ", prolificID);
+//     return true;
+//   } catch (error) {
+//     console.error("Error ", error)
+//     return false;
+//   }
+// }
 
 function updateEncodingMapping(vis_spec, encoding, update_to, data_columns) {
   console.log("in update x")
@@ -239,7 +239,7 @@ function removeTransformationEncoding(vis_spec, transformation_encoding, remove_
   return vis_spec
 }
 
-const ItemComponent = (props) => {
+const StartTraining = (props) => {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -250,12 +250,12 @@ const ItemComponent = (props) => {
   const [encodingsDisplay, setEncodingDisplay] = useState({});
   const [draggedTile, setDraggedTile] = useState(null);
   const [currentItem, setCurrentItem] = useState("item"+props.item);
-  const [itemBank, SetItemBank] = useState(props.item_bank);
+  const [itemBank, SetItemBank] = useState(props.training_set);
   const [tileSets, setTileSets] = useState(props.tile_sets);
-  const [currentChartType, setCurrentChartType] = useState(props.item_bank["item"+props.item]["initialize"]["chart_type"]);
-  const [dataset, setDataset] = useState(props.item_bank["datasets"][props.item_bank["item"+props.item]["dataset"]]);
-  const [loadVis, setLoadVis] = useState(props.item_bank["item"+props.item]["question_vis"]);
-  const [currentItemState, setCurrentItemState] = useState(props.item_bank["item"+props.item]["initialize"]);
+  const [currentChartType, setCurrentChartType] = useState(props.training_set["item"+props.item]["initialize"]["chart_type"]);
+  const [dataset, setDataset] = useState(props.training_set["datasets"][props.training_set["item"+props.item]["dataset"]]);
+  const [loadVis, setLoadVis] = useState(props.training_set["item"+props.item]["question_vis"]);
+  const [currentItemState, setCurrentItemState] = useState(props.training_set["item"+props.item]["initialize"]);
   const [bankStatus, setBankStatus] = useState({});
   const [noTransformationDisplay, setNoTransformationDisplay] = useState([]);
   const [pID, setPID] = useState("");
@@ -263,42 +263,42 @@ const ItemComponent = (props) => {
   
   console.log("in item component!")
   console.log(props)
-  console.log(props.item_bank)
+  console.log(props.training_set)
   console.log(pathname)
   console.log(searchParams)
-  const handleSubmit = async (e, questionID, time_start, text_answer) => {
-    e.preventDefault();
-    console.log("in handle submit!!")
-    console.log(pID)
-    console.log(itemBank[currentItem]["question_meta_data"]["question_text"])
-    console.log(loadVis)
-    // const queryString = window.location.search;
-    // console.log(queryString);
+//   const handleSubmit = async (e, questionID, time_start, text_answer) => {
+//     e.preventDefault();
+//     console.log("in handle submit!!")
+//     console.log(pID)
+//     console.log(itemBank[currentItem]["question_meta_data"]["question_text"])
+//     console.log(loadVis)
+//     // const queryString = window.location.search;
+//     // console.log(queryString);
 
-    // const urlParams = new URLSearchParams(queryString);
-    // console.log(urlParams)
+//     // const urlParams = new URLSearchParams(queryString);
+//     // console.log(urlParams)
 
-    // const prolific_ID = urlParams.get('PROLIFIC_PID')
-    // console.log(prolific_ID)
+//     // const prolific_ID = urlParams.get('PROLIFIC_PID')
+//     // console.log(prolific_ID)
 
-    if (pID) {
-      if (questionID.split("_")[1] == 1) {
-        const add_time_start = await initializeTime(pID, questionID, time_start)
-        if (add_time_start) {
-          // setPID("");
-          setScore("");
-          alert("start time added!");
-        }
-      }
-      const added = await addDataToFireStore(pID, questionID, loadVis, text_answer);
-      if (added) {
-        // setPID("");
-        setScore("");
-        alert("Data added!");
-      }
-    }
+//     if (pID) {
+//       if (questionID.split("_")[1] == 1) {
+//         const add_time_start = await initializeTime(pID, questionID, time_start)
+//         if (add_time_start) {
+//           // setPID("");
+//           setScore("");
+//           alert("start time added!");
+//         }
+//       }
+//       const added = await addDataToFireStore(pID, questionID, loadVis, text_answer);
+//       if (added) {
+//         // setPID("");
+//         setScore("");
+//         alert("Data added!");
+//       }
+//     }
     
-  };
+//   };
 
   useEffect(() => {
       if (!isClient) {
@@ -326,14 +326,14 @@ const ItemComponent = (props) => {
       // setLoadVis(itemBank["item"+currentItem.toString()]["initialize"]["question_vis"])
       // itemBank["status"]["item"+currentItem] = true
       // setBankStatus(itemBank["status"])
-      // var item_state = require("./item_bank_config/item"+currentItem+"_initialize.json");
+      // var item_state = require("./training_set_config/item"+currentItem+"_initialize.json");
       // setCurrentItemState(item_state);
       // console.log(item_state)
       // console.log(itemBank["status"])
     }, [])
 
-//   var item_bank = require("./item_bank.json");
-//   console.log(item_bank)
+//   var training_set = require("./training_set.json");
+//   console.log(training_set)
 
 
   if (isClient) {
@@ -342,20 +342,27 @@ const ItemComponent = (props) => {
   //   .toSpec()
   // let mark_spec = require("./rules/I1/I1-14-0.json");
     // let mark_spec = require("./question_vis/item1.json");
-    // let vis_spec = item_bank["item"+currentItem.toString()]["initialize"]["question_vis"]
+    // let vis_spec = training_set["item"+currentItem.toString()]["initialize"]["question_vis"]
     // let vis_json = require(loadVis)
     // console.log(itemBank["item"+currentItem.toString()])
     // setLoadVis(itemBank["item"+currentItem.toString()]["initialize"]["question_vis"])
     // itemBank["status"]["item"+currentItem] = true
     // setBankStatus(itemBank["status"])
-    // var item_state = require("./item_bank_config/item"+currentItem+"_initialize.json");
+    // var item_state = require("./training_set_config/item"+currentItem+"_initialize.json");
     // setCurrentItemState(item_state);
     // console.log(item_state)
     // console.log(itemBank["status"])
     document.getElementById(currentChartType+"_container").classList.add("selectedChart")
     console.log(loadVis)
-    // let mark_spec = require(item_bank["item"+currentItem.toString()]["initialize"]["question_vis"]);
+    // let mark_spec = require(training_set["item"+currentItem.toString()]["initialize"]["question_vis"]);
     embed('#questionVis', loadVis, {"actions": false});
+    if (itemBank[currentItem]["question_meta_data"]["highlight_component"] == "mark") {
+      document.getElementById("chartTypes").classList.add("highlightBackground")
+    } else if (itemBank[currentItem]["question_meta_data"]["highlight_component"] == "data") {
+      document.getElementById("data").classList.add("highlightBackground")
+    } else if (itemBank[currentItem]["question_meta_data"]["highlight_component"] == "transformations") {
+      document.getElementById("transformations").classList.add("highlightBackground")
+    }
     // console.log(require(mark_spec))
   }
 
@@ -951,7 +958,7 @@ const ItemComponent = (props) => {
     let current_item = props.item;
     let next_item = current_item + 1
     console.log(next_item)
-    if (next_item <= 12) {
+    if (next_item > 100 && next_item <= 103) {
     //   setCurrentItem(next_item);
     //   setLoadVis(itemBank["item"+next_item.toString()]["initialize"]["question_vis"])
     //   console.log(document.getElementsByClassName("inputSpace"))
@@ -960,7 +967,7 @@ const ItemComponent = (props) => {
       //   to_clear[i].innerHTML = "<p></p>";
       // }
 
-      // var current_item_state = require("./item_bank_config/item"+current_item+"_initialize.json");
+      // var current_item_state = require("./training_set_config/item"+current_item+"_initialize.json");
       // setCurrentItemState(current_item_state);
       // let clear_state = currentItemState
       // for (var [key, value] of Object.entries(currentItemState)) {
@@ -988,7 +995,7 @@ const ItemComponent = (props) => {
       //   }
       //   setCurrentItemState(clear_state);      
 
-    //   var next_item_state = require("./item_bank_config/item"+next_item+"_initialize.json");
+    //   var next_item_state = require("./training_set_config/item"+next_item+"_initialize.json");
     //   setCurrentItemState(next_item_state);
     //   itemBank["status"]["item"+next_item] = true
     //   setBankStatus(itemBank["status"])
@@ -997,11 +1004,19 @@ const ItemComponent = (props) => {
       let text_answer = document.getElementById("questionAnswer").value
       console.log(text_answer)
       if (text_answer) {
-        handleSubmit(e, "item_"+current_item, startTime, text_answer)
+        // handleSubmit(e, "item_"+current_item, startTime, text_answer)
         let url_pid = "/?PROLIFIC_PID=" + pID;
-        router.push('/Q'+next_item+url_pid)
+        router.push('/start'+next_item+url_pid)
       }
       
+    } else if (next_item == 104) {
+      let text_answer = document.getElementById("questionAnswer").value
+      console.log(text_answer)
+      if (text_answer) {
+        // handleSubmit(e, "item_"+current_item, startTime, text_answer)
+        let url_pid = "/?PROLIFIC_PID=" + pID;
+        router.push('/instructions'+url_pid)
+      }
     }
     
 
@@ -1132,7 +1147,10 @@ const ItemComponent = (props) => {
 
   return (
     <div>
-        {isClient ? <QuestionText question={itemBank[currentItem]["question_meta_data"]}></QuestionText> : null}
+        {isClient ? <div id='questionContainer'>
+                <p><b>{itemBank[currentItem]["question_meta_data"]["question_topic"]}</b></p>
+                <p>{itemBank[currentItem]["question_meta_data"]["question_text"]}</p>
+            </div> : null}
         <div id='visContainer'>
             <div id="questionVis"></div>
             <div id="answerVis">
@@ -1253,4 +1271,4 @@ const ItemComponent = (props) => {
   );
 }
 
-export default ItemComponent;
+export default StartTraining;
