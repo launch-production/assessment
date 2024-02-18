@@ -89,6 +89,7 @@ function updateEncodingMapping(vis_spec, encoding, update_to, data_columns) {
     vis_spec["encoding"][encoding]["type"] = data_columns[update_to]["type"];
   }
 
+  document.getElementById("questionAnswer").focus()
   embed('#questionVis', vis_spec, {"actions": false});
   return vis_spec
 
@@ -109,6 +110,7 @@ function removeDataEncoding(vis_spec, encoding, remove_data) {
     vis_spec["encoding"][encoding]["type"] = "";
   }
 
+  document.getElementById("questionAnswer").focus()
   embed('#questionVis', vis_spec, {"actions": false});
   return vis_spec
 }
@@ -117,6 +119,7 @@ function updateMark(vis_spec, mark) {
   console.log("in update mark")
   console.log(vis_spec, mark)
   vis_spec["mark"]["type"] = mark;
+  document.getElementById("questionAnswer").focus()
   embed('#questionVis', vis_spec, {"actions": false});
   return vis_spec
 }
@@ -185,6 +188,7 @@ function updateTransformationMapping(vis_spec, transformation_encoding, add_tran
     
   // }
   console.log(vis_spec)
+  document.getElementById("questionAnswer").focus()
   embed('#questionVis', vis_spec, {"actions": false});
   return vis_spec
 }
@@ -235,6 +239,7 @@ function removeTransformationEncoding(vis_spec, transformation_encoding, remove_
     
   }
   console.log(vis_spec)
+  document.getElementById("questionAnswer").focus()
   embed('#questionVis', vis_spec, {"actions": false});
   return vis_spec
 }
@@ -961,6 +966,8 @@ const ItemComponent = (props) => {
       document.getElementById("questionAnswer").classList.add("highlightRequired")
       document.getElementById("requiredLabel").classList.add("highlightRequired")
       document.getElementById("requiredLabel").classList.remove("hideDescription")
+      document.getElementById("questionAnswer").focus()
+
     }
     if (next_item <= 12) {
     //   setCurrentItem(next_item);
@@ -1174,7 +1181,7 @@ const ItemComponent = (props) => {
                     </div>
                   ))}
               </div>
-              <div className="" id="metaDataColumn">
+              <div className="" id="metaDataColumn" data-draggable="removing" onDrop={(event) => dragOff(event)} onDragOver={(event) => allowDrop(event)}>
                 <p className="hideDescription" id="descriptionTitle">Description</p>
                 {data_columns.map(variable => (
                     <div key={variable} className="dataDescriptionsContainer" data-draggable="removing" onDrop={(event) => dragOff(event)} onDragOver={(event) => allowDrop(event)}>
@@ -1228,7 +1235,7 @@ const ItemComponent = (props) => {
               </div>
           </div>
         </div>
-      <p id='proceeding' className='hideDescription'>Proceeding...</p>  
+      <p id='proceeding' className='hideDescription'>Proceeding...</p>
       <div id="nextButton" onClick={(e) => nextItem(e)}>
         <p>Next</p>
       </div>

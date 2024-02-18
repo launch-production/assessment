@@ -101,8 +101,9 @@ img {
 }
 
 #answerVis {
-  margin-left: 2rem;
+  margin-left: 1rem;
   padding: 1rem;
+  width: 350px;
 }
 
 #nextButton {
@@ -117,7 +118,7 @@ img {
   color: white;
 }
 
-#proceeding {
+#proceeding, #missingRequired {
   margin: auto;
   width: fit-content;
   margin-top: 1rem;

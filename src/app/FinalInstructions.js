@@ -1150,6 +1150,7 @@ const FinalInstructions = (props) => {
         {isClient ? <div id='questionContainer'>
                 <p><b>{itemBank[currentItem]["question_meta_data"]["question_topic"]}</b></p>
                 <p>{itemBank[currentItem]["question_meta_data"]["question_text"]}</p>
+                <p>Note you will not be able to go back once you advance to the next question. For successsful completion, you must answer all questions in this survey. Click 'Start' to proceed.</p>
             </div> : null}
         {/* <div id='visContainer'>
             <div id="questionVis"></div>

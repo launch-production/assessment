@@ -260,7 +260,7 @@
     },
     "item104": {
       "question_meta_data": {
-        "question_text": "You are now ready to proceed to the questions in the survey. The layout of each question will be the same as the training you just completed. Note you will not be able to go back once you advance to the next question. For successsful completion, you must answer all questions in this survey. Click 'Start' to proceed.",
+        "question_text": "You are now ready to proceed to the questions in the survey. The layout of each question will be the same as the training you just completed. Your task is to use charts to answer questions. You can change the chart display using the given tiles if it helps you in correctly answering the question.",
         "question_topic": "Instructions",
         "highlight_component": ""
       },
