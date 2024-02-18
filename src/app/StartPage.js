@@ -1155,7 +1155,7 @@ const StartPage = (props) => {
         <div id='questionContainer'>
           <p>Your goal is to use charts to help you answer questions. If changing the chart helps you in answering the question, you can do so by manipulating tiles.</p>
             <p>
-                The following three questions will be training to help you get familiar with how to change the chart display and the layout of the survey.
+                The following three questions will be training to help you get familiar with the layout of the survey and how to change the chart display.
             </p>
             <p>Click 'Start Training' to proceed.</p>
         </div>

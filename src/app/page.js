@@ -82,6 +82,9 @@ export default function HomePage() {
   var tile_sets = require("./tile_sets.json");
   console.log(tile_sets)
 
+  var constraints = require("./constraints.json");
+  console.log(constraints)
+
 
   // if (isClient) {
   // // let mark_spec = vl.markPoint()
@@ -492,6 +495,7 @@ export default function HomePage() {
         item={100} 
         training_set={training_set}
         tile_sets={tile_sets}
+        constraints={constraints}
       />
       
         {/* <QuestionText question={item_bank["item"+currentItem.toString()]["initialize"]["question_text"]}></QuestionText>

@@ -7,12 +7,16 @@ export default function Page() {
 
     var tile_sets = require("../tile_sets.json");
     console.log(tile_sets)
+
+    var constraints = require("../constraints.json");
+    console.log(constraints)
     return (
         <div>
         <StartTraining 
             item={103} 
             training_set={training_set}
             tile_sets={tile_sets}
+            constraints={constraints}
             />
     </div>
     )

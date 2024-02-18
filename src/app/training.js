@@ -41,6 +41,161 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 //   }
 // }
 
+function checkConstraints(input_to, constraint_set, current_state, data_columns, adding_data, to_encoding, from_encoding) {
+  console.log("CHECKING CONSTRAINS")
+  console.log(constraint_set)
+  console.log(current_state)
+  console.log(data_columns)
+  console.log(adding_data)
+  console.log(to_encoding)
+  console.log(from_encoding)
+  // check if any other color encoding has been mapped
+  if (to_encoding.includes("color")) {
+    for (var encoding in current_state["encodings"]) {
+      console.log(encoding)
+      // some data has already been mapped to a color encoding
+      if (encoding != to_encoding && encoding.includes("color")) {
+        // && current_state["encodings"][encoding]["data"] != ""
+        if (input_to == "data") {
+          if (from_encoding != "") {
+            current_state["encodings"][from_encoding]["data"] = ""
+          }
+          if (current_state["encodings"][encoding]["data"] != "") {
+            return false;
+          }
+        } else if (input_to == "transformation") {
+          if (from_encoding != "") {
+            current_state["encodings"][from_encoding]["transformation"] = ""
+          }
+          if (current_state["encodings"][encoding]["transformation"] != "") {
+            return false;
+          }
+        }
+        
+      }
+    }
+  }
+  console.log(input_to)
+  // check transformation related constraints
+  if (input_to == "transformation") {
+    let data_at_encoding = current_state["encodings"][to_encoding]["data"]
+    // only check if there's data, since someone could map transformation first then data to an encoding
+    if (data_at_encoding != "") {
+      let data_at_encoding_type = data_columns[data_at_encoding]["type"]
+      // if the type is not in the set that the transformation supports
+      if (constraint_set[adding_data]["data_types"].includes(data_at_encoding_type)) {
+        return false;
+      }
+    }
+    // if the encoding is not in the set that the transformation supports
+      if (constraint_set[adding_data]["encodings"].includes(to_encoding)) {
+        return false;
+      }
+  } else if (input_to == "data") {
+    let data_at_encoding_type = data_columns[adding_data]["type"]
+    console.log(data_at_encoding_type)
+    let mapped_transformation = current_state["encodings"][to_encoding]["transformation"]
+    if (mapped_transformation != "") {
+      // if the type is not in the set that the transformation supports
+      if (constraint_set[mapped_transformation]["data_types"].includes(data_at_encoding_type)) {
+        return false;
+      }
+      // if the encoding is not in the set that the transformation supports
+      if (constraint_set[mapped_transformation]["encodings"].includes(to_encoding)) {
+        return false;
+      }
+    }
+    
+  }
+
+  return true;
+}
+
+function movableHighlighting(input_to, constraint_set, current_state, data_columns, check_encoding, to_consider) {
+  console.log("MOVABLE HIGHLIGHTING")
+  console.log(current_state)
+  console.log(check_encoding)
+  console.log(constraint_set)
+  console.log(to_consider)
+  
+  let considering_tile = to_consider[1]
+  if (input_to == "transformation") {
+    if (constraint_set[considering_tile]["encodings"].includes(check_encoding)) {
+      return false;
+    }
+    let consider_data = current_state["encodings"][check_encoding]["data"]
+    if (consider_data != "") {
+      let data_at_encoding_type = data_columns[consider_data]["type"]
+      if (constraint_set[considering_tile]["data_types"].includes(data_at_encoding_type)) {
+        return false;
+      }
+    }
+
+    if (check_encoding.includes("color")) {
+      let has_color = ""
+      for (var encoding in current_state["encodings"]) {
+        if (encoding.includes("color")) {
+          if (current_state["encodings"][encoding]["transformation"] != "") {
+            has_color = encoding
+          }
+        }
+      }
+      console.log(has_color)
+      if (has_color) {
+        if (to_consider.length == 3) {
+          if (!to_consider[2].includes("color") && has_color != check_encoding) {
+            return false
+          }
+        }
+        if (to_consider.length != 3 && has_color != check_encoding) {
+          return false;
+        }
+      }
+    }
+    
+  } else if (input_to == "data") {
+    let data_at_encoding_type = data_columns[considering_tile]["type"]
+    let mapped_transformation = current_state["encodings"][check_encoding]["transformation"]
+    if (mapped_transformation != "") {
+      // if the type is not in the set that the transformation supports
+      if (constraint_set[mapped_transformation]["data_types"].includes(data_at_encoding_type)) {
+        return false;
+      }
+      // if the encoding is not in the set that the transformation supports
+      if (constraint_set[mapped_transformation]["encodings"].includes(check_encoding)) {
+        return false;
+      }
+    }
+    
+    if (check_encoding.includes("color")) {
+      let has_color = ""
+      for (var encoding in current_state["encodings"]) {
+        if (encoding.includes("color")) {
+          if (current_state["encodings"][encoding]["data"] != "") {
+            has_color = encoding
+          }
+        }
+      }
+      console.log(has_color)
+      if (has_color) {
+        if (to_consider.length == 3) {
+          if (!to_consider[2].includes("color") && has_color != check_encoding) {
+            return false
+          }
+        }
+        if (to_consider.length != 3 && has_color != check_encoding) {
+          return false;
+        }
+
+        
+      }
+    }
+    
+  }
+  return true;
+
+}
+
 function updateEncodingMapping(vis_spec, encoding, update_to, data_columns) {
   console.log("in update x")
   console.log(vis_spec)
@@ -153,8 +308,14 @@ function updateTransformationMapping(vis_spec, transformation_encoding, add_tran
     vis_spec["encoding"][transformation_encoding]["stack"] = true;
   } else if (add_transformation == "reverse") {
     if (transformation_encoding.includes("color")) {
+      if (!vis_spec["encoding"][transformation_encoding]["scale"]) {
+        vis_spec["encoding"][transformation_encoding]["scale"] = {}
+      }
       vis_spec["encoding"][transformation_encoding]["scale"]["reverse"] = true;
     } else {
+      if (!vis_spec["encoding"][transformation_encoding]["scale"]) {
+        vis_spec["encoding"][transformation_encoding]["scale"] = {}
+      }
       vis_spec["encoding"][transformation_encoding]["scale"] = {"reverse": true};
     }
     
@@ -257,6 +418,7 @@ const StartTraining = (props) => {
   const [currentItem, setCurrentItem] = useState("item"+props.item);
   const [itemBank, SetItemBank] = useState(props.training_set);
   const [tileSets, setTileSets] = useState(props.tile_sets);
+  const [constraints, setConstraints] = useState(props.constraints);
   const [currentChartType, setCurrentChartType] = useState(props.training_set["item"+props.item]["initialize"]["chart_type"]);
   const [dataset, setDataset] = useState(props.training_set["datasets"][props.training_set["item"+props.item]["dataset"]]);
   const [loadVis, setLoadVis] = useState(props.training_set["item"+props.item]["question_vis"]);
@@ -398,6 +560,9 @@ const StartTraining = (props) => {
     console.log(clicked_chart)
     setChartTypeSelected(clicked_chart);
     setCurrentChartType(clicked_chart)
+    let state_change = currentItemState
+    state_change["chart_type"] = clicked_chart
+    setCurrentItemState(state_change)
     // setEncodingDisplay(tileSets[clicked_chart]["encodings"]);
     let vis_update = loadVis
     updateMark(vis_update, clicked_chart)
@@ -436,12 +601,21 @@ const StartTraining = (props) => {
       }
       let data_inputs = document.getElementsByClassName("inputData")
       console.log(data_inputs)
+      let moving_data = element.target.id.split("-")
       for (let index = 0; index < data_inputs.length; index += 1) {
         console.log("moveable???")
         console.log(data_inputs[index].innerHTML)
+        data_inputs[index].classList.remove("tileMovableSpace");
+        // transformation_inputs[index].classList.add("tileMoved")
         data_inputs[index].classList.remove("tileMoved")
-        // highlight empty input spaces
-        if (data_inputs[index].innerHTML == "") {
+        
+        // // general: highlight empty input spaces
+        // if (data_inputs[index].innerHTML == "") {
+        //   data_inputs[index].classList.add("tileMovableSpace")
+        // }
+        // constraints
+        let check_encoding = data_inputs[index].getAttribute('data-draggable').split("-")[1]
+        if (movableHighlighting("data", constraints, currentItemState, dataset, check_encoding, moving_data)) {
           data_inputs[index].classList.add("tileMovableSpace")
         }
       }
@@ -459,14 +633,25 @@ const StartTraining = (props) => {
       }
       let transformation_inputs = document.getElementsByClassName("inputTransformation")
       console.log(transformation_inputs)
+      console.log(element.target.id)
+      let moving_transformation = element.target.id.split("-")
       for (let index = 0; index < transformation_inputs.length; index += 1) {
         console.log("moveable???")
         console.log(transformation_inputs[index].innerHTML)
+        transformation_inputs[index].classList.remove("tileMovableSpace");
+        // transformation_inputs[index].classList.add("tileMoved")
         transformation_inputs[index].classList.remove("tileMoved")
-        // highlight empty input spaces
-        if (transformation_inputs[index].innerHTML == "") {
+        // general: highlight empty input spaces
+        // if (transformation_inputs[index].innerHTML == "") {
+        //   transformation_inputs[index].classList.add("tileMovableSpace")
+        // }
+
+        // constraints
+        let check_encoding = transformation_inputs[index].getAttribute('data-draggable').split("-")[1]
+        if (movableHighlighting("transformation", constraints, currentItemState, dataset, check_encoding, moving_transformation)) {
           transformation_inputs[index].classList.add("tileMovableSpace")
         }
+
       }
     }
     
@@ -501,60 +686,78 @@ const StartTraining = (props) => {
     
     console.log(data)
     console.log(ev.dataTransfer)
-    if (data.includes("data") && ev.target.getAttribute('data-draggable') == "target") {
-      // if dragged tile to border and input has content
-      if (ev.target.innerHTML != "") {
-        dataOverwrite(ev);
-      } else {
-        console.log("dropping!")
-        let dragged_element_id = data; // save id of the dragged tile
-        let element_id = data.split("-")
-        console.log(element_id)
-        // if the tile has been dragged before (encoding is in id already)
-        if (element_id.length == 3) {
-          let remove_from_encoding = element_id[2];
-          removeDataEncoding(loadVis, remove_from_encoding, element_id[1]) // remove encoding mapping from previous spot
-          data = "redrag+"+element_id[0] + "-" + element_id[1]
-        }
-        // ev.target.appendChild(draggedTile); // todo try not using setstate, and append by id?
-        let drop_container = ev.target;
-        drop_container.innerHTML = "";
-        if (data.includes("redrag")) {
-          console.log(document.getElementById(data))
-          drop_container.appendChild(document.getElementById(dragged_element_id)); // move instead of clone
-          data = data.split("+")[1];
-          drop_container.firstChild.id = data // reset id to not include "redrag" tag
-        } else {
-          drop_container.appendChild(document.getElementById(data).cloneNode(true));
-        }
-        console.log(drop_container.firstChild)
-        let add_data = data.split("-")[1]
-        let find_encoding = drop_container.nextSibling.firstChild.id.split("-")[1] // TODO fix; check have an unique separator
-        drop_container.firstChild.id += "-";
-        drop_container.firstChild.id += find_encoding;
-        console.log(find_encoding)
-        let vis_update = loadVis
-        let updated_spec = updateEncodingMapping(vis_update, find_encoding, add_data, dataset);
-        console.log(updated_spec)
-        console.log(loadVis)
-        // if (find_encoding.includes("color")) {
-        //   vis_update["encoding"][find_encoding.split("_")[1]] = {"field": add_data, "type": "nominal"}; // TODO need a dictionary for looking up each data column type
-        // }
-        
-        // console.log(vis_update)
-        setLoadVis(updated_spec)
-        let data_inputs = document.getElementsByClassName("inputData")
-        console.log(data_inputs)
-        for (let index = 0; index < data_inputs.length; index += 1) {
-          console.log(data_inputs[index].innerHTML)
-          data_inputs[index].classList.remove("tileMovableSpace");
-          data_inputs[index].classList.add("tileMoved")
-          // highlight empty input spaces
-          // if (data_inputs[index].innerHTML == "") {
-          //   data_inputs[index].classList.add("dataMovableSpace")
-          // }
-        }
+    if (data.includes("data") && ev.target.getAttribute('data-draggable').includes("data_target")) {
+      let state_change = currentItemState
+      let consider_encoding = ev.target.getAttribute('data-draggable').split("-")[1]
+      let consider_data = data.split("-")
+      let from_encoding = ""
+      console.log(consider_data)
+      if (consider_data.length == 3) {
+        from_encoding = consider_data[2]
       }
+      let proceed = checkConstraints("data", constraints, currentItemState, dataset, consider_data[1], consider_encoding, from_encoding)
+      if (proceed) {
+          // if dragged tile to border and input has content
+          if (ev.target.innerHTML != "") {
+            dataOverwrite(ev);
+          } else {
+            console.log("dropping!")
+            let dragged_element_id = data; // save id of the dragged tile
+            let element_id = data.split("-")
+            console.log(element_id)
+            // if the tile has been dragged before (encoding is in id already)
+            if (element_id.length == 3) {
+              let remove_from_encoding = element_id[2];
+              removeDataEncoding(loadVis, remove_from_encoding, element_id[1]) // remove encoding mapping from previous spot
+              state_change["encodings"][remove_from_encoding]["data"] = ""
+              setCurrentItemState(state_change)
+              data = "redrag+"+element_id[0] + "-" + element_id[1]
+            }
+            // ev.target.appendChild(draggedTile); // todo try not using setstate, and append by id?
+            let drop_container = ev.target;
+            drop_container.innerHTML = "";
+            if (data.includes("redrag")) {
+              console.log(document.getElementById(data))
+              drop_container.appendChild(document.getElementById(dragged_element_id)); // move instead of clone
+              data = data.split("+")[1];
+              drop_container.firstChild.id = data // reset id to not include "redrag" tag
+            } else {
+              drop_container.appendChild(document.getElementById(data).cloneNode(true));
+            }
+            
+            console.log(drop_container.firstChild)
+            let add_data = data.split("-")[1]
+            let find_encoding = drop_container.nextSibling.firstChild.id.split("-")[1] // TODO fix; check have an unique separator
+            drop_container.firstChild.id += "-";
+            drop_container.firstChild.id += find_encoding;
+            console.log(find_encoding)
+            let vis_update = loadVis
+            let updated_spec = updateEncodingMapping(vis_update, find_encoding, add_data, dataset);
+            console.log(state_change)
+            state_change["encodings"][find_encoding]["data"] = add_data
+            setCurrentItemState(state_change)
+            console.log(updated_spec)
+            console.log(loadVis)
+            // if (find_encoding.includes("color")) {
+            //   vis_update["encoding"][find_encoding.split("_")[1]] = {"field": add_data, "type": "nominal"}; // TODO need a dictionary for looking up each data column type
+            // }
+            
+            // console.log(vis_update)
+            setLoadVis(updated_spec)
+            let data_inputs = document.getElementsByClassName("inputData")
+            console.log(data_inputs)
+            for (let index = 0; index < data_inputs.length; index += 1) {
+              console.log(data_inputs[index].innerHTML)
+              data_inputs[index].classList.remove("tileMovableSpace");
+              data_inputs[index].classList.add("tileMoved")
+              // highlight empty input spaces
+              // if (data_inputs[index].innerHTML == "") {
+              //   data_inputs[index].classList.add("dataMovableSpace")
+              // }
+            }
+          }
+      
+        }
       // console.log(loadVis)
       // embed('#questionVis', loadVis, {"actions": false});
       // let state_change = currentItemState
@@ -591,7 +794,7 @@ const StartTraining = (props) => {
     console.log(ev.target.id)
     console.log(ev.target.getAttribute('data-draggable'))
     // dragged tile to border
-    if (ev.target.getAttribute('data-draggable') == "target" && ev.target.innerHTML != "") {
+    if (ev.target.getAttribute('data-draggable').includes("data_target") && ev.target.innerHTML != "") {
       ev.target = ev.target.firstChild // overwrite tile content if any
     }
     if (ev.target.getAttribute('data-draggable') == "overwrite-parent") {
@@ -606,31 +809,48 @@ const StartTraining = (props) => {
     // let drop_container = ev.target;
     if (ev.target.id != new_data) {
       if (overwriting_space && document.getElementById(new_data) && overwriting.length == 3 && new_data_split[0] == "data") {
-        overwriting_space.innerHTML = "";
+        let state_change = currentItemState
+        let consider_encoding = overwriting[2]
+        let consider_data = new_data_split[1]
+        let from_encoding = ""
+        console.log(consider_data)
         if (new_data_split.length == 3) {
-          removeDataEncoding(loadVis, new_data_split[2], new_data_split[1]) // remove encoding mapping from previous spot
-          overwriting_space.appendChild(document.getElementById(new_data)); // move instead of clone
-        } else {
-          overwriting_space.appendChild(document.getElementById(new_data).cloneNode(true)); // from original set so need to clone
+          from_encoding = new_data_split[2]
         }
-        removeDataEncoding(loadVis, overwriting[2], overwriting[1]) // remove encoding mapping from previous spot
-        updateEncodingMapping(loadVis, overwriting[2], new_data_split[1], dataset);
-        
-        overwriting_space.firstChild.id = new_data_split[0] + "-" + new_data_split[1]
-        overwriting_space.firstChild.id += "-";
-        overwriting_space.firstChild.id += overwriting[2];
-        console.log(overwriting_space.firstChild.id) // todo fix
-        let data_inputs = document.getElementsByClassName("inputData")
-          console.log(data_inputs)
-          for (let index = 0; index < data_inputs.length; index += 1) {
-            console.log(data_inputs[index].innerHTML)
-            data_inputs[index].classList.remove("tileMovableSpace");
-            data_inputs[index].classList.add("tileMoved")
-            // highlight empty input spaces
-            // if (data_inputs[index].innerHTML == "") {
-            //   data_inputs[index].classList.add("dataMovableSpace")
-            // }
+        let proceed = checkConstraints("data", constraints, currentItemState, dataset, consider_data, consider_encoding, from_encoding)
+        if (proceed) {
+          overwriting_space.innerHTML = "";
+          if (new_data_split.length == 3) {
+            removeDataEncoding(loadVis, new_data_split[2], new_data_split[1]) // remove encoding mapping from previous spot
+            state_change["encodings"][new_data_split[2]]["data"] = ""
+            setCurrentItemState(state_change)
+            overwriting_space.appendChild(document.getElementById(new_data)); // move instead of clone
+          } else {
+            overwriting_space.appendChild(document.getElementById(new_data).cloneNode(true)); // from original set so need to clone
           }
+          removeDataEncoding(loadVis, overwriting[2], overwriting[1]) // remove encoding mapping from previous spot
+          updateEncodingMapping(loadVis, overwriting[2], new_data_split[1], dataset);
+
+          state_change["encodings"][overwriting[2]]["data"] = new_data_split[1]
+          setCurrentItemState(state_change)
+          
+          overwriting_space.firstChild.id = new_data_split[0] + "-" + new_data_split[1]
+          overwriting_space.firstChild.id += "-";
+          overwriting_space.firstChild.id += overwriting[2];
+          console.log(overwriting_space.firstChild.id) // todo fix
+          let data_inputs = document.getElementsByClassName("inputData")
+            console.log(data_inputs)
+            for (let index = 0; index < data_inputs.length; index += 1) {
+              console.log(data_inputs[index].innerHTML)
+              data_inputs[index].classList.remove("tileMovableSpace");
+              data_inputs[index].classList.add("tileMoved")
+              // highlight empty input spaces
+              // if (data_inputs[index].innerHTML == "") {
+              //   data_inputs[index].classList.add("dataMovableSpace")
+              // }
+            }
+        }
+        
       }
     }
     
@@ -643,64 +863,80 @@ const StartTraining = (props) => {
     // console.log(ev.target.getAttribute('data-draggable'))
     var data = ev.dataTransfer.getData("text");
     console.log(data)
-    if (data.includes("transformation") && ev.target.getAttribute('data-draggable') == "transformation_target") {
-      // if dragged tile to border and input has content
-      if (ev.target.innerHTML != "") {
-        transformationOverwrite(ev);
-      } else {
-        console.log("dropping transformation!")
-        let dragged_element_id = data; // save id of the dragged tile
-        let element_id = data.split("-")
-        console.log(element_id)
-        console.log(data)
-        // if the tile has been dragged before (encoding is in id already)
-        if (element_id.length == 3) {
-          let remove_from_encoding = element_id[2];
-          removeTransformationEncoding(loadVis, remove_from_encoding, element_id[1]) // remove encoding mapping from previous spot
-          data = "redrag+"+element_id[0] + "-" + element_id[1]
-        }
-        // ev.target.appendChild(draggedTile); // todo try not using setstate, and append by id?
-        let drop_container = ev.target;
-        drop_container.innerHTML = "";
-        if (data.includes("redrag")) {
-          console.log(document.getElementById(data))
-          drop_container.appendChild(document.getElementById(dragged_element_id)); // move instead of clone
-          data = data.split("+")[1];
-          drop_container.firstChild.id = data // reset id to not include "redrag" tag
+    if (data.includes("transformation") && ev.target.getAttribute('data-draggable').includes("transformation_target")) {
+      let state_change = currentItemState
+      let consider_encoding = ev.target.getAttribute('data-draggable').split("-")[1]
+      let consider_transformation = data.split("-")
+      let from_encoding = ""
+      console.log(consider_transformation)
+      if (consider_transformation.length == 3) {
+        from_encoding = consider_transformation[2]
+      }
+      let proceed = checkConstraints("transformation", constraints, currentItemState, dataset, consider_transformation[1], consider_encoding, from_encoding)
+      if (proceed) {
+        // if dragged tile to border and input has content
+        if (ev.target.innerHTML != "") {
+          transformationOverwrite(ev);
         } else {
-          drop_container.appendChild(document.getElementById(data).cloneNode(true));
-        }
-        let add_transformation = data.split("-")[1]
-        console.log(drop_container)
-        let find_transformation_encoding = drop_container.previousSibling.firstChild.id.split("-")[1]
-        drop_container.firstChild.id += "-";
-        drop_container.firstChild.id += find_transformation_encoding;
-        let vis_update = loadVis
-        let updated_spec = updateTransformationMapping(vis_update, find_transformation_encoding, add_transformation, dataset);
-        // let extract_transformation_encoding = find_transformation_encoding
-        // if (find_transformation_encoding.includes("color")) {
-        //   extract_transformation_encoding = find_transformation_encoding.split("_")[1];
-        //   // vis_update["encoding"][find_transformation_encoding.split("_")[1]]["aggregation"] = add_transformation; // TODO need a dictionary for looking up each data column type and where the transformaiton should be
-        // } else if (find_transformation_encoding.includes("axis")) {
-        //   extract_transformation_encoding = find_transformation_encoding.split("_")[0];
-        //   // vis_update["encoding"][find_transformation_encoding.split("_")[0]] = {"field": add_transformation, "type": "nominal"}; // TODO need a dictionary for looking up each data column type
-        // }
-        // vis_update["encoding"][extract_transformation_encoding]["aggregate"] = add_transformation; // TODO need a dictionary for looking up each data column type and where the transformaiton should be
-        // ev.preventDefault();
-        console.log(updated_spec)
-        setLoadVis(updated_spec)
-        let transformation_inputs = document.getElementsByClassName("inputTransformation")
-        console.log(transformation_inputs)
-        for (let index = 0; index < transformation_inputs.length; index += 1) {
-          console.log(transformation_inputs[index].innerHTML)
-          transformation_inputs[index].classList.remove("tileMovableSpace");
-          transformation_inputs[index].classList.add("tileMoved")
-          // highlight empty input spaces
-          // if (data_inputs[index].innerHTML == "") {
-          //   data_inputs[index].classList.add("dataMovableSpace")
+          console.log("dropping transformation!")
+          let dragged_element_id = data; // save id of the dragged tile
+          let element_id = data.split("-")
+          console.log(element_id)
+          console.log(data)
+          // if the tile has been dragged before (encoding is in id already)
+          if (element_id.length == 3) {
+            let remove_from_encoding = element_id[2];
+            removeTransformationEncoding(loadVis, remove_from_encoding, element_id[1]) // remove encoding mapping from previous spot
+            state_change["encodings"][remove_from_encoding]["transformation"] = ""
+            setCurrentItemState(state_change)
+            data = "redrag+"+element_id[0] + "-" + element_id[1]
+          }
+          // ev.target.appendChild(draggedTile); // todo try not using setstate, and append by id?
+          let drop_container = ev.target;
+          drop_container.innerHTML = "";
+          if (data.includes("redrag")) {
+            console.log(document.getElementById(data))
+            drop_container.appendChild(document.getElementById(dragged_element_id)); // move instead of clone
+            data = data.split("+")[1];
+            drop_container.firstChild.id = data // reset id to not include "redrag" tag
+          } else {
+            drop_container.appendChild(document.getElementById(data).cloneNode(true));
+          }
+          let add_transformation = data.split("-")[1]
+          console.log(drop_container)
+          let find_transformation_encoding = drop_container.previousSibling.firstChild.id.split("-")[1]
+          drop_container.firstChild.id += "-";
+          drop_container.firstChild.id += find_transformation_encoding;
+          let vis_update = loadVis
+          let updated_spec = updateTransformationMapping(vis_update, find_transformation_encoding, add_transformation, dataset);
+          state_change["encodings"][find_transformation_encoding]["transformation"] = add_transformation
+          setCurrentItemState(state_change)
+          // let extract_transformation_encoding = find_transformation_encoding
+          // if (find_transformation_encoding.includes("color")) {
+          //   extract_transformation_encoding = find_transformation_encoding.split("_")[1];
+          //   // vis_update["encoding"][find_transformation_encoding.split("_")[1]]["aggregation"] = add_transformation; // TODO need a dictionary for looking up each data column type and where the transformaiton should be
+          // } else if (find_transformation_encoding.includes("axis")) {
+          //   extract_transformation_encoding = find_transformation_encoding.split("_")[0];
+          //   // vis_update["encoding"][find_transformation_encoding.split("_")[0]] = {"field": add_transformation, "type": "nominal"}; // TODO need a dictionary for looking up each data column type
           // }
+          // vis_update["encoding"][extract_transformation_encoding]["aggregate"] = add_transformation; // TODO need a dictionary for looking up each data column type and where the transformaiton should be
+          // ev.preventDefault();
+          console.log(updated_spec)
+          setLoadVis(updated_spec)
+          let transformation_inputs = document.getElementsByClassName("inputTransformation")
+          console.log(transformation_inputs)
+          for (let index = 0; index < transformation_inputs.length; index += 1) {
+            console.log(transformation_inputs[index].innerHTML)
+            transformation_inputs[index].classList.remove("tileMovableSpace");
+            transformation_inputs[index].classList.add("tileMoved")
+            // highlight empty input spaces
+            // if (data_inputs[index].innerHTML == "") {
+            //   data_inputs[index].classList.add("dataMovableSpace")
+            // }
+          }
         }
       }
+      
       // console.log(loadVis)
       // embed('#questionVis', loadVis, {"actions": false});
     } else if (data.includes("transformation") && ev.target.getAttribute('data-draggable') == "overwrite") {
@@ -717,7 +953,7 @@ const StartTraining = (props) => {
     console.log("in transformation overwrite!!")
     console.log(ev.target.id)
     // dragged tile to border
-    if (ev.target.getAttribute('data-draggable') == "transformation_target" && ev.target.innerHTML != "") {
+    if (ev.target.getAttribute('data-draggable').includes("transformation_target") && ev.target.innerHTML != "") {
       ev.target = ev.target.firstChild // overwrite tile content if any
     }
     let overwriting_space = ev.target.parentNode
@@ -730,30 +966,46 @@ const StartTraining = (props) => {
     // let drop_container = ev.target;
     if (ev.target.id != new_transformation) {
       if (overwriting_space && document.getElementById(new_transformation) && overwriting.length == 3 && new_transformation_split[0] == "transformation") {
-        ev.target.parentNode.innerHTML = "";
+        let state_change = currentItemState
+        let consider_encoding = overwriting[2]
+        let consider_data = new_transformation_split[1]
+        let from_encoding = ""
+        console.log(consider_data)
         if (new_transformation_split.length == 3) {
-          removeTransformationEncoding(loadVis, new_transformation_split[2], new_transformation_split[1]) // remove encoding mapping from previous spot
-          overwriting_space.appendChild(document.getElementById(new_transformation)); // move instead of clone
-        } else {
-          overwriting_space.appendChild(document.getElementById(new_transformation).cloneNode(true)); // from original set so need to clone
+          from_encoding = new_transformation_split[2]
         }
-        removeTransformationEncoding(loadVis, overwriting[2], overwriting[1]) // remove encoding mapping from previous spot
-        updateTransformationMapping(loadVis, overwriting[2], new_transformation_split[1], dataset);
-        overwriting_space.firstChild.id = new_transformation_split[0] + "-" + new_transformation_split[1]
-        overwriting_space.firstChild.id += "-";
-        overwriting_space.firstChild.id += overwriting[2];
-        console.log(overwriting_space.firstChild.id) // todo fix
-        let transformation_inputs = document.getElementsByClassName("inputTransformation")
-        console.log(transformation_inputs)
-        for (let index = 0; index < transformation_inputs.length; index += 1) {
-          console.log(transformation_inputs[index].innerHTML)
-          transformation_inputs[index].classList.remove("tileMovableSpace");
-          transformation_inputs[index].classList.add("tileMoved")
-          // highlight empty input spaces
-          // if (data_inputs[index].innerHTML == "") {
-          //   data_inputs[index].classList.add("dataMovableSpace")
-          // }
+        let proceed = checkConstraints("transformation", constraints, currentItemState, dataset, consider_data, consider_encoding, from_encoding)
+        if (proceed) {
+          ev.target.parentNode.innerHTML = "";
+          if (new_transformation_split.length == 3) {
+            removeTransformationEncoding(loadVis, new_transformation_split[2], new_transformation_split[1]) // remove encoding mapping from previous spot
+            state_change["encodings"][new_transformation_split[2]]["transformation"] = ""
+            setCurrentItemState(state_change)
+            overwriting_space.appendChild(document.getElementById(new_transformation)); // move instead of clone
+          } else {
+            overwriting_space.appendChild(document.getElementById(new_transformation).cloneNode(true)); // from original set so need to clone
+          }
+          removeTransformationEncoding(loadVis, overwriting[2], overwriting[1]) // remove encoding mapping from previous spot
+          updateTransformationMapping(loadVis, overwriting[2], new_transformation_split[1], dataset);
+          state_change["encodings"][overwriting[2]]["transformation"] = new_transformation_split[1]
+          setCurrentItemState(state_change)
+          overwriting_space.firstChild.id = new_transformation_split[0] + "-" + new_transformation_split[1]
+          overwriting_space.firstChild.id += "-";
+          overwriting_space.firstChild.id += overwriting[2];
+          console.log(overwriting_space.firstChild.id) // todo fix
+          let transformation_inputs = document.getElementsByClassName("inputTransformation")
+          console.log(transformation_inputs)
+          for (let index = 0; index < transformation_inputs.length; index += 1) {
+            console.log(transformation_inputs[index].innerHTML)
+            transformation_inputs[index].classList.remove("tileMovableSpace");
+            transformation_inputs[index].classList.add("tileMoved")
+            // highlight empty input spaces
+            // if (data_inputs[index].innerHTML == "") {
+            //   data_inputs[index].classList.add("dataMovableSpace")
+            // }
+          }
         }
+        
         // console.log(loadVis)
         // embed('#questionVis', loadVis, {"actions": false});
         
@@ -812,11 +1064,14 @@ const StartTraining = (props) => {
     
     console.log(tile_parentNode)
     if (data.split("-").length == 3 && ev.target.getAttribute('data-draggable') == "removing") {
+      let state_change = currentItemState
       if (data.includes("data")) {
         let state_change = currentItemState
         let vis_update = loadVis
         let mapping_info = data.split("-")
         removeDataEncoding(vis_update, mapping_info[2], mapping_info[1])
+        state_change["encodings"][mapping_info[2]]["data"] = ""
+        setCurrentItemState(state_change)
         setLoadVis(vis_update);
         // setCurrentItemState(state_change)
         // embed('#questionVis', loadVis, {"actions": false});
@@ -840,10 +1095,11 @@ const StartTraining = (props) => {
           // }
         }
       } else if (data.includes("transformation")) {
-        let state_change = currentItemState
         let vis_update = loadVis
         let mapping_info = data.split("-")
         removeTransformationEncoding(vis_update, mapping_info[2], mapping_info[1]);
+        state_change["encodings"][mapping_info[2]]["transformation"] = ""
+        setCurrentItemState(state_change)
         setLoadVis(vis_update);
         // setCurrentItemState(state_change)
         // embed('#questionVis', loadVis, {"actions": false});
@@ -1216,7 +1472,7 @@ const StartTraining = (props) => {
                 <div>
                   { Object.entries(encodings).map((encoding_icon, index) => (
                     <div className='mappingContainer' key={"mapping-"+index}>
-                      <div className='inputSpace inputData' key={"input-"+index} data-draggable="target" onDrop={(event) => dataDrop(event)} onDragOver={(event) => allowDrop(event)} draggable="true" onDragStart={(event) => drag(event)}>
+                      <div className='inputSpace inputData' key={"input-"+index} data-draggable={"data_target-"+encoding_icon[0]} onDrop={(event) => dataDrop(event)} onDragOver={(event) => allowDrop(event)} draggable="true" onDragStart={(event) => drag(event)}>
                         { Object.entries(currentItemState["encodings"]).map((data_mapping, index) => (
                           (data_mapping[0] == encoding_icon[0] && data_mapping[1]["data"]) ? 
                             <div key={"fill-data-"+index} className="dataTiles" id={"data-"+data_mapping[1]["data"]+"-"+encoding_icon[0]} draggable="true" onDragStart={(event) => drag(event)} data-draggable="overwrite" onDrop={(event) => dataOverwrite(event)} onDragOver={(event) => allowDrop(event)}><p data-draggable="overwrite-parent" onDrop={(event) => dataOverwrite(event)} onDragOver={(event) => allowDrop(event)}>{data_mapping[1]["data"]}</p></div>
@@ -1226,7 +1482,7 @@ const StartTraining = (props) => {
                       <div className='staticColumn' key={index}>
                         <img id={"encoding-"+encoding_icon[0]} src={encoding_icon[1]}></img>
                       </div>
-                      <div className='inputSpace inputTransformation' key={"input-transform"+index} data-draggable="transformation_target" onDrop={(event) => transformationDrop(event)} onDragOver={(event) => allowDrop(event)} draggable="true" onDragStart={(event) => drag(event)}>
+                      <div className='inputSpace inputTransformation' key={"input-transform"+index} data-draggable={"transformation_target-"+encoding_icon[0]} onDrop={(event) => transformationDrop(event)} onDragOver={(event) => allowDrop(event)} draggable="true" onDragStart={(event) => drag(event)}>
                       { Object.entries(currentItemState["encodings"]).map((data_mapping, index) => (
                           (data_mapping[0] == encoding_icon[0] && data_mapping[1]["transformation"]) ? 
                             <img key={"fill-transformation-"+index} src={transformations[data_mapping[1]["transformation"]]} id={"transformation-"+data_mapping[1]["transformation"]+"-"+encoding_icon[0]} className="transformationTiles" draggable="true" onDragStart={(event) => drag(event)} data-draggable="overwrite" onDrop={(event) => transformationOverwrite(event)} onDragOver={(event) => allowDrop(event)}></img>

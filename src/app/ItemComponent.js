@@ -499,6 +499,7 @@ const ItemComponent = (props) => {
     console.log(data)
     console.log(ev.dataTransfer)
     if (data.includes("data") && ev.target.getAttribute('data-draggable') == "target") {
+      // constraints
       // if dragged tile to border and input has content
       if (ev.target.innerHTML != "") {
         dataOverwrite(ev);
@@ -641,6 +642,7 @@ const ItemComponent = (props) => {
     var data = ev.dataTransfer.getData("text");
     console.log(data)
     if (data.includes("transformation") && ev.target.getAttribute('data-draggable') == "transformation_target") {
+      // constraints
       // if dragged tile to border and input has content
       if (ev.target.innerHTML != "") {
         transformationOverwrite(ev);
