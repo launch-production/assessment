@@ -1,5 +1,5 @@
 const QuestionText = (question) => {
-    console.log(question.question)
+    // console.log(question.question)
     return (
         <div>
             <div id='questionContainer'>

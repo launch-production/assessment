@@ -20,7 +20,7 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 //       vis_answer: vis_answer,
 //       text_answer: text_answer
 //     }, { merge: true });
-//     console.log("Doc written with ID: ", prolificID);
+//     // console.log("Doc written with ID: ", prolificID);
 //     return true;
 //   } catch (error) {
 //     console.error("Error ", error)
@@ -33,7 +33,7 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 //     const docRef = await setDoc(doc(db, prolificID, questionID), {
 //       timestamp_start: time_start
 //     }, { merge: true });
-//     console.log("Doc written with ID: ", prolificID);
+//     // console.log("Doc written with ID: ", prolificID);
 //     return true;
 //   } catch (error) {
 //     console.error("Error ", error)
@@ -42,17 +42,17 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 // }
 
 function checkConstraints(input_to, constraint_set, current_state, data_columns, adding_data, to_encoding, from_encoding) {
-  console.log("CHECKING CONSTRAINS")
-  console.log(constraint_set)
-  console.log(current_state)
-  console.log(data_columns)
-  console.log(adding_data)
-  console.log(to_encoding)
-  console.log(from_encoding)
+  // console.log("CHECKING CONSTRAINS")
+  // console.log(constraint_set)
+  // console.log(current_state)
+  // console.log(data_columns)
+  // console.log(adding_data)
+  // console.log(to_encoding)
+  // console.log(from_encoding)
   // check if any other color encoding has been mapped
   if (to_encoding.includes("color")) {
     for (var encoding in current_state["encodings"]) {
-      console.log(encoding)
+      // console.log(encoding)
       // some data has already been mapped to a color encoding
       if (encoding != to_encoding && encoding.includes("color")) {
         // && current_state["encodings"][encoding]["data"] != ""
@@ -75,7 +75,7 @@ function checkConstraints(input_to, constraint_set, current_state, data_columns,
       }
     }
   }
-  console.log(input_to)
+  // console.log(input_to)
   // check transformation related constraints
   if (input_to == "transformation") {
     let data_at_encoding = current_state["encodings"][to_encoding]["data"]
@@ -99,7 +99,7 @@ function checkConstraints(input_to, constraint_set, current_state, data_columns,
       }
   } else if (input_to == "data") {
     let data_at_encoding_type = data_columns[adding_data]["type"]
-    console.log(data_at_encoding_type)
+    // console.log(data_at_encoding_type)
     let mapped_transformation = current_state["encodings"][to_encoding]["transformation"]
     if (mapped_transformation != "") {
       // if the type is not in the set that the transformation supports
@@ -118,11 +118,11 @@ function checkConstraints(input_to, constraint_set, current_state, data_columns,
 }
 
 function movableHighlighting(input_to, constraint_set, current_state, data_columns, check_encoding, to_consider) {
-  console.log("MOVABLE HIGHLIGHTING")
-  console.log(current_state)
-  console.log(check_encoding)
-  console.log(constraint_set)
-  console.log(to_consider)
+  // console.log("MOVABLE HIGHLIGHTING")
+  // console.log(current_state)
+  // console.log(check_encoding)
+  // console.log(constraint_set)
+  // console.log(to_consider)
   
   let considering_tile = to_consider[1]
   if (input_to == "transformation") {
@@ -146,7 +146,7 @@ function movableHighlighting(input_to, constraint_set, current_state, data_colum
           }
         }
       }
-      console.log(has_color)
+      // console.log(has_color)
       if (has_color) {
         if (to_consider.length == 3) {
           if (!to_consider[2].includes("color") && has_color != check_encoding) {
@@ -159,7 +159,7 @@ function movableHighlighting(input_to, constraint_set, current_state, data_colum
       }
     }
 
-    console.log(check_encoding)
+    // console.log(check_encoding)
     if (considering_tile == "des_sort") {
       let data_at_encoding = current_state["encodings"][check_encoding]["data"]
       if (data_at_encoding == "") {
@@ -190,7 +190,7 @@ function movableHighlighting(input_to, constraint_set, current_state, data_colum
           }
         }
       }
-      console.log(has_color)
+      // console.log(has_color)
       if (has_color) {
         if (to_consider.length == 3) {
           if (!to_consider[2].includes("color") && has_color != check_encoding) {
@@ -211,25 +211,25 @@ function movableHighlighting(input_to, constraint_set, current_state, data_colum
 }
 
 function updateEncodingMapping(vis_spec, encoding, update_to, data_columns) {
-  console.log("in update x")
-  console.log(vis_spec)
-  console.log(encoding)
-  console.log(update_to)
+  // console.log("in update x")
+  // console.log(vis_spec)
+  // console.log(encoding)
+  // console.log(update_to)
   if (encoding.includes("color")) {
     if (!vis_spec["encoding"]["color"]) {
       vis_spec["encoding"]["color"] = {}
     }
     vis_spec["encoding"]["color"]["field"] = update_to;
     vis_spec["encoding"]["color"]["type"] = data_columns[update_to]["type"];
-    // console.log(vis_spec["encoding"]["color"]["title"])
+    // // console.log(vis_spec["encoding"]["color"]["title"])
     // vis_spec["encoding"]["color"]["title"] = data_columns[update_to]["full_name"]
     // vis_spec["encoding"]["color"]["field"] = update_to;
     // vis_spec["encoding"]["color"]["type"] = data_columns[update_to];
     // vis_spec["encoding"]["color"]["scale"]["scheme"] = "purplegreen"
     // {"field": update_to, "type": data_columns[update_to]};
-    console.log(vis_spec);
+    // console.log(vis_spec);
     let color_scheme = encoding.split("_")[0];
-    console.log(color_scheme)
+    // console.log(color_scheme)
     // diverging color scheme
     if (color_scheme == "div") {
       vis_spec["encoding"]["color"]["scale"] = {"scheme": "purpleorange"};
@@ -237,14 +237,14 @@ function updateEncodingMapping(vis_spec, encoding, update_to, data_columns) {
       // let scale_value = {}
       // scale_value["scale"] = {"scheme": "purplegreen"}
       // // vis_spec["encoding"]["color"]["scale"] = new Map();
-      // console.log(scale_value);
+      // // console.log(scale_value);
       // vis_spec["encoding"]["color"].scale = {};
       // vis_spec["encoding"]["color"].scale.scheme = "purplegreen"
-      console.log(vis_spec)
+      // console.log(vis_spec)
       // ["scheme"] = "purplegreen";
     } else if (color_scheme == "seq") {
       vis_spec["encoding"]["color"]["scale"] = {"scheme": "purplebluegreen"};
-      // console.log(vis_spec["encoding"]["color"])
+      // // console.log(vis_spec["encoding"]["color"])
       // embed('#questionVis', vis_spec, {"actions": false});
     } else if (color_scheme == "qual") {
       vis_spec["encoding"]["color"]["scale"] = {"scheme": "dark2"};
@@ -265,13 +265,13 @@ function updateEncodingMapping(vis_spec, encoding, update_to, data_columns) {
 }
 
 function removeDataEncoding(vis_spec, encoding, remove_data) {
-  console.log("in remove data encoding")
-  console.log(vis_spec)
-  console.log(encoding)
-  console.log(remove_data)
-  // console.log(mapping_state)
+  // console.log("in remove data encoding")
+  // console.log(vis_spec)
+  // console.log(encoding)
+  // console.log(remove_data)
+  // // console.log(mapping_state)
   if (encoding.includes("color")) {
-    console.log(encoding);
+    // console.log(encoding);
     vis_spec["encoding"]["color"]["field"] = "";
     vis_spec["encoding"]["color"]["type"] = "";
   } else {
@@ -283,13 +283,13 @@ function removeDataEncoding(vis_spec, encoding, remove_data) {
   // if (encoding == "x") {
   //   if (vis_spec["encoding"]["y"]["sort"]) {
   //     vis_spec["encoding"]["y"]["sort"] = ""
-  //     console.log(document.getElementById("transformation-des_sort-"+encoding))
+  //     // console.log(document.getElementById("transformation-des_sort-"+encoding))
   //     document.getElementById("transformation-des_sort-"+encoding).parentNode.innerHTML = ""
   //   }
   // } else if (encoding == "y") {
   //   if (vis_spec["encoding"]["x"]["sort"]) {
   //     vis_spec["encoding"]["x"]["sort"] = ""
-  //     console.log(document.getElementById("transformation-des_sort-"+encoding))
+  //     // console.log(document.getElementById("transformation-des_sort-"+encoding))
   //     document.getElementById("transformation-des_sort-"+encoding).parentNode.innerHTML = ""
   //   }
   // }
@@ -301,8 +301,8 @@ function removeDataEncoding(vis_spec, encoding, remove_data) {
 }
 
 function updateMark(vis_spec, mark) {
-  console.log("in update mark")
-  console.log(vis_spec, mark)
+  // console.log("in update mark")
+  // console.log(vis_spec, mark)
   vis_spec["mark"]["type"] = mark;
   document.getElementById("questionAnswer").focus()
   embed('#questionVis', vis_spec, {"actions": false});
@@ -310,10 +310,10 @@ function updateMark(vis_spec, mark) {
 }
 
 function updateTransformationMapping(vis_spec, transformation_encoding, add_transformation, data_columns) {
-  console.log("in update transformation!")
-  console.log(transformation_encoding)
-  console.log(add_transformation)
-  console.log(vis_spec)
+  // console.log("in update transformation!")
+  // console.log(transformation_encoding)
+  // console.log(add_transformation)
+  // console.log(vis_spec)
   if (transformation_encoding.includes("color")) {
     transformation_encoding = "color"
   }
@@ -355,8 +355,8 @@ function updateTransformationMapping(vis_spec, transformation_encoding, add_tran
       vis_spec["encoding"][transformation_encoding]["aggregate"] = "mean";
     }
   } else if (add_transformation == "truncate") {
-    console.log(data_columns)
-    console.log(vis_spec)
+    // console.log(data_columns)
+    // console.log(vis_spec)
     let encoding_data = vis_spec["encoding"][transformation_encoding]["field"] // constraint: truncate only works when there's data mapped to encoding
     // if able to perform domain adjustments
     if (encoding_data && data_columns[encoding_data]["truncate"]) {
@@ -378,16 +378,16 @@ function updateTransformationMapping(vis_spec, transformation_encoding, add_tran
   //   }
     
   // }
-  console.log(vis_spec)
+  // console.log(vis_spec)
   document.getElementById("questionAnswer").focus()
   embed('#questionVis', vis_spec, {"actions": false});
   return vis_spec
 }
 
 function removeTransformationEncoding(vis_spec, transformation_encoding, remove_transformation) {
-  console.log("in remove transformation!")
-  console.log(transformation_encoding)
-  console.log(remove_transformation)
+  // console.log("in remove transformation!")
+  // console.log(transformation_encoding)
+  // console.log(remove_transformation)
   if (transformation_encoding.includes("color")) {
     transformation_encoding = "color"
   }
@@ -429,7 +429,7 @@ function removeTransformationEncoding(vis_spec, transformation_encoding, remove_
     }
     
   }
-  console.log(vis_spec)
+  // console.log(vis_spec)
   document.getElementById("questionAnswer").focus()
   embed('#questionVis', vis_spec, {"actions": false});
   return vis_spec
@@ -459,25 +459,25 @@ const StartTraining = (props) => {
   const [pID, setPID] = useState("");
   const [startTime, setStartTime] = useState(0);
   
-  console.log("in item component!")
-  console.log(props)
-  console.log(props.training_set)
-  console.log(pathname)
-  console.log(searchParams)
+  // console.log("in item component!")
+  // console.log(props)
+  // console.log(props.training_set)
+  // console.log(pathname)
+  // console.log(searchParams)
 //   const handleSubmit = async (e, questionID, time_start, text_answer) => {
 //     e.preventDefault();
-//     console.log("in handle submit!!")
-//     console.log(pID)
-//     console.log(itemBank[currentItem]["question_meta_data"]["question_text"])
-//     console.log(loadVis)
+//     // console.log("in handle submit!!")
+//     // console.log(pID)
+//     // console.log(itemBank[currentItem]["question_meta_data"]["question_text"])
+//     // console.log(loadVis)
 //     // const queryString = window.location.search;
-//     // console.log(queryString);
+//     // // console.log(queryString);
 
 //     // const urlParams = new URLSearchParams(queryString);
-//     // console.log(urlParams)
+//     // // console.log(urlParams)
 
 //     // const prolific_ID = urlParams.get('PROLIFIC_PID')
-//     // console.log(prolific_ID)
+//     // // console.log(prolific_ID)
 
 //     if (pID) {
 //       if (questionID.split("_")[1] == 1) {
@@ -502,20 +502,20 @@ const StartTraining = (props) => {
       if (!isClient) {
         if (props.item == 1) {
           let start_time = new Date().getTime()
-          console.log("printing time!!")
-          console.log(start_time)
+          // console.log("printing time!!")
+          // console.log(start_time)
           setStartTime(start_time)
         }
       }
       setIsClient(true);
       const queryString = window.location.search;
-      console.log(queryString);
+      // console.log(queryString);
   
       const urlParams = new URLSearchParams(queryString);
-      console.log(urlParams)
+      // console.log(urlParams)
   
       const prolific_ID = urlParams.get('PROLIFIC_PID')
-      console.log(prolific_ID)
+      // console.log(prolific_ID)
       setPID(prolific_ID);
       
       
@@ -526,12 +526,12 @@ const StartTraining = (props) => {
       // setBankStatus(itemBank["status"])
       // var item_state = require("./training_set_config/item"+currentItem+"_initialize.json");
       // setCurrentItemState(item_state);
-      // console.log(item_state)
-      // console.log(itemBank["status"])
+      // // console.log(item_state)
+      // // console.log(itemBank["status"])
     }, [])
 
 //   var training_set = require("./training_set.json");
-//   console.log(training_set)
+//   // console.log(training_set)
 
 
   if (isClient) {
@@ -542,16 +542,16 @@ const StartTraining = (props) => {
     // let mark_spec = require("./question_vis/item1.json");
     // let vis_spec = training_set["item"+currentItem.toString()]["initialize"]["question_vis"]
     // let vis_json = require(loadVis)
-    // console.log(itemBank["item"+currentItem.toString()])
+    // // console.log(itemBank["item"+currentItem.toString()])
     // setLoadVis(itemBank["item"+currentItem.toString()]["initialize"]["question_vis"])
     // itemBank["status"]["item"+currentItem] = true
     // setBankStatus(itemBank["status"])
     // var item_state = require("./training_set_config/item"+currentItem+"_initialize.json");
     // setCurrentItemState(item_state);
-    // console.log(item_state)
-    // console.log(itemBank["status"])
+    // // console.log(item_state)
+    // // console.log(itemBank["status"])
     document.getElementById(currentChartType+"_container").classList.add("selectedChart")
-    console.log(loadVis)
+    // console.log(loadVis)
     // let mark_spec = require(training_set["item"+currentItem.toString()]["initialize"]["question_vis"]);
     embed('#questionVis', loadVis, {"actions": false});
     if (itemBank[currentItem]["question_meta_data"]["highlight_component"] == "mark") {
@@ -561,7 +561,7 @@ const StartTraining = (props) => {
     } else if (itemBank[currentItem]["question_meta_data"]["highlight_component"] == "transformations") {
       document.getElementById("transformations").classList.add("highlightBackground")
     }
-    // console.log(require(mark_spec))
+    // // console.log(require(mark_spec))
   }
 
   
@@ -569,26 +569,26 @@ const StartTraining = (props) => {
   let chart_types = Object.keys(tileSets)
   // let types_list = chart_types.charts_index;
   // let tile_types = chart_types.types
-  console.log(chart_types)
+  // console.log(chart_types)
 
   let transformations = tileSets[currentChartType]["transformations"];
   // let actions_list = transformations.transformation_index;
   // let action_types = transformations.actions
-  // console.log(action_types)
+  // // console.log(action_types)
 
   let encodings = tileSets[currentChartType]["encodings"];
-  console.log(encodings)
-  // console.log(chartTypeSelected)
-  // console.log(encodings[chartTypeSelected])
+  // console.log(encodings)
+  // // console.log(chartTypeSelected)
+  // // console.log(encodings[chartTypeSelected])
 
   let read_dataset = dataset;
-  console.log(read_dataset)
+  // console.log(read_dataset)
   let data_columns = Object.keys(read_dataset)
-  console.log(data_columns)
+  // console.log(data_columns)
   
   const changeChartType = (clicked_chart) => {
-    console.log("clicked")
-    console.log(clicked_chart)
+    // console.log("clicked")
+    // console.log(clicked_chart)
     setChartTypeSelected(clicked_chart);
     setCurrentChartType(clicked_chart)
     let state_change = currentItemState
@@ -598,7 +598,7 @@ const StartTraining = (props) => {
     let vis_update = loadVis
     updateMark(vis_update, clicked_chart)
     let chart_tiles = document.getElementsByClassName("chartTilesContainer")
-    console.log(chart_tiles)
+    // console.log(chart_tiles)
     for (let index = 0; index < chart_tiles.length; index += 1) {
       if (chart_tiles[index].classList.contains("selectedChart")) {
         chart_tiles[index].classList.remove("selectedChart");
@@ -609,20 +609,20 @@ const StartTraining = (props) => {
 
   // const initiateIndicators = () => {
   //   let data_inputs = document.getElementsByClassName("inputData")
-  //   console.log(data_inputs)
+  //   // console.log(data_inputs)
   // }
 
 
   const drag = (element) => {
-    console.log("in drag")
-    console.log(element.dataTransfer)
-    console.log(element.target)
+    // console.log("in drag")
+    // console.log(element.dataTransfer)
+    // console.log(element.target)
     
     if (element.target.id.includes("data")) {
       let transformation_inputs = document.getElementsByClassName("inputTransformation")
-      console.log(transformation_inputs)
+      // console.log(transformation_inputs)
       for (let index = 0; index < transformation_inputs.length; index += 1) {
-        console.log(transformation_inputs[index].innerHTML)
+        // console.log(transformation_inputs[index].innerHTML)
         transformation_inputs[index].classList.remove("tileMovableSpace");
         transformation_inputs[index].classList.add("tileMoved")
         // highlight empty input spaces
@@ -631,11 +631,11 @@ const StartTraining = (props) => {
         // }
       }
       let data_inputs = document.getElementsByClassName("inputData")
-      console.log(data_inputs)
+      // console.log(data_inputs)
       let moving_data = element.target.id.split("-")
       for (let index = 0; index < data_inputs.length; index += 1) {
-        console.log("moveable???")
-        console.log(data_inputs[index].innerHTML)
+        // console.log("moveable???")
+        // console.log(data_inputs[index].innerHTML)
         data_inputs[index].classList.remove("tileMovableSpace");
         // transformation_inputs[index].classList.add("tileMoved")
         data_inputs[index].classList.remove("tileMoved")
@@ -646,16 +646,16 @@ const StartTraining = (props) => {
         // }
         // constraints
         let check_encoding = data_inputs[index].getAttribute('data-draggable').split("-")[1]
-        console.log(check_encoding)
+        // console.log(check_encoding)
         if (movableHighlighting("data", constraints, currentItemState, dataset, check_encoding, moving_data)) {
           data_inputs[index].classList.add("tileMovableSpace")
         }
       }
     } else if (element.target.id.includes("transformation")) {
       let data_inputs = document.getElementsByClassName("inputData")
-      console.log(data_inputs)
+      // console.log(data_inputs)
       for (let index = 0; index < data_inputs.length; index += 1) {
-        console.log(data_inputs[index].innerHTML)
+        // console.log(data_inputs[index].innerHTML)
         data_inputs[index].classList.remove("tileMovableSpace");
         data_inputs[index].classList.add("tileMoved")
         // highlight empty input spaces
@@ -664,12 +664,12 @@ const StartTraining = (props) => {
         // }
       }
       let transformation_inputs = document.getElementsByClassName("inputTransformation")
-      console.log(transformation_inputs)
-      console.log(element.target.id)
+      // console.log(transformation_inputs)
+      // console.log(element.target.id)
       let moving_transformation = element.target.id.split("-")
       for (let index = 0; index < transformation_inputs.length; index += 1) {
-        console.log("moveable???")
-        console.log(transformation_inputs[index].innerHTML)
+        // console.log("moveable???")
+        // console.log(transformation_inputs[index].innerHTML)
         transformation_inputs[index].classList.remove("tileMovableSpace");
         // transformation_inputs[index].classList.add("tileMoved")
         transformation_inputs[index].classList.remove("tileMoved")
@@ -680,7 +680,7 @@ const StartTraining = (props) => {
 
         // constraints
         let check_encoding = transformation_inputs[index].getAttribute('data-draggable').split("-")[1]
-        console.log(check_encoding)
+        // console.log(check_encoding)
         if (movableHighlighting("transformation", constraints, currentItemState, dataset, check_encoding, moving_transformation)) {
           transformation_inputs[index].classList.add("tileMovableSpace")
         }
@@ -712,19 +712,19 @@ const StartTraining = (props) => {
 
   const dataDrop = (ev) => {
     ev.preventDefault();
-    console.log("in drop")
-    console.log(ev.target)
-    // console.log(ev.target.getAttribute('data-draggable'))
+    // console.log("in drop")
+    // console.log(ev.target)
+    // // console.log(ev.target.getAttribute('data-draggable'))
     var data = ev.dataTransfer.getData("text");
     
-    console.log(data)
-    console.log(ev.dataTransfer)
+    // console.log(data)
+    // console.log(ev.dataTransfer)
     if (data.includes("data") && ev.target.getAttribute('data-draggable').includes("data_target")) {
       let state_change = currentItemState
       let consider_encoding = ev.target.getAttribute('data-draggable').split("-")[1]
       let consider_data = data.split("-")
       let from_encoding = ""
-      console.log(consider_data)
+      // console.log(consider_data)
       if (consider_data.length == 3) {
         from_encoding = consider_data[2]
       }
@@ -734,10 +734,10 @@ const StartTraining = (props) => {
           if (ev.target.innerHTML != "") {
             dataOverwrite(ev);
           } else {
-            console.log("dropping!")
+            // console.log("dropping!")
             let dragged_element_id = data; // save id of the dragged tile
             let element_id = data.split("-")
-            console.log(element_id)
+            // console.log(element_id)
             // if the tile has been dragged before (encoding is in id already)
             if (element_id.length == 3) {
               let remove_from_encoding = element_id[2];
@@ -750,7 +750,7 @@ const StartTraining = (props) => {
             let drop_container = ev.target;
             drop_container.innerHTML = "";
             if (data.includes("redrag")) {
-              console.log(document.getElementById(data))
+              // console.log(document.getElementById(data))
               drop_container.appendChild(document.getElementById(dragged_element_id)); // move instead of clone
               data = data.split("+")[1];
               drop_container.firstChild.id = data // reset id to not include "redrag" tag
@@ -758,29 +758,29 @@ const StartTraining = (props) => {
               drop_container.appendChild(document.getElementById(data).cloneNode(true));
             }
             
-            console.log(drop_container.firstChild)
+            // console.log(drop_container.firstChild)
             let add_data = data.split("-")[1]
             let find_encoding = drop_container.nextSibling.firstChild.id.split("-")[1] // TODO fix; check have an unique separator
             drop_container.firstChild.id += "-";
             drop_container.firstChild.id += find_encoding;
-            console.log(find_encoding)
+            // console.log(find_encoding)
             let vis_update = loadVis
             let updated_spec = updateEncodingMapping(vis_update, find_encoding, add_data, dataset);
-            console.log(state_change)
+            // console.log(state_change)
             state_change["encodings"][find_encoding]["data"] = add_data
             setCurrentItemState(state_change)
-            console.log(updated_spec)
-            console.log(loadVis)
+            // console.log(updated_spec)
+            // console.log(loadVis)
             // if (find_encoding.includes("color")) {
             //   vis_update["encoding"][find_encoding.split("_")[1]] = {"field": add_data, "type": "nominal"}; // TODO need a dictionary for looking up each data column type
             // }
             
-            // console.log(vis_update)
+            // // console.log(vis_update)
             setLoadVis(updated_spec)
             let data_inputs = document.getElementsByClassName("inputData")
-            console.log(data_inputs)
+            // console.log(data_inputs)
             for (let index = 0; index < data_inputs.length; index += 1) {
-              console.log(data_inputs[index].innerHTML)
+              // console.log(data_inputs[index].innerHTML)
               data_inputs[index].classList.remove("tileMovableSpace");
               data_inputs[index].classList.add("tileMoved")
               // highlight empty input spaces
@@ -791,19 +791,19 @@ const StartTraining = (props) => {
           }
       
         }
-      // console.log(loadVis)
+      // // console.log(loadVis)
       // embed('#questionVis', loadVis, {"actions": false});
       // let state_change = currentItemState
       
       // for (var [key, value] of Object.entries(currentItemState)) {
-      //   // console.log(key, value);
+      //   // // console.log(key, value);
         
-      //   // console.log(extract_data)
-      //   console.log(value["data"])
+      //   // // console.log(extract_data)
+      //   // console.log(value["data"])
       //   // TODO: fix this portion
       //   if (key == "seq_color" || key == "div_color") {
       //       // let extract_encoding = key.split("_")[0];
-      //       // console.log(extract_encoding)
+      //       // // console.log(extract_encoding)
       //       vis_update["encoding"]["color"] = {"field": add_data}
       //   }
           
@@ -823,9 +823,9 @@ const StartTraining = (props) => {
 
   const dataOverwrite = (ev) => {
     ev.preventDefault();
-    console.log("in data overwrite!!")
-    console.log(ev.target.id)
-    console.log(ev.target.getAttribute('data-draggable'))
+    // console.log("in data overwrite!!")
+    // console.log(ev.target.id)
+    // console.log(ev.target.getAttribute('data-draggable'))
     // dragged tile to border
     if (ev.target.getAttribute('data-draggable').includes("data_target") && ev.target.innerHTML != "") {
       ev.target = ev.target.firstChild // overwrite tile content if any
@@ -834,11 +834,11 @@ const StartTraining = (props) => {
       ev.target = ev.target.parentNode
     }
     let overwriting_space = ev.target.parentNode
-    console.log(overwriting_space)
+    // console.log(overwriting_space)
     let overwriting = ev.target.id.split("-")
     var new_data = ev.dataTransfer.getData("text");
     let new_data_split = new_data.split("-")
-    console.log(new_data)
+    // console.log(new_data)
     // let drop_container = ev.target;
     if (ev.target.id != new_data) {
       if (overwriting_space && document.getElementById(new_data) && overwriting.length == 3 && new_data_split[0] == "data") {
@@ -846,7 +846,7 @@ const StartTraining = (props) => {
         let consider_encoding = overwriting[2]
         let consider_data = new_data_split[1]
         let from_encoding = ""
-        console.log(consider_data)
+        // console.log(consider_data)
         if (new_data_split.length == 3) {
           from_encoding = new_data_split[2]
         }
@@ -870,11 +870,11 @@ const StartTraining = (props) => {
           overwriting_space.firstChild.id = new_data_split[0] + "-" + new_data_split[1]
           overwriting_space.firstChild.id += "-";
           overwriting_space.firstChild.id += overwriting[2];
-          console.log(overwriting_space.firstChild.id) // todo fix
+          // console.log(overwriting_space.firstChild.id) // todo fix
           let data_inputs = document.getElementsByClassName("inputData")
-            console.log(data_inputs)
+            // console.log(data_inputs)
             for (let index = 0; index < data_inputs.length; index += 1) {
-              console.log(data_inputs[index].innerHTML)
+              // console.log(data_inputs[index].innerHTML)
               data_inputs[index].classList.remove("tileMovableSpace");
               data_inputs[index].classList.add("tileMoved")
               // highlight empty input spaces
@@ -891,17 +891,17 @@ const StartTraining = (props) => {
 
   const transformationDrop = (ev) => {
     ev.preventDefault();
-    console.log("in transformation drop")
-    console.log(ev.target)
-    // console.log(ev.target.getAttribute('data-draggable'))
+    // console.log("in transformation drop")
+    // console.log(ev.target)
+    // // console.log(ev.target.getAttribute('data-draggable'))
     var data = ev.dataTransfer.getData("text");
-    console.log(data)
+    // console.log(data)
     if (data.includes("transformation") && ev.target.getAttribute('data-draggable').includes("transformation_target")) {
       let state_change = currentItemState
       let consider_encoding = ev.target.getAttribute('data-draggable').split("-")[1]
       let consider_transformation = data.split("-")
       let from_encoding = ""
-      console.log(consider_transformation)
+      // console.log(consider_transformation)
       if (consider_transformation.length == 3) {
         from_encoding = consider_transformation[2]
       }
@@ -911,11 +911,11 @@ const StartTraining = (props) => {
         if (ev.target.innerHTML != "") {
           transformationOverwrite(ev);
         } else {
-          console.log("dropping transformation!")
+          // console.log("dropping transformation!")
           let dragged_element_id = data; // save id of the dragged tile
           let element_id = data.split("-")
-          console.log(element_id)
-          console.log(data)
+          // console.log(element_id)
+          // console.log(data)
           // if the tile has been dragged before (encoding is in id already)
           if (element_id.length == 3) {
             let remove_from_encoding = element_id[2];
@@ -928,7 +928,7 @@ const StartTraining = (props) => {
           let drop_container = ev.target;
           drop_container.innerHTML = "";
           if (data.includes("redrag")) {
-            console.log(document.getElementById(data))
+            // console.log(document.getElementById(data))
             drop_container.appendChild(document.getElementById(dragged_element_id)); // move instead of clone
             data = data.split("+")[1];
             drop_container.firstChild.id = data // reset id to not include "redrag" tag
@@ -936,7 +936,7 @@ const StartTraining = (props) => {
             drop_container.appendChild(document.getElementById(data).cloneNode(true));
           }
           let add_transformation = data.split("-")[1]
-          console.log(drop_container)
+          // console.log(drop_container)
           let find_transformation_encoding = drop_container.previousSibling.firstChild.id.split("-")[1]
           drop_container.firstChild.id += "-";
           drop_container.firstChild.id += find_transformation_encoding;
@@ -954,12 +954,12 @@ const StartTraining = (props) => {
           // }
           // vis_update["encoding"][extract_transformation_encoding]["aggregate"] = add_transformation; // TODO need a dictionary for looking up each data column type and where the transformaiton should be
           // ev.preventDefault();
-          console.log(updated_spec)
+          // console.log(updated_spec)
           setLoadVis(updated_spec)
           let transformation_inputs = document.getElementsByClassName("inputTransformation")
-          console.log(transformation_inputs)
+          // console.log(transformation_inputs)
           for (let index = 0; index < transformation_inputs.length; index += 1) {
-            console.log(transformation_inputs[index].innerHTML)
+            // console.log(transformation_inputs[index].innerHTML)
             transformation_inputs[index].classList.remove("tileMovableSpace");
             transformation_inputs[index].classList.add("tileMoved")
             // highlight empty input spaces
@@ -970,7 +970,7 @@ const StartTraining = (props) => {
         }
       }
       
-      // console.log(loadVis)
+      // // console.log(loadVis)
       // embed('#questionVis', loadVis, {"actions": false});
     } else if (data.includes("transformation") && ev.target.getAttribute('data-draggable') == "overwrite") {
       transformationOverwrite(ev);
@@ -983,19 +983,19 @@ const StartTraining = (props) => {
 
   const transformationOverwrite = (ev) => {
     ev.preventDefault();
-    console.log("in transformation overwrite!!")
-    console.log(ev.target.id)
+    // console.log("in transformation overwrite!!")
+    // console.log(ev.target.id)
     // dragged tile to border
     if (ev.target.getAttribute('data-draggable').includes("transformation_target") && ev.target.innerHTML != "") {
       ev.target = ev.target.firstChild // overwrite tile content if any
     }
     let overwriting_space = ev.target.parentNode
-    console.log(overwriting_space)
+    // console.log(overwriting_space)
     let overwriting = ev.target.id.split("-")
-    console.log(overwriting)
+    // console.log(overwriting)
     var new_transformation = ev.dataTransfer.getData("text");
     let new_transformation_split = new_transformation.split("-")
-    console.log(new_transformation)
+    // console.log(new_transformation)
     // let drop_container = ev.target;
     if (ev.target.id != new_transformation) {
       if (overwriting_space && document.getElementById(new_transformation) && overwriting.length == 3 && new_transformation_split[0] == "transformation") {
@@ -1003,7 +1003,7 @@ const StartTraining = (props) => {
         let consider_encoding = overwriting[2]
         let consider_data = new_transformation_split[1]
         let from_encoding = ""
-        console.log(consider_data)
+        // console.log(consider_data)
         if (new_transformation_split.length == 3) {
           from_encoding = new_transformation_split[2]
         }
@@ -1025,11 +1025,11 @@ const StartTraining = (props) => {
           overwriting_space.firstChild.id = new_transformation_split[0] + "-" + new_transformation_split[1]
           overwriting_space.firstChild.id += "-";
           overwriting_space.firstChild.id += overwriting[2];
-          console.log(overwriting_space.firstChild.id) // todo fix
+          // console.log(overwriting_space.firstChild.id) // todo fix
           let transformation_inputs = document.getElementsByClassName("inputTransformation")
-          console.log(transformation_inputs)
+          // console.log(transformation_inputs)
           for (let index = 0; index < transformation_inputs.length; index += 1) {
-            console.log(transformation_inputs[index].innerHTML)
+            // console.log(transformation_inputs[index].innerHTML)
             transformation_inputs[index].classList.remove("tileMovableSpace");
             transformation_inputs[index].classList.add("tileMoved")
             // highlight empty input spaces
@@ -1039,7 +1039,7 @@ const StartTraining = (props) => {
           }
         }
         
-        // console.log(loadVis)
+        // // console.log(loadVis)
         // embed('#questionVis', loadVis, {"actions": false});
         
       }
@@ -1047,27 +1047,27 @@ const StartTraining = (props) => {
   }
 
   const removeDataTile = (ev) => {
-    console.log("in click")
-    console.log(ev.target)
-    console.log(ev.target.id)
-    console.log(loadVis)
-    console.log(currentItemState)
+    // console.log("in click")
+    // console.log(ev.target)
+    // console.log(ev.target.id)
+    // console.log(loadVis)
+    // console.log(currentItemState)
     if (ev.target.id.includes("data")) {
       let state_change = currentItemState
       let vis_update = loadVis
       let mapping_info = ev.target.id.split("-")
       removeDataEncoding(vis_update, mapping_info[2], mapping_info[1])
       // for (var [key, value] of Object.entries(currentItemState)) {
-      //   // console.log(key, value);
+      //   // // console.log(key, value);
       //   let extract_data = ev.target.id.split("-")[1]
-      //   // console.log(extract_data)
-      //   console.log(value["data"])
+      //   // // console.log(extract_data)
+      //   // console.log(value["data"])
       //   if (value["data"] == extract_data) {
-      //     console.log(key)
+      //     // console.log(key)
       //     // TODO: fix this portion
       //     if (key == "x_axis" || key == "y_axis") {
       //       let extract_encoding = key.split("_")[0];
-      //       console.log(extract_encoding)
+      //       // console.log(extract_encoding)
       //       vis_update["encoding"][extract_encoding] = ""
       //     } else {
       //       vis_update["encoding"][key] = ""
@@ -1079,23 +1079,23 @@ const StartTraining = (props) => {
       setLoadVis(vis_update);
       // setCurrentItemState(state_change)
       // embed('#questionVis', loadVis, {"actions": false});
-      // console.log(vis_update)
-      // console.log(ev.target.parentNode)
+      // // console.log(vis_update)
+      // // console.log(ev.target.parentNode)
       ev.target.parentNode.innerHTML = "";
     }
   }
 
   const dragOff = (ev) => {
-    console.log("in dragOff!")
-    console.log(ev.target)
+    // console.log("in dragOff!")
+    // console.log(ev.target)
     var data = ev.dataTransfer.getData("text");
-    console.log(data)
+    // console.log(data)
     let tile_parentNode = document.getElementById(data)
     if (document.getElementById(data)) {
       tile_parentNode = document.getElementById(data).parentNode
     }
     
-    console.log(tile_parentNode)
+    // console.log(tile_parentNode)
     if (data.split("-").length == 3 && ev.target.getAttribute('data-draggable') == "removing") {
       let state_change = currentItemState
       if (data.includes("data")) {
@@ -1108,18 +1108,18 @@ const StartTraining = (props) => {
         setLoadVis(vis_update);
         // setCurrentItemState(state_change)
         // embed('#questionVis', loadVis, {"actions": false});
-        // console.log(vis_update)
-        // console.log(ev.target.parentNode)
+        // // console.log(vis_update)
+        // // console.log(ev.target.parentNode)
         // ev.target.parentNode.innerHTML = "";
-        console.log(tile_parentNode)
+        // console.log(tile_parentNode)
         if (tile_parentNode) {
           tile_parentNode.innerHTML = "";
         }
         
         let data_inputs = document.getElementsByClassName("inputData")
-        console.log(data_inputs)
+        // console.log(data_inputs)
         for (let index = 0; index < data_inputs.length; index += 1) {
-          console.log(data_inputs[index].innerHTML)
+          // console.log(data_inputs[index].innerHTML)
           data_inputs[index].classList.remove("tileMovableSpace");
           data_inputs[index].classList.add("tileMoved")
           // highlight empty input spaces
@@ -1136,17 +1136,17 @@ const StartTraining = (props) => {
         setLoadVis(vis_update);
         // setCurrentItemState(state_change)
         // embed('#questionVis', loadVis, {"actions": false});
-        // console.log(vis_update)
-        // console.log(state_change)
-        // console.log(ev.target.parentNode)
+        // // console.log(vis_update)
+        // // console.log(state_change)
+        // // console.log(ev.target.parentNode)
         // ev.target.parentNode.innerHTML = "";
         if (tile_parentNode) {
           tile_parentNode.innerHTML = "";
         }
         let transformation_inputs = document.getElementsByClassName("inputTransformation")
-        console.log(transformation_inputs)
+        // console.log(transformation_inputs)
         for (let index = 0; index < transformation_inputs.length; index += 1) {
-          console.log(transformation_inputs[index].innerHTML)
+          // console.log(transformation_inputs[index].innerHTML)
           transformation_inputs[index].classList.remove("tileMovableSpace");
           transformation_inputs[index].classList.add("tileMoved")
           // highlight empty input spaces
@@ -1160,30 +1160,30 @@ const StartTraining = (props) => {
   }
 
   const removeTransformationTile =(ev) => {
-    console.log("in transformation click")
-    console.log(ev.target.id)
-    console.log(loadVis)
-    console.log(currentItemState)
+    // console.log("in transformation click")
+    // console.log(ev.target.id)
+    // console.log(loadVis)
+    // console.log(currentItemState)
     if (ev.target.id.includes("transformation")) {
       let state_change = currentItemState
       let vis_update = loadVis
       let mapping_info = ev.target.id.split("-")
       removeTransformationEncoding(vis_update, mapping_info[2], mapping_info[1]);
       // for (var [key, value] of Object.entries(currentItemState)) {
-      //   // console.log(key, value);
+      //   // // console.log(key, value);
       //   let extract_transformation = ev.target.id.split("-")[1]
-      //   // console.log(extract_data)
-      //   console.log(value["transformation"])
+      //   // // console.log(extract_data)
+      //   // console.log(value["transformation"])
       //   if (value["transformation"] == extract_transformation) {
-      //     console.log(key)
+      //     // console.log(key)
       //     // TODO: fix this portion
-      //     console.log(ev.target.parentNode.previousSibling.firstChild.id)
+      //     // console.log(ev.target.parentNode.previousSibling.firstChild.id)
       //     let corresponding_encoding = ev.target.parentNode.previousSibling.firstChild.id.split("-")[1]
       //     // let extract_encoding = key.split("_")[0];
-      //     // console.log(extract_encoding)
+      //     // // console.log(extract_encoding)
       //     if (key == corresponding_encoding) {
       //       if (key == "x_axis" || key == "y_axis") {
-      //         console.log("deleting for"+key.split("_")[0])
+      //         // console.log("deleting for"+key.split("_")[0])
       //         delete vis_update["encoding"][key.split("_")[0]]["aggregate"]
       //         state_change[key]["transformation"] = ""
       //       } else {
@@ -1198,16 +1198,16 @@ const StartTraining = (props) => {
       setLoadVis(vis_update);
       // setCurrentItemState(state_change)
       // embed('#questionVis', loadVis, {"actions": false});
-      // console.log(vis_update)
-      // console.log(state_change)
-      // console.log(ev.target.parentNode)
+      // // console.log(vis_update)
+      // // console.log(state_change)
+      // // console.log(ev.target.parentNode)
       ev.target.parentNode.innerHTML = "";
     }
   }
 
   const opacityChange = (ev) => {
-    console.log("in hover opacity")
-    console.log(ev.target.id)
+    // console.log("in hover opacity")
+    // console.log(ev.target.id)
     let check_mapped = ev.target.id.split("-")
     if (check_mapped.length == 3) {
       document.getElementById(ev.target.id).classList.remove("removeMouseOut")
@@ -1217,8 +1217,8 @@ const StartTraining = (props) => {
   }
 
   const restoreOpacity = (ev) => {
-    console.log("in hover opacity")
-    console.log(ev.target.id)
+    // console.log("in hover opacity")
+    // console.log(ev.target.id)
     let check_mapped = ev.target.id.split("-")
     if (check_mapped.length == 3) {
       document.getElementById(ev.target.id).classList.add("removeMouseOut")
@@ -1228,8 +1228,8 @@ const StartTraining = (props) => {
   }
 
   const displayDescription = (for_data) => {
-    console.log("in display descriptions for data!")
-    console.log(for_data)
+    // console.log("in display descriptions for data!")
+    // console.log(for_data)
     document.getElementById("descriptionTitle").classList.remove("hideDescription")
     document.getElementById(for_data+"_description").classList.add("showDescription")
     document.getElementById(for_data+"_description").classList.remove("hideDescription")
@@ -1239,8 +1239,8 @@ const StartTraining = (props) => {
   }
 
   const removeDescription = (for_data) => {
-    console.log("in remove descriptions for data!")
-    console.log(for_data)
+    // console.log("in remove descriptions for data!")
+    // console.log(for_data)
     document.getElementById("descriptionTitle").classList.add("hideDescription")
     // document.getElementById(for_data+"_description").classList.add("showDescription")
     document.getElementById(for_data+"_description").classList.add("hideDescription")
@@ -1248,12 +1248,12 @@ const StartTraining = (props) => {
 
   const nextItem = (e) => {
     
-    console.log("clicking next")
+    // console.log("clicking next")
     let current_item = props.item;
     let next_item = current_item + 1
-    console.log(next_item)
+    // console.log(next_item)
     let text_answer = document.getElementById("questionAnswer").value
-    console.log(text_answer)
+    // console.log(text_answer)
     if (!text_answer) {
       document.getElementById("answerVis").classList.add("highlightRequired")
       document.getElementById("questionAnswer").classList.add("highlightRequired")
@@ -1265,7 +1265,7 @@ const StartTraining = (props) => {
     if (next_item > 100 && next_item <= 103) {
     //   setCurrentItem(next_item);
     //   setLoadVis(itemBank["item"+next_item.toString()]["initialize"]["question_vis"])
-    //   console.log(document.getElementsByClassName("inputSpace"))
+    //   // console.log(document.getElementsByClassName("inputSpace"))
       // let to_clear = document.getElementsByClassName("inputSpace")
       // for (let i = 0; i < to_clear.length; i += 1) {
       //   to_clear[i].innerHTML = "<p></p>";
@@ -1275,21 +1275,21 @@ const StartTraining = (props) => {
       // setCurrentItemState(current_item_state);
       // let clear_state = currentItemState
       // for (var [key, value] of Object.entries(currentItemState)) {
-      //   // console.log(key, value);
+      //   // // console.log(key, value);
       //   if (value["data"]) {
 
       //   }
       //   clear_state[key]["data"] = "";
       //   clear_state[key]["transformation"] = "";
       //   // let extract_data = ev.target.id.split("_")[1]
-      //   // // console.log(extract_data)
-      //   // console.log(value["data"])
+      //   // // // console.log(extract_data)
+      //   // // console.log(value["data"])
       //   // if (value["data"] == extract_data) {
-      //   //   console.log(key)
+      //   //   // console.log(key)
       //   //   // TODO: fix this portion
       //   //   if (key == "x_axis" || key == "y_axis") {
       //   //     let extract_encoding = key.split("_")[0];
-      //   //     console.log(extract_encoding)
+      //   //     // console.log(extract_encoding)
       //   //     vis_update["encoding"][extract_encoding] = ""
       //   //   } else {
       //   //     vis_update["encoding"][key] = ""
@@ -1303,10 +1303,10 @@ const StartTraining = (props) => {
     //   setCurrentItemState(next_item_state);
     //   itemBank["status"]["item"+next_item] = true
     //   setBankStatus(itemBank["status"])
-    //   console.log(currentItemState)
-    //   console.log(itemBank["status"])
+    //   // console.log(currentItemState)
+    //   // console.log(itemBank["status"])
       // let text_answer = document.getElementById("questionAnswer").value
-      // console.log(text_answer)
+      // // console.log(text_answer)
       if (text_answer) {
         // handleSubmit(e, "item_"+current_item, startTime, text_answer)
         let url_pid = "/?PROLIFIC_PID=" + pID;
@@ -1315,7 +1315,7 @@ const StartTraining = (props) => {
       
     } else if (next_item == 104) {
       let text_answer = document.getElementById("questionAnswer").value
-      console.log(text_answer)
+      // console.log(text_answer)
       if (text_answer) {
         // handleSubmit(e, "item_"+current_item, startTime, text_answer)
         let url_pid = "/?PROLIFIC_PID=" + pID;
@@ -1327,18 +1327,18 @@ const StartTraining = (props) => {
     // write to DB and reset [necessary/written variables]
   }
   // document.getElementById('exportText').addEventListener('click', function() {
-  //   console.log(document.getElementById('yourname').value)
+  //   // console.log(document.getElementById('yourname').value)
   // })
 
 
   // const queryString = window.location.search;
-  // console.log(queryString);
+  // // console.log(queryString);
 
   // const urlParams = new URLSearchParams(queryString);
-  // console.log(urlParams)
+  // // console.log(urlParams)
 
   // const prolificID = urlParams.get('PROLIFIC_PID')
-  // console.log(prolificID)
+  // // console.log(prolificID)
 
   // // setup API options
   // const options = {
@@ -1366,9 +1366,9 @@ const StartTraining = (props) => {
     
   //   // register vega and vega-lite with the API
   //   // vl.register(vega, vegaLite, options);
-  //   // console.log(data["data"]["values"][0])
+  //   // // console.log(data["data"]["values"][0])
     
-  //   // console.log(mark_spec)
+  //   // // console.log(mark_spec)
   //   // // .then(viewElement => {
   //   // //   // render returns a promise to a DOM element containing the chart
   //   // //   // viewElement.value contains the Vega View object instance
@@ -1385,7 +1385,7 @@ const StartTraining = (props) => {
   //     .toSpec()
 
   // // mark_spec_update = mark_spec.size("")
-  // console.log(mark_spec)
+  // // console.log(mark_spec)
 
   // if (isClient) {
   //   // let mark_spec = vl.markPoint()
@@ -1403,22 +1403,22 @@ const StartTraining = (props) => {
   //           return res.json();
   //       })
   //       .then((data) => {
-  //           console.log(data);
+  //           // console.log(data);
   //           chart_types = data
   //       })
   //       .catch((error) => 
   //           console.error("Unable to fetch data:", error));
     
-  //   console.log(chart_types)
+  //   // console.log(chart_types)
   // }
   
   
   
-  // console.log(JSON.stringify(mark_spec))
+  // // console.log(JSON.stringify(mark_spec))
   // var fs = require('fs');
   // fs.writeFile("vis_spec.json", mark_spec, function(err) {
   //     if (err) {
-  //         console.log(err);
+  //         // console.log(err);
   //     }
   // });
  
