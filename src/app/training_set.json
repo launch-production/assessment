@@ -205,7 +205,7 @@
     "item102": {
       "question_meta_data": {
         "question_text": "Drag 'weather' to the 'x-axis' encoding to replace 'date'. Change the mark type to 'point'. Enter 'weather-point' in the text box when you're done and click 'Next' on the bottom of this page to proceed.",
-        "question_topic": "The 'Data' tiles represent the dataset. Drag the desired data to encoding to plot it on the chart.",
+        "question_topic": "The 'Data' tiles represent the dataset the current question asks about. Drag the desired data to encoding to plot it on the chart. The possible places the dragged tile can go will be highlighted.",
         "highlight_component": "data"
       },
       "dataset": "seattle-weather",
@@ -291,7 +291,7 @@
     "item103": {
       "question_meta_data": {
         "question_text": "Drag 'count' to the 'y-axis' encoding to plot the count of records for each 'weather'. Remove data 'wind' by dragging the tile off. Change the mark type to 'bar'. Enter 'count-weather' in the text box when you're done and click 'Next' on the bottom of this page to proceed.",
-        "question_topic": "The 'Transformation' tiles represent the possible set of transformations. Drag the desired transformation to an encoding to transform that data encoding.",
+        "question_topic": "The 'Transformation' tiles represent the possible set of transformations. Drag the desired transformation to an encoding to transform that data encoding. The possible places the dragged tile can go will be highlighted.",
         "highlight_component": "transformations"
       },
       "dataset": "seattle-weather",
