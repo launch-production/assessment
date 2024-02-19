@@ -178,6 +178,35 @@
                 "transformation": ""
               }
           }  
+        },
+        "manage_state": {
+            "chart_type": "point",
+            "encodings": {
+              "x": {
+                  "data": "Horsepower", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "Miles_per_Gallon",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "Origin",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
         }
         
     },
@@ -234,6 +263,36 @@
               }
           }
             
+        },
+        "manage_state": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "Origin", 
+                  "transformation": "count"
+              },
+              "y": {
+                  "data": "",
+                  "transformation": "count"
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }
+            
         }
     },
     "item4": {
@@ -261,6 +320,36 @@
           }
         },
         "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "Miles_per_Gallon", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "Acceleration",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }
+            
+        },
+        "manage_state": {
             "chart_type": "bar",
             "encodings": {
               "x": {
@@ -348,6 +437,36 @@
               }
           }
             
+        },
+        "manage_state": {
+            "chart_type": "point",
+            "encodings": {
+              "x": {
+                  "data": "weather", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "wind",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "temp_min",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }
+            
         }
     },
     "item6": {
@@ -378,6 +497,36 @@
           }
         },
         "initialize": {
+            "chart_type": "line",
+            "encodings": {
+              "x": {
+                  "data": "date", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "temp_max",
+                  "transformation": "reverse"
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }
+            
+        },
+        "manage_state": {
             "chart_type": "line",
             "encodings": {
               "x": {
@@ -464,6 +613,36 @@
               }
           }
             
+        },
+        "manage_state": {
+            "chart_type": "point",
+            "encodings": {
+              "x": {
+                  "data": "Horsepower", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "Name",
+                "transformation": ""
+              }
+          }
+            
         }
     },
     "item8": {
@@ -492,6 +671,36 @@
           }
         },
         "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "weather", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "precipitation",
+                  "transformation": "mean"
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }
+            
+        },
+        "manage_state": {
             "chart_type": "bar",
             "encodings": {
               "x": {
@@ -572,6 +781,36 @@
               }
           }
             
+        },
+        "manage_state": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "wind", 
+                  "transformation": "mean"
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }
+            
         }
     },
     "item10": {
@@ -602,6 +841,36 @@
           }
         },
         "initialize": {
+            "chart_type": "point",
+            "encodings": {
+              "x": {
+                  "data": "Weight_in_lbs", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "Origin",
+                "transformation": ""
+              }
+          }
+            
+        },
+        "manage_state": {
             "chart_type": "point",
             "encodings": {
               "x": {
@@ -689,6 +958,36 @@
               }
           }
             
+        },
+        "manage_state": {
+            "chart_type": "line",
+            "encodings": {
+              "x": {
+                  "data": "date", 
+                  "transformation": "truncate"
+              },
+              "y": {
+                  "data": "temp_max",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }
+            
         }
     },
     "item12": {
@@ -716,6 +1015,36 @@
           }
         },
         "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "total_cases", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "region",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }
+            
+        },
+        "manage_state": {
             "chart_type": "bar",
             "encodings": {
               "x": {
