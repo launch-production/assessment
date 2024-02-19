@@ -91,6 +91,12 @@ function checkConstraints(input_to, constraint_set, current_state, data_columns,
       if (constraint_set[adding_data]["encodings"].includes(to_encoding)) {
         return false;
       }
+
+      if (adding_data == "des_sort") {
+        if (data_at_encoding == "") {
+          return false
+        }
+      }
   } else if (input_to == "data") {
     let data_at_encoding_type = data_columns[adding_data]["type"]
     console.log(data_at_encoding_type)
@@ -150,6 +156,14 @@ function movableHighlighting(input_to, constraint_set, current_state, data_colum
         if (to_consider.length != 3 && has_color != check_encoding) {
           return false;
         }
+      }
+    }
+
+    console.log(check_encoding)
+    if (considering_tile == "des_sort") {
+      let data_at_encoding = current_state["encodings"][check_encoding]["data"]
+      if (data_at_encoding == "") {
+        return false
       }
     }
     
@@ -264,6 +278,22 @@ function removeDataEncoding(vis_spec, encoding, remove_data) {
     vis_spec["encoding"][encoding]["field"] = "";
     vis_spec["encoding"][encoding]["type"] = "";
   }
+
+  // TODO double check
+  // if (encoding == "x") {
+  //   if (vis_spec["encoding"]["y"]["sort"]) {
+  //     vis_spec["encoding"]["y"]["sort"] = ""
+  //     console.log(document.getElementById("transformation-des_sort-"+encoding))
+  //     document.getElementById("transformation-des_sort-"+encoding).parentNode.innerHTML = ""
+  //   }
+  // } else if (encoding == "y") {
+  //   if (vis_spec["encoding"]["x"]["sort"]) {
+  //     vis_spec["encoding"]["x"]["sort"] = ""
+  //     console.log(document.getElementById("transformation-des_sort-"+encoding))
+  //     document.getElementById("transformation-des_sort-"+encoding).parentNode.innerHTML = ""
+  //   }
+  // }
+  
 
   document.getElementById("questionAnswer").focus()
   embed('#questionVis', vis_spec, {"actions": false});
@@ -422,7 +452,8 @@ const StartTraining = (props) => {
   const [currentChartType, setCurrentChartType] = useState(props.training_set["item"+props.item]["initialize"]["chart_type"]);
   const [dataset, setDataset] = useState(props.training_set["datasets"][props.training_set["item"+props.item]["dataset"]]);
   const [loadVis, setLoadVis] = useState(props.training_set["item"+props.item]["question_vis"]);
-  const [currentItemState, setCurrentItemState] = useState(props.training_set["item"+props.item]["initialize"]);
+  const [currentItemState, setCurrentItemState] = useState(props.training_set["item"+props.item]["manage_state"]);
+  const [initializeState, setInitializeState] = useState(props.training_set["item"+props.item]["initialize"]);
   const [bankStatus, setBankStatus] = useState({});
   const [noTransformationDisplay, setNoTransformationDisplay] = useState([]);
   const [pID, setPID] = useState("");
@@ -615,6 +646,7 @@ const StartTraining = (props) => {
         // }
         // constraints
         let check_encoding = data_inputs[index].getAttribute('data-draggable').split("-")[1]
+        console.log(check_encoding)
         if (movableHighlighting("data", constraints, currentItemState, dataset, check_encoding, moving_data)) {
           data_inputs[index].classList.add("tileMovableSpace")
         }
@@ -648,6 +680,7 @@ const StartTraining = (props) => {
 
         // constraints
         let check_encoding = transformation_inputs[index].getAttribute('data-draggable').split("-")[1]
+        console.log(check_encoding)
         if (movableHighlighting("transformation", constraints, currentItemState, dataset, check_encoding, moving_transformation)) {
           transformation_inputs[index].classList.add("tileMovableSpace")
         }
@@ -1473,7 +1506,7 @@ const StartTraining = (props) => {
                   { Object.entries(encodings).map((encoding_icon, index) => (
                     <div className='mappingContainer' key={"mapping-"+index}>
                       <div className='inputSpace inputData' key={"input-"+index} data-draggable={"data_target-"+encoding_icon[0]} onDrop={(event) => dataDrop(event)} onDragOver={(event) => allowDrop(event)} draggable="true" onDragStart={(event) => drag(event)}>
-                        { Object.entries(currentItemState["encodings"]).map((data_mapping, index) => (
+                        { Object.entries(initializeState["encodings"]).map((data_mapping, index) => (
                           (data_mapping[0] == encoding_icon[0] && data_mapping[1]["data"]) ? 
                             <div key={"fill-data-"+index} className="dataTiles" id={"data-"+data_mapping[1]["data"]+"-"+encoding_icon[0]} draggable="true" onDragStart={(event) => drag(event)} data-draggable="overwrite" onDrop={(event) => dataOverwrite(event)} onDragOver={(event) => allowDrop(event)}><p data-draggable="overwrite-parent" onDrop={(event) => dataOverwrite(event)} onDragOver={(event) => allowDrop(event)}>{data_mapping[1]["data"]}</p></div>
                           : null
@@ -1483,7 +1516,7 @@ const StartTraining = (props) => {
                         <img id={"encoding-"+encoding_icon[0]} src={encoding_icon[1]}></img>
                       </div>
                       <div className='inputSpace inputTransformation' key={"input-transform"+index} data-draggable={"transformation_target-"+encoding_icon[0]} onDrop={(event) => transformationDrop(event)} onDragOver={(event) => allowDrop(event)} draggable="true" onDragStart={(event) => drag(event)}>
-                      { Object.entries(currentItemState["encodings"]).map((data_mapping, index) => (
+                      { Object.entries(initializeState["encodings"]).map((data_mapping, index) => (
                           (data_mapping[0] == encoding_icon[0] && data_mapping[1]["transformation"]) ? 
                             <img key={"fill-transformation-"+index} src={transformations[data_mapping[1]["transformation"]]} id={"transformation-"+data_mapping[1]["transformation"]+"-"+encoding_icon[0]} className="transformationTiles" draggable="true" onDragStart={(event) => drag(event)} data-draggable="overwrite" onDrop={(event) => transformationOverwrite(event)} onDragOver={(event) => allowDrop(event)}></img>
                           : null

@@ -84,6 +84,35 @@
                 "transformation": ""
               }
           }  
+        },
+        "manage_state": {
+            "chart_type": "point",
+            "encodings": {
+              "x": {
+                  "data": "date", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "wind",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
         }
         
     },
@@ -114,6 +143,35 @@
           }
         },
         "initialize": {
+            "chart_type": "point",
+            "encodings": {
+              "x": {
+                  "data": "date", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "wind",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
             "chart_type": "point",
             "encodings": {
               "x": {
@@ -198,6 +256,35 @@
                 "transformation": ""
               }
           }  
+        },
+        "manage_state": {
+            "chart_type": "line",
+            "encodings": {
+              "x": {
+                  "data": "date", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "wind",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
         }
         
     },
@@ -255,6 +342,35 @@
                 "transformation": ""
               }
           }  
+        },
+        "manage_state": {
+            "chart_type": "point",
+            "encodings": {
+              "x": {
+                  "data": "weather", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "wind",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
         }
         
     },
@@ -285,6 +401,35 @@
           }
         },
         "initialize": {
+            "chart_type": "point",
+            "encodings": {
+              "x": {
+                  "data": "weather", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "wind",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
             "chart_type": "point",
             "encodings": {
               "x": {

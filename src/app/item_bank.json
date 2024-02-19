@@ -90,7 +90,36 @@
                 "transformation": ""
               }
           }  
-        }
+        },
+        "manage_state": {
+          "chart_type": "point",
+          "encodings": {
+            "x": {
+                "data": "weather", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "precipitation",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "temp_min",
+              "transformation": ""
+            }
+        }  
+      }
         
     },
     "item2": {
