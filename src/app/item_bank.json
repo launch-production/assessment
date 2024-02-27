@@ -55,7 +55,7 @@
     },
     "training1": {
       "question_meta_data": {
-        "question_text": "Use the given tiles to reconstruct the chart shown on the left.",
+        "question_text": "Use the given tiles to reconstruct the chart shown below.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "seattle-weather",

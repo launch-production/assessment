@@ -40,7 +40,7 @@ img {
 }
 
 #data {
-  margin-left: 4rem;
+  margin-left: 2rem;
   margin-right: 4rem;
   margin-bottom: 1rem;
   width: 8rem;
@@ -156,7 +156,7 @@ img {
 
 #questionVis {
   height: 300px;
-  width: 300px;
+  width: 400px;
   padding-bottom: 1rem;
   overflow-y: scroll;
   overflow-x: scroll;

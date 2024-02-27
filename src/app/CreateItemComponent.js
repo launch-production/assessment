@@ -1445,16 +1445,29 @@ const CreateItemComponent = (props) => {
         {isClient ? <QuestionText question={itemBank[currentItem]["question_meta_data"]}></QuestionText> : null}
         {!showTextBox ? <div id="workingTiles">
             <div id='chartTypes'>
-                <p>Select chart type</p>
-                <div id="chartTypesTiles">
-                {chart_types.map(chart_tiles => (
-                    <div className="chartTilesContainer" key={chart_tiles} id={chart_tiles+"_container"}>
-                        <img className="chartTiles" src={tileSets[chart_tiles]["chart"]} onClick={() => changeChartType(chart_tiles)}></img>
+            {!props.assessment ? <div id="toReconstruct"></div> : null}
+                {props.assessment ? <div>
+                    <p>Select chart type</p>
+                    <div id="chartTypesTiles">
+                    {chart_types.map(chart_tiles => (
+                        <div className="chartTilesContainer" key={chart_tiles} id={chart_tiles+"_container"}>
+                            <img className="chartTiles" src={tileSets[chart_tiles]["chart"]} onClick={() => changeChartType(chart_tiles)}></img>
+                        </div>
+                    ))}
                     </div>
-                ))}
-                </div>
+                </div> : null}
             </div>
             <div id='data'>
+                {!props.assessment ? <div id='chartTypes'>
+                    <p>Select chart type</p>
+                    <div id="chartTypesTiles">
+                    {chart_types.map(chart_tiles => (
+                        <div className="chartTilesContainer" key={chart_tiles} id={chart_tiles+"_container"}>
+                            <img className="chartTiles" src={tileSets[chart_tiles]["chart"]} onClick={() => changeChartType(chart_tiles)}></img>
+                        </div>
+                    ))}
+                    </div>
+                </div> : null}
                 <p>Drag variables to spaces for "Data"</p>
                 <div id="datasetTiles">
                 {data_columns.map(variable => (
@@ -1478,7 +1491,7 @@ const CreateItemComponent = (props) => {
             </div>
         </div> : null}
         <div id='visContainer' >
-            {!props.assessment ? <div id="toReconstruct"></div> : null}
+            
             { !showTextBox ? <div id="yAxis">
                 <p id="yAxisLabel"><b>Y-axis</b></p>
                 <div id='encodings'>
