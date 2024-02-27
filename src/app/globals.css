@@ -260,7 +260,8 @@ img {
   background-color: WhiteSmoke;
   /* padding-bottom: 1rem; */
   width: 15vw;
-  height: 98vh;
+  min-height: 98vh;
+  /* height: 100vh; */
   border: 1px dashed;
 }
 
@@ -379,11 +380,13 @@ img {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  height: max-content;
 }
 
 #interactionZone {
   padding-left: 1rem;
   padding-right: 1rem;
   width: fit-content;
+  /* height: 1000px; */
   margin: auto;
 }
