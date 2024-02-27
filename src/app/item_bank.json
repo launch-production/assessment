@@ -28,9 +28,221 @@
         "total_population": {"type": "quantitative", "full_name": "Total population", "description": "Total population in a region.", "truncate": null},
         "total_cases": {"type": "quantitative", "full_name": "Total confirmed cases", "description": "Total number of confirmed cases in a region.", "truncate": null},
         "cases_per_100_people": {"type": "quantitative", "full_name": "Cases per 100 people", "description": "Confirmed cases per 100 people in a region.", "truncate": null}
+      },
+      "movies": {
+        "Title": {"type": "nominal", "full_name": "Movie title", "description": "", "truncate": null},
+        "US_Gross": {"type": "quantitative", "full_name": "US profit (dollars)", "description": "", "truncate": null},
+        "Worldwide_Gross": {"type": "quantitative", "full_name": "Worldwide profit (dollars)", "description": "", "truncate": null},
+        
+        "Production_Budget": {"type": "quantitative", "full_name": "Production Budget (dollars)", "description": "", "truncate": null},
+        "Release_Date": {"type": "temporal", "full_name": "Release date", "description": "", "truncate": null},
+        
+        "IMDB_Rating": {"type": "quantitative", "full_name": "IMDB rating", "description": "", "truncate": null}
+        
+      },
+      "movies_archive": {
+        "US_DVD_Sales": {"type": "quantitative", "full_name": "DVD sales (dollars)", "description": "", "truncate": null},
+        "MPAA_Rating": {"type": "nominal", "full_name": "MPAA rating", "description": "", "truncate": null},
+        "Running_Time_min": {"type": "quantitative", "full_name": "Minimum running time", "description": "", "truncate": null},
+        "Distributor": {"type": "nominal", "full_name": "Distributor", "description": "", "truncate": null},
+        "Source": {"type": "nominal", "full_name": "Source", "description": "", "truncate": null},
+        "Major_Genre": {"type": "nominal", "full_name": "Genre", "description": "", "truncate": null},
+        "Creative_Type": {"type": "nominal", "full_name": "Creative type", "description": "", "truncate": null},
+        "Director": {"type": "nominal", "full_name": "Director", "description": "", "truncate": null},
+        "Rotten_Tomatoes_Rating": {"type": "ordinal", "full_name": "Rotten tomatoes rating", "description": "", "truncate": null},
+        "IMDB_Votes": {"type": "quantitative", "full_name": "IMDB votes", "description": "", "truncate": null}
       }
     },
+    "training1": {
+      "question_meta_data": {
+        "question_text": "Use the given tiles to reconstruct the chart shown on the left.",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "seattle-weather",
+      "model_vis": {
+        "data": {
+          "url": "data/seattle-weather.json"
+        },
+        "mark": {
+          "type": "point"
+        },
+        "encoding": {
+          "x": {
+            "field": "temp_max",
+            "type": "quantitative"
+          },
+          "y": {
+            "field": "temp_min",
+            "type": "quantitative"
+            
+          }
+        }
+      },
+      "question_vis": {
+          "data": {
+            "url": "data/seattle-weather.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
     "item1": {
+      "question_meta_data": {
+        "question_text": "Create a chart that will tell you how the maximum temperature changed in 2014.",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "seattle-weather",
+      "question_vis": {
+          "data": {
+            "url": "data/seattle-weather.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item0": {
       "question_meta_data": {
         "question_text": "When the precipitation is less than 10mm but greater than 0mm, what is weather in which Seattle reaches the lowest minimum temperature?",
         "question_topic": "weather in Seattle"

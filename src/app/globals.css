@@ -39,17 +39,39 @@ img {
   width: 4rem;
 }
 
-#chartTypes, #encodings, #data, #transformations {
+#data {
   margin-left: 4rem;
   margin-right: 4rem;
   margin-bottom: 1rem;
   width: 8rem;
-  text-align: center;
+  /* text-align: center; */
+}
+
+#encodings {
+  display: flex;
+  flex-direction: column;
+}
+
+#encodingsColorSize {
+  display: flex;
+  flex-direction: column;
+}
+
+.mappingContainerColorSize {
+  display: flex;
+  flex-direction: row;
 }
 
 #chartTypes {
   padding-bottom: 1rem;
   margin-bottom: 0px;
+  width: fit-content;
+}
+
+#chartTypesTiles {
+  display: flex;
+  flex-direction: row;
+
 }
 
 #encodings {
@@ -79,20 +101,23 @@ img {
   flex-wrap: wrap;
 } */
 
-#chartTypes {
+/* #chartTypes {
   margin-right: 4rem;
-}
+} */
 
 #visContainer, #questionContainer {
   margin: auto;
-  width: fit-content;
-  margin-top: 2rem;
+  /* margin-top: 0.5rem; */
+}
+
+#visContainer {
+  width: 800px;
 }
 
 #questionContainer {
   overflow-wrap: normal;
   width: 800px;
-  padding: 0.5rem;
+  /* padding: 0.5rem; */
 }
 
 #trainingLabel {
@@ -109,8 +134,8 @@ img {
 #nextButton {
   margin: auto;
   width: 6rem;
-  margin-top: 2rem;
-  margin-bottom: 4rem;
+  margin-top: 4rem;
+  /* margin-bottom: 4rem; */
   border-width: 1px;
   border-style: solid;
   background-color: gray;
@@ -131,11 +156,20 @@ img {
 
 #questionVis {
   height: 300px;
-  width: 600px;
-  padding-bottom: 2rem;
+  width: 300px;
+  padding-bottom: 1rem;
   overflow-y: scroll;
   overflow-x: scroll;
   text-align: center;
+  margin-top: 2rem;
+}
+
+#toReconstruct {
+  height: 300px;
+  width: 300px;
+  margin-right: 2rem;
+  margin-top: 2rem;
+  padding-bottom: 1rem;
 }
 
 .inputSpace {
@@ -149,12 +183,12 @@ img {
 
 .mappingContainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
-.dataTileContainer {
+.dataTileContainer, .transformationTileContainer {
   margin-bottom: 0.4rem;
-
+  margin-right: 0.5rem;
 }
 
 /* .dataDescriptionsContainer {
@@ -221,10 +255,21 @@ img {
 } */
 
 #mappingZone {
-  display: flex;
-  flex-direction: row;
+  /* display: flex;
+  flex-direction: row; */
   background-color: WhiteSmoke;
-  padding-bottom: 1rem;
+  /* padding-bottom: 1rem; */
+  width: 15vw;
+  height: 98vh;
+  border: 1px dashed;
+}
+
+#mappingZone p {
+  text-align: center;
+  width: fit-content;
+  margin: auto;
+  margin-top: 40vh;
+  color: gray;
 }
 
 .chartTiles:hover, .dataTiles:hover, #nextButton:hover, .transformationTiles:hover {
@@ -243,7 +288,7 @@ img {
 
 .selectedChart {
   width: fit-content;
-  margin: auto;
+  /* margin: auto; */
   background-color: #0033ff1c;
 }
 
@@ -272,4 +317,73 @@ img {
 #advanceContainer {
   display: flex;
   flex-direction: row;
+}
+
+#yAxis {
+  width: 66px;
+  height: 300px;
+  /* background-color: red; */
+}
+
+#mappingContainer p {
+  text-align: left;
+}
+
+#yAxisLabel, #xAxisLabel {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+#encoding_x {
+  display: flex;
+  flex-direction: column;
+}
+
+.mappingContainerX {
+  display: flex;
+  flex-direction: row;
+  
+}
+
+.xTiles {
+  margin-right: 1rem;
+}
+
+/* .xTiles p {
+  margin-top: 0px;
+} */
+
+.xContainer {
+  width: fit-content;
+  margin: auto;
+}
+
+#placeholder {
+  width: 105px;
+}
+
+#workingTiles {
+  display: flex;
+  flex-direction: row;
+  width: 800px;
+  margin: auto;
+}
+
+#datasetTiles, #actionTiles {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#globalContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#interactionZone {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width: fit-content;
+  margin: auto;
 }
