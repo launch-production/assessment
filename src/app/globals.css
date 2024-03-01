@@ -26,6 +26,12 @@ body {
     rgb(var(--background-start-rgb));
 } */
 
+select {
+  height: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 #tilesContainer {
   display: flex;
   flex-direction: row;
@@ -59,7 +65,9 @@ img {
 
 .mappingContainerColorSize {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  margin-bottom: 4rem;
+  margin-top: 2rem;
 }
 
 #chartTypes {
@@ -107,11 +115,12 @@ img {
 
 #visContainer, #questionContainer {
   margin: auto;
-  /* margin-top: 0.5rem; */
+  margin-top: 2rem;
 }
 
 #visContainer {
   width: 800px;
+  justify-content: space-evenly;
 }
 
 #questionContainer {
@@ -155,9 +164,8 @@ img {
 }
 
 #questionVis {
-  height: 300px;
-  width: 400px;
-  padding-bottom: 1rem;
+  height: 270px;
+  width: 370px;
   overflow-y: scroll;
   overflow-x: scroll;
   text-align: center;
@@ -321,8 +329,10 @@ img {
 }
 
 #yAxis {
-  width: 66px;
+  width: fit-content;
   height: 300px;
+  margin-top: 2rem;
+  /* margin-right: 1rem; */
   /* background-color: red; */
 }
 
@@ -330,8 +340,7 @@ img {
   text-align: left;
 }
 
-#yAxisLabel, #xAxisLabel {
-  margin-bottom: 0px;
+#xAxisLabel {
   margin-top: 0px;
 }
 
@@ -389,4 +398,17 @@ img {
   width: fit-content;
   /* height: 1000px; */
   margin: auto;
+}
+
+#placeholderInstructions {
+  background-color: whitesmoke;
+  height: 290px;
+  width: 370px;
+  position: absolute;
+  z-index: 2;
+  text-align: center;
+}
+
+#placeholderInstructions p {
+  margin-top: 30%;
 }

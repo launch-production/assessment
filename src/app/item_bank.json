@@ -16,12 +16,12 @@
         "Origin": {"type": "nominal", "full_name": "Origin", "description": "The origin of the car.", "truncate": null}
       },
       "seattle-weather": {
-        "date": {"type": "temporal", "full_name": "Date", "description": "Seattle on this date.", "truncate": ["2014-07-01", "2015-01-02"]},
-        "precipitation": {"type": "quantitative", "full_name": "Precipitation (mm)", "description": "Water that fall from clouds and reach the ground.", "truncate": [20, 60], "truncate_bar": []},
-        "temp_max": {"type": "quantitative", "full_name": "Maximum temperature", "description": "Maximum temperature on a particular day in Seattle.", "truncate": [10, 40]},
-        "temp_min": {"type": "quantitative", "full_name": "Minimum temperature", "description": "Minimum temperature on a particular day in Seattle.", "truncate": [0, 20]},
-        "wind": {"type": "quantitative", "full_name": "Wind speed (m/s)", "description": "The speed of wind in meters per second.", "truncate": [4, 10]},
-        "weather": {"type": "nominal", "full_name": "Weather", "description": "Weather on a particular day in Seattle.", "truncate": null}
+        "date": {"type": "temporal", "full_name": "Date", "description": "Seattle on this date.", "color": "qual", "truncate": ["2014-07-01", "2015-01-02"]},
+        "precipitation": {"type": "quantitative", "full_name": "Precipitation (mm)", "description": "Water that fall from clouds and reach the ground.", "color": "seq", "truncate": [20, 60], "truncate_bar": []},
+        "temp_max": {"type": "quantitative", "full_name": "Maximum temperature", "description": "Maximum temperature on a particular day in Seattle.",  "color": "seq", "truncate": [10, 40]},
+        "temp_min": {"type": "quantitative", "full_name": "Minimum temperature", "description": "Minimum temperature on a particular day in Seattle.",  "color": "div", "truncate": [0, 20]},
+        "wind": {"type": "quantitative", "full_name": "Wind speed (m/s)", "description": "The speed of wind in meters per second.",  "color": "qual", "truncate": [4, 10]},
+        "weather": {"type": "nominal", "full_name": "Weather", "description": "Weather on a particular day in Seattle.",  "color": "qual", "truncate": null}
       },
       "region-cases": {
         "region": {"type": "nominal", "full_name": "Region code", "description": "The code for a region in this dataset.", "truncate": null},
@@ -225,6 +225,10 @@
             "size": {
                 "data": "",
                 "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
             },
             "seq_color": {
                 "data": "",

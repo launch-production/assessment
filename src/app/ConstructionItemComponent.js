@@ -264,20 +264,46 @@ function updateEncodingMapping(vis_spec, encoding, update_to, data_columns) {
 
 }
 
-function removeDataEncoding(vis_spec, encoding, remove_data) {
+function updateDataEncoding(vis_spec, encoding, update_to, data_columns) {
+    console.log("in update data encoding for drop down")
+    console.log(encoding)
+    if (!vis_spec["encoding"][encoding]) {
+        vis_spec["encoding"][encoding] = {}
+    }
+    vis_spec["encoding"][encoding]["field"] = update_to
+    vis_spec["encoding"][encoding]["type"] = data_columns[update_to]["type"];
+    if (encoding == "color") {
+        let color_scheme = data_columns[update_to]["color"]
+        if (color_scheme == "div") {
+            vis_spec["encoding"]["color"]["scale"] = {"scheme": "purpleorange"};
+        } else if (color_scheme == "seq") {
+            vis_spec["encoding"]["color"]["scale"] = {"scheme": "purplebluegreen"};
+        } else if (color_scheme == "qual") {
+            vis_spec["encoding"]["color"]["scale"] = {"scheme": "dark2"};
+        }
+    }
+
+    embed('#questionVis', vis_spec, {"actions": false});
+    return vis_spec
+    
+}
+
+function removeDataEncoding(vis_spec, encoding) {
   console.log("in remove data encoding")
   console.log(vis_spec)
   console.log(encoding)
-  console.log(remove_data)
+//   console.log(remove_data)
   // console.log(mapping_state)
-  if (encoding.includes("color")) {
-    console.log(encoding);
-    vis_spec["encoding"]["color"]["field"] = "";
-    vis_spec["encoding"]["color"]["type"] = "";
-  } else {
-    vis_spec["encoding"][encoding]["field"] = "";
-    vis_spec["encoding"][encoding]["type"] = "";
-  }
+  vis_spec["encoding"][encoding]["field"] = "";
+  vis_spec["encoding"][encoding]["type"] = "";
+//   if (encoding.includes("color")) {
+//     console.log(encoding);
+//     vis_spec["encoding"]["color"]["field"] = "";
+//     vis_spec["encoding"]["color"]["type"] = "";
+//   } else {
+//     vis_spec["encoding"][encoding]["field"] = "";
+//     vis_spec["encoding"][encoding]["type"] = "";
+//   }
 
 //   document.getElementById("questionAnswer").focus()
   embed('#questionVis', vis_spec, {"actions": false});
@@ -419,6 +445,12 @@ function removeTransformationEncoding(vis_spec, transformation_encoding, remove_
   return vis_spec
 }
 
+function clearVis(vis_spec) {
+    vis_spec["encoding"] = {}
+    embed('#questionVis', vis_spec, {"actions": false});
+    return vis_spec
+}
+
 const ConstructionItemComponent = (props) => {
   const router = useRouter()
   const pathname = usePathname()
@@ -434,6 +466,8 @@ const ConstructionItemComponent = (props) => {
   const [tileSets, setTileSets] = useState(props.tile_sets);
   const [constraints, setConstraints] = useState(props.constraints);
   const [currentChartType, setCurrentChartType] = useState("bar");
+  const [selectedChart, setSelectedChart] = useState(false);
+  const [selectedVar, setSelectedVar] = useState(false);
   const [dataset, setDataset] = useState(props.item_bank["datasets"][props.item_bank["item"+props.item]["dataset"]]);
   const [loadVis, setLoadVis] = useState(props.item_bank["item"+props.item]["question_vis"]);
   const [currentItemState, setCurrentItemState] = useState(props.item_bank["item"+props.item]["manage_state"]);
@@ -578,14 +612,28 @@ const ConstructionItemComponent = (props) => {
   const changeChartType = (clicked_chart) => {
     console.log("clicked")
     console.log(clicked_chart)
+    console.log(selectedChart)
+    let vis_update = loadVis
+    // clear vis when changing chart type
+    if (selectedChart) {
+        clearVis(vis_update)
+        setCurrentItemState(props.item_bank["item"+props.item]["manage_state"]);
+        setSelectedVar(false);
+        document.getElementById("data-y").value = ""
+        document.getElementById("data-x").value = ""
+        document.getElementById("data-color").value = ""
+        document.getElementById("data-size").value = ""
+    }
+    console.log(loadVis)
     setChartTypeSelected(clicked_chart);
     setCurrentChartType(clicked_chart)
     let state_change = currentItemState
     state_change["chart_type"] = clicked_chart
     setCurrentItemState(state_change)
     // setEncodingDisplay(tileSets[clicked_chart]["encodings"]);
-    let vis_update = loadVis
+    
     updateMark(vis_update, clicked_chart)
+    setSelectedChart(true);
     let chart_tiles = document.getElementsByClassName("chartTilesContainer")
     console.log(chart_tiles)
     for (let index = 0; index < chart_tiles.length; index += 1) {
@@ -1227,6 +1275,76 @@ const ConstructionItemComponent = (props) => {
     // document.getElementById(for_data+"_description").classList.add("hideDescription")
   }
 
+  const updateYSelectedValue = () => {
+    let select_y = document.getElementById("data-y").value
+    console.log(select_y)
+    console.log(dataset)
+    let state_change = currentItemState
+    if (!select_y) {
+        removeDataEncoding(loadVis, "y")
+        state_change["encodings"]["y"]["data"] = ""
+        setCurrentItemState(state_change)
+    } else {
+        updateDataEncoding(loadVis, "y", select_y, dataset)
+        state_change["encodings"]["y"]["data"] = select_y
+        setCurrentItemState(state_change)
+        setSelectedVar(true);
+    }
+    console.log(state_change)
+    
+  }
+
+  const updateXSelectedValue = () => {
+    let select_x = document.getElementById("data-x").value
+    console.log(select_x)
+    let state_change = currentItemState
+    if (!select_x) {
+        removeDataEncoding(loadVis, "x")
+        state_change["encodings"]["x"]["data"] = ""
+        setCurrentItemState(state_change)
+    } else {
+        updateDataEncoding(loadVis, "x", select_x, dataset)
+        state_change["encodings"]["x"]["data"] = select_x
+        setCurrentItemState(state_change)
+        setSelectedVar(true);
+    }
+    
+  }
+
+  const updateColorSelectedValue = () => {
+    let select_color = document.getElementById("data-color").value
+    console.log(select_color)
+    let state_change = currentItemState
+    if (!select_color) {
+        removeDataEncoding(loadVis, "color")
+        state_change["encodings"]["color"]["data"] = ""
+        setCurrentItemState(state_change)
+    } else {
+        updateDataEncoding(loadVis, "color", select_color, dataset)
+        state_change["encodings"]["color"]["data"] = select_color
+        setCurrentItemState(state_change)
+        setSelectedVar(true);
+    }
+    
+  }
+
+  const updateSizeSelectedValue = () => {
+    let select_size = document.getElementById("data-size").value
+    console.log(select_size)
+    let state_change = currentItemState
+    if (!select_size) {
+        removeDataEncoding(loadVis, "size")
+        state_change["encodings"]["size"]["data"] = ""
+        setCurrentItemState(state_change)
+    } else {
+        updateDataEncoding(loadVis, "size", select_size, dataset) 
+        state_change["encodings"]["size"]["data"] = select_size
+        setCurrentItemState(state_change)
+        setSelectedVar(true);
+    }
+    
+  }
+
   const nextItem = (e) => {
     
     console.log("clicking next")
@@ -1445,7 +1563,7 @@ const ConstructionItemComponent = (props) => {
             <div id='chartTypes'>
             {!props.assessment ? <div id="toReconstruct"></div> : null}
                 {props.assessment ? <div>
-                    <p>Select chart type</p>
+                    <p>Select a tile to change chart type and start over</p>
                     <div id="chartTypesTiles">
                     {chart_types.map(chart_tiles => (
                         <div className="chartTilesContainer" key={chart_tiles} id={chart_tiles+"_container"}>
@@ -1466,14 +1584,14 @@ const ConstructionItemComponent = (props) => {
                     ))}
                     </div>
                 </div> : null}
-                <p>Drag variables to spaces for "Data"</p>
+                {/* <p>Drag variables to spaces for "Data"</p>
                 <div id="datasetTiles">
                 {data_columns.map(variable => (
                     <div key={variable} className="dataTileContainer">
                         <div className="dataTiles" id={"data-"+variable} onMouseOver={() => displayDescription(variable)} onMouseLeave={() => removeDescription(variable)} draggable="true" onDragStart={(event) => drag(event)} data-draggable="overwrite" onDrop={(event) => dataOverwrite(event)} onDragOver={(event) => allowDrop(event)}><p data-draggable="overwrite-parent" onDrop={(event) => dataOverwrite(event)} onDragOver={(event) => allowDrop(event)}>{variable}</p></div>
                     </div>
                 ))}
-                </div>
+                </div> */}
                 {/* <div id='transformations'>
                 <p>Drag actions to spaces for "Action"</p>
                 <div id="actionTiles">
@@ -1491,14 +1609,21 @@ const ConstructionItemComponent = (props) => {
         <div id='visContainer' >
             
             { !showTextBox ? <div id="yAxis">
-                <p id="yAxisLabel"><b>Y-axis</b></p>
+                <p id="yAxisLabel">Y-axis</p>
                 <div id='encodings'>
                 <div>
                     <div className='mappingContainer'>
-                    <p>Data</p>
-                      <div className='inputSpace inputData' data-draggable={"data_target-y"} onDrop={(event) => dataDrop(event)} onDragOver={(event) => allowDrop(event)} draggable="true" onDragStart={(event) => drag(event)}>
+                    {/* <p>Data</p> */}
+                      {/* <div className='inputSpace inputData' data-draggable={"data_target-y"} onDrop={(event) => dataDrop(event)} onDragOver={(event) => allowDrop(event)} draggable="true" onDragStart={(event) => drag(event)}>
                 
-                      </div>
+                      </div> */}
+                      <select name="data-y" id="data-y" defaultValue="" onChange={() => updateYSelectedValue()}>
+                        <option value=""></option>
+                        {data_columns.map(variable => ( 
+                            <option key={variable} value={variable}>{dataset[variable]["full_name"]}</option>
+                        ))}
+                        
+                      </select>
                     {/* <p>Action</p>
                       <div className='inputSpace inputTransformation' data-draggable={"transformation_target-y"} onDrop={(event) => transformationDrop(event)} onDragOver={(event) => allowDrop(event)} draggable="true" onDragStart={(event) => drag(event)}>
                     
@@ -1511,19 +1636,30 @@ const ConstructionItemComponent = (props) => {
             </div>: null}
            
             <div>
-            <div id="questionVis"></div>
+            {(!selectedChart || !selectedVar) ? <div id="placeholderInstructions">
+                {!selectedChart ? <p><i>Select a chart type from the <b>tiles above</b></i></p> : <p><i>Select variables from <b>dropdown lists</b></i></p>}
+            </div>: null}
+            <div id="questionVis">
+            </div>
             {!showTextBox ? <div id='encoding_x'>
             <div className='xContainer'>
                 <div>
-                    <p id="xAxisLabel"><b>X-axis</b></p>
+                    <p id="xAxisLabel">X-axis</p>
                 </div>
                 <div>
                     <div className='mappingContainerX'>
                         <div className="xTiles">
-                            <p>Data</p>
-                            <div className='inputSpace inputData' data-draggable={"data_target-x"} onDrop={(event) => dataDrop(event)} onDragOver={(event) => allowDrop(event)} draggable="true" onDragStart={(event) => drag(event)}>
-                    
-                            </div>
+                            {/* <p>Data</p> */}
+                                {/* <div className='inputSpace inputData' data-draggable={"data_target-x"} onDrop={(event) => dataDrop(event)} onDragOver={(event) => allowDrop(event)} draggable="true" onDragStart={(event) => drag(event)}>
+                        
+                                </div> */}
+                                <select name="data-x" id="data-x" defaultValue="" onChange={() => updateXSelectedValue()}>
+                                    <option value=""></option>
+                                    {data_columns.map(variable => ( 
+                                        <option key={variable} value={variable}>{dataset[variable]["full_name"]}</option>
+                                    ))}
+                                
+                                </select>
                             </div>
                         {/* <div className="xTiles">
                             <p>Action</p>
@@ -1539,9 +1675,26 @@ const ConstructionItemComponent = (props) => {
             </div>
             <div id='encodings'>
                 {!showTextBox ? <div className='mappingContainerColorSize'>
-                    <p>Size</p>
-                    <div id="placeholder"></div>
-                    <p>Color</p>
+                    <div>
+                        <p>Color</p>
+                        <select name="data-color" id="data-color" defaultValue="" onChange={() => updateColorSelectedValue()}>
+                            <option value=""></option>
+                            {data_columns.map(variable => ( 
+                                <option key={variable} value={variable}>{dataset[variable]["full_name"]}</option>
+                            ))}
+                        </select> 
+                    </div>
+                    <div>
+                        <p>Size</p>
+                        <select name="data-size" id="data-size" defaultValue="" onChange={() => updateSizeSelectedValue()}>
+                            <option value=""></option>
+                            {data_columns.map(variable => ( 
+                                <option key={variable} value={variable}>{dataset[variable]["full_name"]}</option>
+                            ))}
+                        </select> 
+                    </div>
+                    
+                    {/* <div id="placeholder"></div> */}
                 </div> : null}
                   {/* { !showTextBox ? Object.entries(encodings).map((encoding_icon, index) => (
                     <div className='mappingContainerColorSize' key={"mapping-"+index}>
