@@ -384,8 +384,8 @@ img {
 }
 
 #interactionZone {
-  padding-left: 1rem;
-  padding-right: 1rem;
+  /* padding-left: 1rem;
+  padding-right: 1rem; */
   width: fit-content;
   /* height: 1000px; */
   margin: auto;
