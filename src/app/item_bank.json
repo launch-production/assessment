@@ -92,9 +92,9 @@
       "Spending": {"type": "quantitative", "full_name": "Spending ($)", "description": "", "truncate": null},
       "Income": {"type": "quantitative", "full_name": "Income ($)", "description": "", "truncate": null},
       "Savings": {"type": "quantitative", "full_name": "Savings ($)", "description": "", "truncate": null},
-      "Category": {"type": "nominal", "full_name": "Category", "description": "", "truncate": null},
+      "Spending_Category": {"type": "nominal", "full_name": "Spending category", "description": "", "truncate": null},
       "Year": {"type": "ordinal", "full_name": "Year", "description": "", "truncate": null},
-      "Month": {"type": "nominal", "full_name": "Month", "description": "", "truncate": null}
+      "Month": {"type": "ordinal", "full_name": "Month", "description": "", "truncate": null}
     }
     },
     "training1": {
@@ -209,7 +209,7 @@
       "dataset": "day_by_day",
       "question_vis": {
           "data": {
-            "url": "data/day_by_day_2023_Jan.json"
+            "url": "data/day_by_day_2023.json"
           },
           "mark": {
             "type": "bar"
