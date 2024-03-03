@@ -65,6 +65,7 @@ function updateDataEncoding(vis_spec, encoding, var_update_to, data_columns) {
         if (actions.length == 3) {
             let bin_on = actions[1].split("_")[1]
             vis_spec["encoding"][bin_on]["bin"] = true;
+            vis_spec["encoding"][bin_on]["aggregate"] = "" // bin means the other channel has aggregate, so remove any aggregate in this channel
         }
         
     } else if (var_update_to.includes("sum")) {
@@ -298,6 +299,29 @@ const ConstructionItemComponent = (props) => {
     console.log("clicked")
     console.log(clicked_chart)
     console.log(selectedChart)
+    // default for line and point are actual values, so remove sum on any quantative var
+    let current_y_value = document.getElementById("data-y").value
+    let current_x_value = document.getElementById("data-x").value
+    if (clicked_chart == "line" || clicked_chart == "point") {
+        if (dataset[current_y_value] && dataset[current_y_value]["type"] == "quantitative") {
+            removeAction(loadVis, "y", "sum")
+        }
+        if (dataset[current_x_value] && dataset[current_x_value]["type"] == "quantitative") {
+            removeAction(loadVis, "x", "sum")
+        }
+    } else {
+        if (dataset[current_y_value] && dataset[current_y_value]["type"] == "quantitative") {
+            if (!current_x_value.includes("count")) {
+                updateDataEncoding(loadVis, "y", "sum-"+current_y_value, dataset)
+            }
+            
+        }
+        if (dataset[current_x_value] && dataset[current_x_value]["type"] == "quantitative") {
+            if (!current_y_value.includes("count")) {
+                updateDataEncoding(loadVis, "x", "sum-"+current_x_value, dataset)
+            }
+        }
+    }
     let vis_update = loadVis
     // clear vis when changing chart type
     // if (selectedChart) {
@@ -388,12 +412,26 @@ const ConstructionItemComponent = (props) => {
         add_count_option.innerHTML = "Count of " + select_y
         if (dataset[select_y] && dataset[select_y]["type"] == "quantitative") {
             add_count_option.value = "count-bin_y-" + select_y
+            removeAction(loadVis, "y", "sum")
+            // default to sum aggregation for bar and area
+            if (currentChartType == "bar" || currentChartType == "area") {
+                updateDataEncoding(loadVis, "y", "sum-"+select_y, dataset)
+            }
             // removeSumOf(x_axis) // remove sums from the other axis
-            removeDataEncoding(loadVis, "x")
+            // removeDataEncoding(loadVis, "x")
          
             // setSumOptionsAddedX(false);
             
         } else if (dataset[select_y]) {
+            // default to sum aggregation for bar and area
+            if (currentChartType == "bar" || currentChartType == "area") {
+                // if the current value on x axis is quantative and y value is not, set the x value to be sum again
+                let current_x_value = document.getElementById("data-x").value
+                if (dataset[current_x_value] && dataset[current_x_value]["type"] == "quantitative") {
+                    updateDataEncoding(loadVis, "x", "sum-"+current_x_value, dataset)
+                }
+            
+            }
             // if (!sumOptionsAddedX) {
                 let current_axis = document.getElementById("data-y")
                 // removeSumOf(current_axis) // remove sums from the current axis
@@ -433,10 +471,24 @@ const ConstructionItemComponent = (props) => {
         add_count_option.innerHTML = "Count of " + select_x
         if (dataset[select_x] && dataset[select_x]["type"] == "quantitative") {
             add_count_option.value = "count-bin_x-" + select_x
+            removeAction(loadVis, "x", "sum")
+            // default to sum aggregation for bar and area
+            if (currentChartType == "bar" || currentChartType == "area") {
+                updateDataEncoding(loadVis, "x", "sum-"+select_x, dataset)
+            }
             // removeSumOf(y_axis) // remove sums from the other axis
-            removeDataEncoding(loadVis, "y")
+            // removeDataEncoding(loadVis, "y")
            
         } else if (dataset[select_x]) {
+            // default to sum aggregation for bar and area
+            if (currentChartType == "bar" || currentChartType == "area") {
+                // if the current value on y axis is quantative and x value is not, set the y value to be sum again
+                let current_y_value = document.getElementById("data-y").value
+                if (dataset[current_y_value] && dataset[current_y_value]["type"] == "quantitative") {
+                    updateDataEncoding(loadVis, "y", "sum-"+current_y_value, dataset)
+                }
+            
+            }
             // if (!sumOptionsAddedY) {
                 let current_axis = document.getElementById("data-x")
                 // removeSumOf(current_axis) // remove sums from the current axis

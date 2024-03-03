@@ -209,7 +209,7 @@
       "dataset": "day_by_day",
       "question_vis": {
           "data": {
-            "url": "data/day_by_day_2023.json"
+            "url": "data/day_by_day.json"
           },
           "mark": {
             "type": "bar"
