@@ -51,11 +51,55 @@
         "Director": {"type": "nominal", "full_name": "Director", "description": "", "truncate": null},
         "Rotten_Tomatoes_Rating": {"type": "ordinal", "full_name": "Rotten tomatoes rating", "description": "", "truncate": null},
         "IMDB_Votes": {"type": "quantitative", "full_name": "IMDB votes", "description": "", "truncate": null}
-      }
+      },
+      "day_by_day_testing": {
+        "day_of_week": {"type": "nominal", "full_name": "Day in week", "description": "", "truncate": null},
+        "weather": {"type": "nominal", "full_name": "Weather", "description": "", "truncate": null},
+        "rainfall": {"type": "quantitative", "full_name": "Rainfall (mm)", "description": "", "truncate": null},
+        "breakfast": {"type": "quantitative", "full_name": "Breakfast", "description": "", "truncate": null},
+        "lunch": {"type": "quantitative", "full_name": "Lunch", "description": "", "truncate": null},
+        "dinner": {"type": "quantitative", "full_name": "Dinner", "description": "", "truncate": null},
+        "bread": {"type": "quantitative", "full_name": "Bread", "description": "", "truncate": null},
+        "vegetables": {"type": "quantitative", "full_name": "Vegetables ", "description": "", "truncate": null},
+        "fruits": {"type": "quantitative", "full_name": "Fruits", "description": "", "truncate": null},
+        "drinks": {"type": "quantitative", "full_name": "Drinks", "description": "", "truncate": null},
+        "coffee": {"type": "quantitative", "full_name": "Coffee", "description": "", "truncate": null},
+        "tea": {"type": "quantitative", "full_name": "Tea", "description": "", "truncate": null},
+        "bus": {"type": "quantitative", "full_name": "Bus", "description": "", "truncate": null},
+        "train": {"type": "quantitative", "full_name": "Train", "description": "", "truncate": null},
+        "dairy": {"type": "quantitative", "full_name": "Dairy", "description": "", "truncate": null},
+        "meat": {"type": "quantitative", "full_name": "Meat", "description": "", "truncate": null},
+        "snacks": {"type": "quantitative", "full_name": "Snacks", "description": "", "truncate": null},
+        "movies": {"type": "quantitative", "full_name": "Movies", "description": "", "truncate": null},
+        "concert": {"type": "quantitative", "full_name": "Concert", "description": "", "truncate": null},
+        "groceries": {"type": "quantitative", "full_name": "Groceries", "description": "", "truncate": null},
+        "transit": {"type": "quantitative", "full_name": "Transit", "description": "", "truncate": null},
+        "entertainment": {"type": "quantitative", "full_name": "Entertainment", "description": "", "truncate": null},
+        "caffeinated_drinks": {"type": "quantitative", "full_name": "Caffeinated drinks", "description": "", "truncate": null},
+        "meals": {"type": "quantitative", "full_name": "Full meals", "description": "", "truncate": null},
+        "day_spending": {"type": "quantitative", "full_name": "Total spending ($)", "description": "", "truncate": null},
+        "internet_time": {"type": "quantitative", "full_name": "Total time (hrs) on internet", "description": "", "truncate": null},
+        "outdoors_time": {"type": "quantitative", "full_name": "Total time (hrs) outdoors", "description": "", "truncate": null},
+        "indoors_time": {"type": "quantitative", "full_name": "Total time (hrs) indoors", "description": "", "truncate": null},
+        "sleep_length": {"type": "quantitative", "full_name": "Total time (hrs) slept", "description": "", "truncate": null},
+        "savings": {"type": "quantitative", "full_name": "Total savings ($)", "description": "", "truncate": null},
+        "phone_time": {"type": "quantitative", "full_name": "Total time (hrs) on phone", "description": "", "truncate": null},
+        "heart_rate": {"type": "quantitative", "full_name": "Heart rate (bpm)", "description": "", "truncate": null},
+        "steps_count": {"type": "quantitative", "full_name": "Steps count", "description": "", "truncate": null}
+      },
+      "day_by_day": {
+      "Date": {"type": "temporal", "full_name": "Date", "description": "", "truncate": null},
+      "Spending": {"type": "quantitative", "full_name": "Spending ($)", "description": "", "truncate": null},
+      "Income": {"type": "quantitative", "full_name": "Income ($)", "description": "", "truncate": null},
+      "Savings": {"type": "quantitative", "full_name": "Savings ($)", "description": "", "truncate": null},
+      "Category": {"type": "nominal", "full_name": "Category", "description": "", "truncate": null},
+      "Year": {"type": "ordinal", "full_name": "Year", "description": "", "truncate": null},
+      "Month": {"type": "nominal", "full_name": "Month", "description": "", "truncate": null}
+    }
     },
     "training1": {
       "question_meta_data": {
-        "question_text": "Use the given tiles to reconstruct the chart shown below.",
+        "question_text": "Reconstruct the chart shown below.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "seattle-weather",
@@ -162,10 +206,10 @@
         "question_text": "Create a chart that will tell you how the maximum temperature changed in 2014.",
         "question_topic": "weather in Seattle"
       },
-      "dataset": "seattle-weather",
+      "dataset": "day_by_day",
       "question_vis": {
           "data": {
-            "url": "data/seattle-weather.json"
+            "url": "data/day_by_day_2023_Jan.json"
           },
           "mark": {
             "type": "bar"

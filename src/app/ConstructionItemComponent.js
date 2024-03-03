@@ -267,11 +267,24 @@ function updateEncodingMapping(vis_spec, encoding, update_to, data_columns) {
 function updateDataEncoding(vis_spec, encoding, update_to, data_columns) {
     console.log("in update data encoding for drop down")
     console.log(encoding)
+    
     if (!vis_spec["encoding"][encoding]) {
         vis_spec["encoding"][encoding] = {}
     }
-    vis_spec["encoding"][encoding]["field"] = update_to
-    vis_spec["encoding"][encoding]["type"] = data_columns[update_to]["type"];
+    
+    if (update_to.includes("count")) {
+        let actions = update_to.split("-")
+        vis_spec["encoding"][encoding]["aggregate"] = "count";
+        // count-bin-data
+        if (actions.length == 3) {
+            let bin_on = actions[1].split("_")[1]
+            vis_spec["encoding"][bin_on]["bin"] = true;
+        }
+        
+    } else {
+        vis_spec["encoding"][encoding]["field"] = update_to
+        vis_spec["encoding"][encoding]["type"] = data_columns[update_to]["type"];
+    }
     if (encoding == "color") {
         let color_scheme = data_columns[update_to]["color"]
         if (color_scheme == "div") {
@@ -309,6 +322,33 @@ function removeDataEncoding(vis_spec, encoding) {
   embed('#questionVis', vis_spec, {"actions": false});
   return vis_spec
 }
+
+function removeAction(vis_spec, encoding, action) {
+    console.log("in remove data encoding")
+    console.log(vis_spec)
+    console.log(encoding)
+  //   console.log(remove_data)
+    // console.log(mapping_state)
+    if  (action == "count") {
+      vis_spec["encoding"][encoding]["aggregate"] = "";  
+    } else if (action == "bin") {
+      vis_spec["encoding"][encoding]["bin"] = false;  
+    }
+    
+  //   if (encoding.includes("color")) {
+  //     console.log(encoding);
+  //     vis_spec["encoding"]["color"]["field"] = "";
+  //     vis_spec["encoding"]["color"]["type"] = "";
+  //   } else {
+  //     vis_spec["encoding"][encoding]["field"] = "";
+  //     vis_spec["encoding"][encoding]["type"] = "";
+  //   }
+  
+  //   document.getElementById("questionAnswer").focus()
+    embed('#questionVis', vis_spec, {"actions": false});
+    return vis_spec
+  }
+
 
 function updateMark(vis_spec, mark) {
   console.log("in update mark")
@@ -1275,6 +1315,18 @@ const ConstructionItemComponent = (props) => {
     // document.getElementById(for_data+"_description").classList.add("hideDescription")
   }
 
+  const removeOption = (vis_spec, check_element, to_remove, from_encoding) => {
+    console.log("in remove options")
+    console.log(to_remove)
+    for (let i = 0; i < check_element.length; i += 1) {
+
+        if (check_element.options[i].value.includes(to_remove)) {
+            check_element.remove(i)
+            removeAction(vis_spec, from_encoding, to_remove);
+        }
+    }
+  }
+
   const updateYSelectedValue = () => {
     let select_y = document.getElementById("data-y").value
     console.log(select_y)
@@ -1286,6 +1338,15 @@ const ConstructionItemComponent = (props) => {
         setCurrentItemState(state_change)
     } else {
         updateDataEncoding(loadVis, "y", select_y, dataset)
+        if (dataset[select_y]["type"] == "quantitative") {
+            let x_axis = document.getElementById("data-x")
+            removeOption(loadVis, x_axis, "count", "x")
+            let add_count_option = document.createElement("option")
+            add_count_option.innerHTML = "Count of " + select_y
+            add_count_option.value = "count-bin_y-" + select_y
+            removeAction(loadVis, "y", "bin");
+            x_axis.appendChild(add_count_option)
+        }
         state_change["encodings"]["y"]["data"] = select_y
         setCurrentItemState(state_change)
         setSelectedVar(true);
@@ -1563,7 +1624,7 @@ const ConstructionItemComponent = (props) => {
             <div id='chartTypes'>
             {!props.assessment ? <div id="toReconstruct"></div> : null}
                 {props.assessment ? <div>
-                    <p>Select a tile to change chart type and start over</p>
+                    <p>Select a mark type for your chart</p>
                     <div id="chartTypesTiles">
                     {chart_types.map(chart_tiles => (
                         <div className="chartTilesContainer" key={chart_tiles} id={chart_tiles+"_container"}>
@@ -1575,7 +1636,8 @@ const ConstructionItemComponent = (props) => {
             </div>
             <div id='data'>
                 {!props.assessment ? <div id='chartTypes'>
-                    <p>Select chart type</p>
+                    <p>Select a mark type for your chart</p>
+                    <p><i>This determines the chart type.</i></p>
                     <div id="chartTypesTiles">
                     {chart_types.map(chart_tiles => (
                         <div className="chartTilesContainer" key={chart_tiles} id={chart_tiles+"_container"}>
@@ -1583,6 +1645,7 @@ const ConstructionItemComponent = (props) => {
                         </div>
                     ))}
                     </div>
+                    <p><i>Reselection will reset the chart.</i></p>
                 </div> : null}
                 {/* <p>Drag variables to spaces for "Data"</p>
                 <div id="datasetTiles">
@@ -1637,7 +1700,7 @@ const ConstructionItemComponent = (props) => {
            
             <div>
             {(!selectedChart || !selectedVar) ? <div id="placeholderInstructions">
-                {!selectedChart ? <p><i>Select a chart type from the <b>tiles above</b></i></p> : <p><i>Select variables from <b>dropdown lists</b></i></p>}
+                {!selectedChart ? <p><i>Select a mark type from the <b>tiles above</b></i></p> : <p><i>Select variables from <b>dropdown lists</b></i></p>}
             </div>: null}
             <div id="questionVis">
             </div>

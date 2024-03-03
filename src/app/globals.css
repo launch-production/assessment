@@ -71,7 +71,7 @@ img {
 }
 
 #chartTypes {
-  padding-bottom: 1rem;
+  /* padding-bottom: 1rem; */
   margin-bottom: 0px;
   width: fit-content;
 }
@@ -115,7 +115,7 @@ img {
 
 #visContainer, #questionContainer {
   margin: auto;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 #visContainer {
@@ -173,11 +173,11 @@ img {
 }
 
 #toReconstruct {
-  height: 300px;
+  height: 260px;
   width: 300px;
-  margin-right: 2rem;
+  /* margin-right: 2rem;
   margin-top: 2rem;
-  padding-bottom: 1rem;
+  padding-bottom: 1rem; */
 }
 
 .inputSpace {

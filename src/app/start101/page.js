@@ -1,4 +1,4 @@
-import CreateItemComponent from '../CreateItemComponent';
+import ConstructionItemComponent from '../ConstructionItemComponent';
 
 export default function Page() {
     // const router = useRouter()
@@ -12,7 +12,7 @@ export default function Page() {
     console.log(constraints)
     return (
         <div>
-        <CreateItemComponent 
+        <ConstructionItemComponent 
             item={1} 
             item_bank={item_bank}
             tile_sets={tile_sets}
