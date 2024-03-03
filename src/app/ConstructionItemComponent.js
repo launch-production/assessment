@@ -61,19 +61,40 @@ function updateDataEncoding(vis_spec, encoding, var_update_to, data_columns) {
         vis_spec["encoding"][encoding]["aggregate"] = "count";
         vis_spec["encoding"][encoding]["field"] = "";
         vis_spec["encoding"][encoding]["type"] = "";
+        
         // count-bin-data
         if (actions.length == 3) {
             let bin_on = actions[1].split("_")[1]
             vis_spec["encoding"][bin_on]["bin"] = true;
             vis_spec["encoding"][bin_on]["aggregate"] = "" // bin means the other channel has aggregate, so remove any aggregate in this channel
+            
+        }
+        if (vis_spec["encoding"][encoding]["timeUnit"]) {
+            vis_spec["encoding"][encoding]["timeUnit"] = ""
         }
         
     } else if (var_update_to.includes("sum")) {
         vis_spec["encoding"][encoding]["aggregate"] = "sum";
-        vis_spec["encoding"][encoding]["field"] = update_to
+        if (update_to == "Month") {
+          vis_spec["encoding"][encoding]["field"] = "Date";
+          vis_spec["encoding"][encoding]["timeUnit"] = "month"
+        } else {
+          if (vis_spec["encoding"][encoding]["timeUnit"]) {
+                vis_spec["encoding"][encoding]["timeUnit"] = ""
+          }
+           vis_spec["encoding"][encoding]["field"] = update_to 
+        }
         vis_spec["encoding"][encoding]["type"] = data_columns[update_to]["type"];
     } else {
-        vis_spec["encoding"][encoding]["field"] = update_to
+        if (update_to == "Month") {
+            vis_spec["encoding"][encoding]["field"] = "Date";
+            vis_spec["encoding"][encoding]["timeUnit"] = "month"
+        } else {
+            if (vis_spec["encoding"][encoding]["timeUnit"]) {
+                vis_spec["encoding"][encoding]["timeUnit"] = ""
+            }
+            vis_spec["encoding"][encoding]["field"] = update_to
+        }
         vis_spec["encoding"][encoding]["type"] = data_columns[update_to]["type"];
     }
     if (encoding == "color") {
@@ -100,6 +121,9 @@ function removeDataEncoding(vis_spec, encoding) {
   // console.log(mapping_state)
   vis_spec["encoding"][encoding]["field"] = "";
   vis_spec["encoding"][encoding]["type"] = "";
+  if (vis_spec["encoding"][encoding]["timeUnit"]) {
+    vis_spec["encoding"][encoding]["timeUnit"] = ""
+  }
 //   if (encoding.includes("color")) {
 //     console.log(encoding);
 //     vis_spec["encoding"]["color"]["field"] = "";
