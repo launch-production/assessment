@@ -164,8 +164,8 @@ img {
 }
 
 #questionVis {
-  height: 270px;
-  width: 370px;
+  height: 300px;
+  width: 420px;
   overflow-y: scroll;
   overflow-x: scroll;
   text-align: center;
@@ -402,11 +402,12 @@ img {
 
 #placeholderInstructions {
   background-color: whitesmoke;
-  height: 290px;
-  width: 370px;
+  height: 330px;
+  width: 420px;
   position: absolute;
   z-index: 2;
   text-align: center;
+  margin-bottom: 1rem;
 }
 
 #placeholderInstructions p {

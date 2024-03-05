@@ -13,7 +13,7 @@ export default function Page() {
     return (
         <div>
         <ConstructionItemComponent 
-            item={6} 
+            item={24} 
             item_bank={item_bank}
             tile_sets={tile_sets}
             constraints={constraints}

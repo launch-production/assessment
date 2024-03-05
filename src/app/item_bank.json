@@ -655,7 +655,897 @@
     },
     "item1": {
       "question_meta_data": {
-        "question_text": "Create a chart that will tell you how the maximum temperature changed in 2014.",
+        "question_text": "Daily income in Jan 2023 rarely went over $300",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2023_Jan.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item2": {
+      "question_meta_data": {
+        "question_text": "Total monthly utilities spending in 2021 was generally lower than $300",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2021.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item3": {
+      "question_meta_data": {
+        "question_text": "Most daily savings in Jan 2023 were above $20?",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2023_Jan.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item4": {
+      "question_meta_data": {
+        "question_text": "Yearly spending in all categories did not exceed 10k in 2020",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_all.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item5": {
+      "question_meta_data": {
+        "question_text": "Daily spendings in 2021 rarely went over $90",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2021.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item6": {
+      "question_meta_data": {
+        "question_text": "Most daily entertainment spending in 2021 were above $80?",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2021_EF.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item7": {
+      "question_meta_data": {
+        "question_text": "The range of daily savings in July was larger than Aug in 2022",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2022_JulAug.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item8": {
+      "question_meta_data": {
+        "question_text": "There were more higher daily entertainment spendings as income increased in June 2022",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2022_Jun_UEF.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item9": {
+      "question_meta_data": {
+        "question_text": "Most daily income in 2021 were between $100 to $500",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2021.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item10": {
+      "question_meta_data": {
+        "question_text": "Most daily utilities spending were below $20 in 2021",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2021.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item11": {
+      "question_meta_data": {
+        "question_text": "The higher the daily income in April and May, the more high daily savings",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -742,47 +1632,40 @@
       }
         
     },
-    "item0": {
+    "item12": {
       "question_meta_data": {
-        "question_text": "When the precipitation is less than 10mm but greater than 0mm, what is weather in which Seattle reaches the lowest minimum temperature?",
+        "question_text": "As daily income and savings decreased, there were more food spendings less than $10",
         "question_topic": "weather in Seattle"
       },
-      "dataset": "seattle-weather",
+      "dataset": "day_by_day",
       "question_vis": {
           "data": {
-            "url": "data/seattle-weather.json"
+            "url": "data/day_by_day_2020_AprMay_TF.json"
           },
           "mark": {
-            "type": "point"
+            "type": "bar"
           },
           "encoding": {
             "x": {
-              "field": "weather",
-              "type": "nominal"
+              "field": "",
+              "type": ""
             },
             "y": {
-              "field": "precipitation",
-              "type": "quantitative"
+              "field": "",
+              "type": ""
               
-            },
-            "color": {
-              "field": "temp_min",
-              "type": "quantitative",
-              "scale": {
-                "scheme": "dark2"
-              }
             }
           }
         },
         "initialize": {
-            "chart_type": "point",
+            "chart_type": "bar",
             "encodings": {
               "x": {
-                  "data": "weather", 
+                  "data": "", 
                   "transformation": ""
               },
               "y": {
-                  "data": "precipitation",
+                  "data": "",
                   "transformation": ""
               },
               "size": {
@@ -798,25 +1681,29 @@
                   "transformation": ""
               },
               "qual_color": {
-                "data": "temp_min",
+                "data": "",
                 "transformation": ""
               }
           }  
         },
         "manage_state": {
-          "chart_type": "point",
+          "chart_type": "",
           "encodings": {
             "x": {
-                "data": "weather", 
+                "data": "", 
                 "transformation": ""
             },
             "y": {
-                "data": "precipitation",
+                "data": "",
                 "transformation": ""
             },
             "size": {
                 "data": "",
                 "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
             },
             "seq_color": {
                 "data": "",
@@ -827,54 +1714,51 @@
                 "transformation": ""
             },
             "qual_color": {
-              "data": "temp_min",
+              "data": "",
               "transformation": ""
             }
         }  
       }
         
     },
-    "item2": {
+    "item13": {
       "question_meta_data": {
-        "question_text": "Cars that have horsepower greater than 200 are generally originated from where?",
-        "question_topic": "cars with different origins"
+        "question_text": "How did total transport spending change from 2020 to 2023?",
+        "question_topic": "weather in Seattle"
       },
-      "dataset": "cars",
+      "dataset": "day_by_day",
       "question_vis": {
           "data": {
-            "url": "data/cars.json"
+            "url": "data/day_by_day_all_T.json"
           },
           "mark": {
-            "type": "point"
+            "type": "bar"
           },
           "encoding": {
             "x": {
-              "field": "Horsepower",
-              "type": "quantitative"
+              "field": "",
+              "type": ""
             },
             "y": {
-              "field": "Miles_per_Gallon",
-              "type": "quantitative"
-            },
-            "size": {
-              "field": "Origin",
-              "type": "nominal"
+              "field": "",
+              "type": ""
+              
             }
           }
         },
         "initialize": {
-            "chart_type": "point",
+            "chart_type": "bar",
             "encodings": {
               "x": {
-                  "data": "Horsepower", 
+                  "data": "", 
                   "transformation": ""
               },
               "y": {
-                  "data": "Miles_per_Gallon",
+                  "data": "",
                   "transformation": ""
               },
               "size": {
-                  "data": "Origin",
+                  "data": "",
                   "transformation": ""
               },
               "seq_color": {
@@ -892,493 +1776,151 @@
           }  
         },
         "manage_state": {
-            "chart_type": "point",
-            "encodings": {
-              "x": {
-                  "data": "Horsepower", 
-                  "transformation": ""
-              },
-              "y": {
-                  "data": "Miles_per_Gallon",
-                  "transformation": ""
-              },
-              "size": {
-                  "data": "Origin",
-                  "transformation": ""
-              },
-              "seq_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "div_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "qual_color": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
                 "data": "",
                 "transformation": ""
-              }
-          }  
-        }
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
         
     },
-    "item3": {
+    "item14": {
       "question_meta_data": {
-        "question_text": "Approximately how many cars are from the origin that had the highest production?",
-        "question_topic": "cars with different origins"
-      },
-      "dataset": "cars",
-      "question_vis": {
-          "data": {
-            "url": "data/cars.json"
-          },
-          "mark": {
-            "type": "bar"
-          },
-          "encoding": {
-            "x": {
-              "field": "Origin",
-              "aggregate": "count",
-              "type": "nominal"
-            },
-            "y": {
-              "aggregate": "count"
-            }
-          }
-        },
-        "initialize": {
-            "chart_type": "bar",
-            "encodings": {
-              "x": {
-                  "data": "Origin", 
-                  "transformation": "count"
-              },
-              "y": {
-                  "data": "",
-                  "transformation": "count"
-              },
-              "size": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "seq_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "div_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "qual_color": {
-                "data": "",
-                "transformation": ""
-              }
-          }
-            
-        },
-        "manage_state": {
-            "chart_type": "bar",
-            "encodings": {
-              "x": {
-                  "data": "Origin", 
-                  "transformation": "count"
-              },
-              "y": {
-                  "data": "",
-                  "transformation": "count"
-              },
-              "size": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "seq_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "div_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "qual_color": {
-                "data": "",
-                "transformation": ""
-              }
-          }
-            
-        }
-    },
-    "item4": {
-      "question_meta_data": {
-        "question_text": "What is the trend of the acceleration as miles per gallon increases for cars shown below?",
-        "question_topic": "cars with different origins"
-      },
-      "dataset": "cars",
-      "question_vis": {
-          "data": {
-            "url": "data/cars.json"
-          },
-          "mark": {
-            "type": "bar"
-          },
-          "encoding": {
-            "x": {
-              "field": "Miles_per_Gallon",
-              "type": "quantitative"
-            },
-            "y": {
-              "field": "Acceleration",
-              "type": "quantitative"
-            }
-          }
-        },
-        "initialize": {
-            "chart_type": "bar",
-            "encodings": {
-              "x": {
-                  "data": "Miles_per_Gallon", 
-                  "transformation": ""
-              },
-              "y": {
-                  "data": "Acceleration",
-                  "transformation": ""
-              },
-              "size": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "seq_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "div_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "qual_color": {
-                "data": "",
-                "transformation": ""
-              }
-          }
-            
-        },
-        "manage_state": {
-            "chart_type": "bar",
-            "encodings": {
-              "x": {
-                  "data": "Miles_per_Gallon", 
-                  "transformation": ""
-              },
-              "y": {
-                  "data": "Acceleration",
-                  "transformation": ""
-              },
-              "size": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "seq_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "div_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "qual_color": {
-                "data": "",
-                "transformation": ""
-              }
-          }
-            
-        }
-    },
-    "item5": {
-      "question_meta_data": {
-        "question_text": "What is the approximate minimum temperature when it snows in Seattle and the wind speed is between 4 to 6 meters per second?",
+        "question_text": "Monthly food spending was consistently higher than monthly entertainment spending in the second half of 2021.",
         "question_topic": "weather in Seattle"
       },
-      "dataset": "seattle-weather",
+      "dataset": "day_by_day",
       "question_vis": {
           "data": {
-            "url": "data/seattle-weather.json"
+            "url": "data/day_by_day_2021_EF.json"
           },
           "mark": {
-            "type": "point"
+            "type": "bar"
           },
           "encoding": {
             "x": {
-              "field": "weather",
-              "type": "nominal"
+              "field": "",
+              "type": ""
             },
             "y": {
-              "field": "wind",
-              "type": "quantitative"
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
             },
             "size": {
-              "field": "temp_min",
-              "type": "quantitative"
-            }
-          }
-        },
-        "initialize": {
-            "chart_type": "point",
-            "encodings": {
-              "x": {
-                  "data": "weather", 
-                  "transformation": ""
-              },
-              "y": {
-                  "data": "wind",
-                  "transformation": ""
-              },
-              "size": {
-                  "data": "temp_min",
-                  "transformation": ""
-              },
-              "seq_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "div_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "qual_color": {
                 "data": "",
                 "transformation": ""
-              }
-          }
-            
-        },
-        "manage_state": {
-            "chart_type": "point",
-            "encodings": {
-              "x": {
-                  "data": "weather", 
-                  "transformation": ""
-              },
-              "y": {
-                  "data": "wind",
-                  "transformation": ""
-              },
-              "size": {
-                  "data": "temp_min",
-                  "transformation": ""
-              },
-              "seq_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "div_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "qual_color": {
-                "data": "",
-                "transformation": ""
-              }
-          }
-            
-        }
-    },
-    "item6": {
-      "question_meta_data": {
-        "question_text": "What is the trend of the maximum temperature between 2014 and 2015?",
-        "question_topic": "weather in Seattle"
-      },
-      "dataset": "seattle-weather",
-      "question_vis": {
-          "data": {
-            "url": "data/seattle-weather.json"
-          },
-          "mark": {
-            "type": "line"
-          },
-          "encoding": {
-            "x": {
-              "field": "date",
-              "type": "temporal"
-            },
-            "y": {
-              "field": "temp_max",
-              "type": "quantitative",
-              "scale": {
-                "reverse": true
-              }
-            }
-          }
-        },
-        "initialize": {
-            "chart_type": "line",
-            "encodings": {
-              "x": {
-                  "data": "date", 
-                  "transformation": ""
-              },
-              "y": {
-                  "data": "temp_max",
-                  "transformation": "reverse"
-              },
-              "size": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "seq_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "div_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "qual_color": {
-                "data": "",
-                "transformation": ""
-              }
-          }
-            
-        },
-        "manage_state": {
-            "chart_type": "line",
-            "encodings": {
-              "x": {
-                  "data": "date", 
-                  "transformation": ""
-              },
-              "y": {
-                  "data": "temp_max",
-                  "transformation": "reverse"
-              },
-              "size": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "seq_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "div_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "qual_color": {
-                "data": "",
-                "transformation": ""
-              }
-          }
-            
-        }
-    },
-    "item7": {
-      "question_meta_data": {
-        "question_text": "What is the name of the car that has the highest horsepower?",
-        "question_topic": "cars with different origins"
-      },
-      "dataset": "cars",
-      "question_vis": {
-          "data": {
-            "url": "data/cars.json"
-          },
-          "mark": {
-            "type": "point"
-          },
-          "encoding": {
-            "x": {
-              "field": "Horsepower",
-              "type": "quantitative"
             },
             "color": {
-              "field": "Name",
-              "type": "nominal",
-              "scale": {
-                "scheme": "dark2"
-              }
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
             }
-          }
-        },
-        "initialize": {
-            "chart_type": "point",
-            "encodings": {
-              "x": {
-                  "data": "Horsepower", 
-                  "transformation": ""
-              },
-              "y": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "size": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "seq_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "div_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "qual_color": {
-                "data": "Name",
-                "transformation": ""
-              }
-          }
-            
-        },
-        "manage_state": {
-            "chart_type": "point",
-            "encodings": {
-              "x": {
-                  "data": "Horsepower", 
-                  "transformation": ""
-              },
-              "y": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "size": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "seq_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "div_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "qual_color": {
-                "data": "Name",
-                "transformation": ""
-              }
-          }
-            
-        }
+        }  
+      }
+        
     },
-    "item8": {
+    "item15": {
       "question_meta_data": {
-        "question_text": "Is the total precipitation higher when it snows in Seattle or when it rains?",
+        "question_text": "Total monthly spending was generally constant throughout 2023",
         "question_topic": "weather in Seattle"
       },
-      "dataset": "seattle-weather",
+      "dataset": "day_by_day",
       "question_vis": {
           "data": {
-            "url": "data/seattle-weather.json"
+            "url": "data/day_by_day_2023.json"
           },
           "mark": {
             "type": "bar"
           },
           "encoding": {
             "x": {
-              "field": "weather",
-              "type": "nominal"
+              "field": "",
+              "type": ""
             },
             "y": {
-              "field": "precipitation",
-              "type": "quantitative",
-              "aggregate": "mean"
+              "field": "",
+              "type": ""
+              
             }
           }
         },
@@ -1386,12 +1928,12 @@
             "chart_type": "bar",
             "encodings": {
               "x": {
-                  "data": "weather", 
+                  "data": "", 
                   "transformation": ""
               },
               "y": {
-                  "data": "precipitation",
-                  "transformation": "mean"
+                  "data": "",
+                  "transformation": ""
               },
               "size": {
                   "data": "",
@@ -1409,320 +1951,65 @@
                 "data": "",
                 "transformation": ""
               }
-          }
-            
+          }  
         },
         "manage_state": {
-            "chart_type": "bar",
-            "encodings": {
-              "x": {
-                  "data": "weather", 
-                  "transformation": ""
-              },
-              "y": {
-                  "data": "precipitation",
-                  "transformation": "mean"
-              },
-              "size": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "seq_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "div_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "qual_color": {
-                "data": "",
-                "transformation": ""
-              }
-          }
-            
-        }
-    },
-    "item9": {
-      "question_meta_data": {
-        "question_text": "What is the range of wind speed in Seattle?",
-        "question_topic": "weather in Seattle"
-      },
-      "dataset": "seattle-weather",
-      "question_vis": {
-          "data": {
-            "url": "data/seattle-weather.json"
-          },
-          "mark": {
-            "type": "bar"
-          },
-          "encoding": {
+          "chart_type": "",
+          "encodings": {
             "x": {
-              "field": "wind",
-              "type": "quantitative",
-              "aggregate": "mean"
-            }
-          }
-        },
-        "initialize": {
-            "chart_type": "bar",
-            "encodings": {
-              "x": {
-                  "data": "wind", 
-                  "transformation": "mean"
-              },
-              "y": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "size": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "seq_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "div_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "qual_color": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
                 "data": "",
                 "transformation": ""
-              }
-          }
-            
-        },
-        "manage_state": {
-            "chart_type": "bar",
-            "encodings": {
-              "x": {
-                  "data": "wind", 
-                  "transformation": "mean"
-              },
-              "y": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "size": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "seq_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "div_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "qual_color": {
+            },
+            "size": {
                 "data": "",
                 "transformation": ""
-              }
-          }
-            
-        }
-    },
-    "item10": {
-      "question_meta_data": {
-        "question_text": "What is the range of weight in lbs for cars originated from Japan?",
-        "question_topic": "cars with different origins"
-      },
-      "dataset": "cars",
-      "question_vis": {
-          "data": {
-            "url": "data/cars.json"
-          },
-          "mark": {
-            "type": "point"
-          },
-          "encoding": {
-            "x": {
-              "field": "Weight_in_lbs",
-              "type": "quantitative"
             },
             "color": {
-              "field": "Origin",
-              "type": "nominal",
-              "scale": {
-                "scheme": "dark2"
-              }
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
             }
-          }
-        },
-        "initialize": {
-            "chart_type": "point",
-            "encodings": {
-              "x": {
-                  "data": "Weight_in_lbs", 
-                  "transformation": ""
-              },
-              "y": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "size": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "seq_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "div_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "qual_color": {
-                "data": "Origin",
-                "transformation": ""
-              }
-          }
-            
-        },
-        "manage_state": {
-            "chart_type": "point",
-            "encodings": {
-              "x": {
-                  "data": "Weight_in_lbs", 
-                  "transformation": ""
-              },
-              "y": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "size": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "seq_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "div_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "qual_color": {
-                "data": "Origin",
-                "transformation": ""
-              }
-          }
-            
-        }
+        }  
+      }
+        
     },
-    "item11": {
+    "item16": {
       "question_meta_data": {
-        "question_text": "How did maximum temperature change between 2014 to 2015?",
+        "question_text": "Total monthly entertainment spending was consistently the highest among all spending categories",
         "question_topic": "weather in Seattle"
       },
-      "dataset": "seattle-weather",
+      "dataset": "day_by_day",
       "question_vis": {
           "data": {
-            "url": "data/seattle-weather.json"
-          },
-          "mark": {
-            "type": "line",
-            "clip": true
-          },
-          "encoding": {
-            "x": {
-              "field": "date",
-              "type": "temporal",
-              "scale": {
-                "domain": ["2014-07-01", "2015-01-02"]
-              }
-            },
-            "y": {
-              "field": "temp_max",
-              "type": "quantitative"
-            }
-          }
-        },
-        "initialize": {
-            "chart_type": "line",
-            "encodings": {
-              "x": {
-                  "data": "date", 
-                  "transformation": "truncate"
-              },
-              "y": {
-                  "data": "temp_max",
-                  "transformation": ""
-              },
-              "size": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "seq_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "div_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "qual_color": {
-                "data": "",
-                "transformation": ""
-              }
-          }
-            
-        },
-        "manage_state": {
-            "chart_type": "line",
-            "encodings": {
-              "x": {
-                  "data": "date", 
-                  "transformation": "truncate"
-              },
-              "y": {
-                  "data": "temp_max",
-                  "transformation": ""
-              },
-              "size": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "seq_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "div_color": {
-                  "data": "",
-                  "transformation": ""
-              },
-              "qual_color": {
-                "data": "",
-                "transformation": ""
-              }
-          }
-            
-        }
-    },
-    "item12": {
-      "question_meta_data": {
-        "question_text": "Which region has the highest risk and should mandate vaccines?",
-        "question_topic": "confirmed cases for an unknown virus"
-      },
-      "dataset": "region-cases",
-      "question_vis": {
-          "data": {
-            "url": "data/region-cases.json"
+            "url": "data/day_by_day_2023.json"
           },
           "mark": {
             "type": "bar"
           },
           "encoding": {
             "x": {
-              "field": "total_cases",
-              "type": "quantitative"
+              "field": "",
+              "type": ""
             },
             "y": {
-              "field": "region",
-              "type": "nominal"
+              "field": "",
+              "type": ""
+              
             }
           }
         },
@@ -1730,11 +2017,11 @@
             "chart_type": "bar",
             "encodings": {
               "x": {
-                  "data": "total_cases", 
+                  "data": "", 
                   "transformation": ""
               },
               "y": {
-                  "data": "region",
+                  "data": "",
                   "transformation": ""
               },
               "size": {
@@ -1753,18 +2040,77 @@
                 "data": "",
                 "transformation": ""
               }
-          }
-            
+          }  
         },
         "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item17": {
+      "question_meta_data": {
+        "question_text": "Daily entertainment spending generally fluctuated between $30 to $40 in 2020?",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2020_Entertainment.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
             "chart_type": "bar",
             "encodings": {
               "x": {
-                  "data": "total_cases", 
+                  "data": "", 
                   "transformation": ""
               },
               "y": {
-                  "data": "region",
+                  "data": "",
                   "transformation": ""
               },
               "size": {
@@ -1783,8 +2129,1911 @@
                 "data": "",
                 "transformation": ""
               }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item18": {
+      "question_meta_data": {
+        "question_text": "Recorded utilities spending generally decreased in the first half of June 2022.",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2022_Jun_UEF.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
           }
-            
-        }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item19": {
+      "question_meta_data": {
+        "question_text": "What generally happens to savings when income increases in Jan 2023?",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2023_Jan.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item20": {
+      "question_meta_data": {
+        "question_text": "There is generally a positive relationship between income and spending for all spending categories during the years of 2020 and 2023.",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_20_23.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item21": {
+      "question_meta_data": {
+        "question_text": "Most daily savings were between $15 to $20 in 2021, then it's progressively more rare to have higher daily savings",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2021.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item22": {
+      "question_meta_data": {
+        "question_text": "The number of times that daily spendings were around $50 increases from 2020 to 2023",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_all.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item23": {
+      "question_meta_data": {
+        "question_text": "As income and savings increased, spending decreased in June 2022",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2022_Jun_UEF.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item24": {
+      "question_meta_data": {
+        "question_text": "How does transport spending change as savings decrease but income increases?",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2020_Mar.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item25": {
+      "question_meta_data": {
+        "question_text": "There were more dramatic dips in daily savings in the first half of Feb 2023 than the second half",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2023_Feb.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item26": {
+      "question_meta_data": {
+        "question_text": "Entertainment daily spending had the most dramatic drop around mid Jan 2023 compared to other spending categories.",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2023_Jan.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item27": {
+      "question_meta_data": {
+        "question_text": "Daily income in the second half of Feb was generally higher than those of the first half",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2023_Feb.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item28": {
+      "question_meta_data": {
+        "question_text": "Total spending for all categories decreased from July to Oct 2021",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2021_JulAugSeptOct.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item29": {
+      "question_meta_data": {
+        "question_text": "There were more dramatic dips in daily savings in the second half of Jan 2023 compared to the first half.",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2023_Jan.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item30": {
+      "question_meta_data": {
+        "question_text": "Daily spending on food was consistently higher than daily transport spending in the first 10 days in Dec 2022?",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2022_Dec_TF.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item31": {
+      "question_meta_data": {
+        "question_text": "The range of daily utilities spending was wider than the range of daily entertainment spending in July and Aug of 2022",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2022_JulAug.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item32": {
+      "question_meta_data": {
+        "question_text": "Most recorded daily spendings in Feb and March of 2021 were for entertainment",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2021_EF.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item33": {
+      "question_meta_data": {
+        "question_text": "The range of daily savings in July and August 2022 was approximately between $5 and $50, but there were a lot more on the higher end.",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2022_JulAug.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item34": {
+      "question_meta_data": {
+        "question_text": "The range of daily income in Sept was about the same as in Aug",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2021_JulAugSeptOct.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item35": {
+      "question_meta_data": {
+        "question_text": "There were more higher daily spending and savings in July than in Aug",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2022_JulAug.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item36": {
+      "question_meta_data": {
+        "question_text": "As income and savings increase, daily spending on food also increased in Dec 2022",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2022_Dec_TF.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item37": {
+      "question_meta_data": {
+        "question_text": "Total spending was higher in 2023 for all spending categories than in 2020.",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_20_23.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "item38": {
+      "question_meta_data": {
+        "question_text": "Monthly spending on food have been consistently lower than $400 in 2021",
+        "question_topic": "weather in Seattle"
+      },
+      "dataset": "day_by_day",
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2021.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
     }
+
 }

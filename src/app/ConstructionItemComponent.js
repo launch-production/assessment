@@ -299,7 +299,7 @@ const ConstructionItemComponent = (props) => {
 
     console.log(loadVis)
     // let mark_spec = require(item_bank["item"+currentItem.toString()]["initialize"]["question_vis"]);
-    console.log(props.item_bank["training"+props.item]["model_vis"])
+    // console.log(props.item_bank["training"+props.item]["model_vis"])
     embed('#questionVis', loadVis, {"actions": false});
     if (!props.assessment) {
         embed("#toReconstruct", props.item_bank["training"+props.item]["model_vis"], {"actions": false})
@@ -590,7 +590,7 @@ const ConstructionItemComponent = (props) => {
     let next_item = current_item + 1
     console.log(next_item)
     
-    if (next_item <= 12) {
+    if (next_item <= 38) {
 
         let text_answer = ""
         if (props.assessment) {
