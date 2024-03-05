@@ -661,7 +661,7 @@
       "dataset": "day_by_day",
       "question_vis": {
           "data": {
-            "url": "data/day_by_day_2021_JulAugSeptOct.json"
+            "url": "data/day_by_day_2020_AprMay_TF.json"
           },
           "mark": {
             "type": "bar"
