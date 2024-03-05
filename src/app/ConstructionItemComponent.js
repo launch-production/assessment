@@ -69,32 +69,43 @@ function updateDataEncoding(vis_spec, encoding, var_update_to, data_columns) {
             vis_spec["encoding"][bin_on]["aggregate"] = "" // bin means the other channel has aggregate, so remove any aggregate in this channel
             
         }
-        if (vis_spec["encoding"][encoding]["timeUnit"]) {
-            vis_spec["encoding"][encoding]["timeUnit"] = ""
+        if (vis_spec["encoding"][encoding]["sort"]) {
+            // vis_spec["encoding"][encoding]["timeUnit"] = ""
+            vis_spec["encoding"][encoding]["sort"] = ""
+            
         }
         
     } else if (var_update_to.includes("sum")) {
         vis_spec["encoding"][encoding]["aggregate"] = "sum";
         if (update_to == "Month") {
-          vis_spec["encoding"][encoding]["field"] = "Date";
-          vis_spec["encoding"][encoding]["timeUnit"] = "month"
+        //   vis_spec["encoding"][encoding]["field"] = "Month";
+        //   vis_spec["encoding"][encoding]["timeUnit"] = ""
+          vis_spec["encoding"][encoding]["sort"] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"]
         } else {
-          if (vis_spec["encoding"][encoding]["timeUnit"]) {
-                vis_spec["encoding"][encoding]["timeUnit"] = ""
+          if (vis_spec["encoding"][encoding]["sort"]) {
+                // vis_spec["encoding"][encoding]["timeUnit"] = ""
+                vis_spec["encoding"][encoding]["sort"] = ""
           }
-           vis_spec["encoding"][encoding]["field"] = update_to 
+          
+           
         }
+         vis_spec["encoding"][encoding]["field"] = update_to 
         vis_spec["encoding"][encoding]["type"] = data_columns[update_to]["type"];
+        
     } else {
         if (update_to == "Month") {
-            vis_spec["encoding"][encoding]["field"] = "Date";
-            vis_spec["encoding"][encoding]["timeUnit"] = "month"
+            // vis_spec["encoding"][encoding]["field"] = "Month";
+            // vis_spec["encoding"][encoding]["timeUnit"] = "month"
+            vis_spec["encoding"][encoding]["sort"] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"]
         } else {
-            if (vis_spec["encoding"][encoding]["timeUnit"]) {
-                vis_spec["encoding"][encoding]["timeUnit"] = ""
+            if (vis_spec["encoding"][encoding]["sort"]) {
+                // vis_spec["encoding"][encoding]["timeUnit"] = ""
+                vis_spec["encoding"][encoding]["sort"] = ""
             }
-            vis_spec["encoding"][encoding]["field"] = update_to
+            
+            
         }
+        vis_spec["encoding"][encoding]["field"] = update_to
         vis_spec["encoding"][encoding]["type"] = data_columns[update_to]["type"];
     }
     if (encoding == "color") {
@@ -121,8 +132,9 @@ function removeDataEncoding(vis_spec, encoding) {
   // console.log(mapping_state)
   vis_spec["encoding"][encoding]["field"] = "";
   vis_spec["encoding"][encoding]["type"] = "";
-  if (vis_spec["encoding"][encoding]["timeUnit"]) {
-    vis_spec["encoding"][encoding]["timeUnit"] = ""
+  if (vis_spec["encoding"][encoding]["sort"]) {
+    // vis_spec["encoding"][encoding]["timeUnit"] = ""
+    vis_spec["encoding"][encoding]["sort"] = ""
   }
 //   if (encoding.includes("color")) {
 //     console.log(encoding);
@@ -205,10 +217,10 @@ const ConstructionItemComponent = (props) => {
   const [currentChartType, setCurrentChartType] = useState("bar");
   const [selectedChart, setSelectedChart] = useState(false);
   const [selectedVar, setSelectedVar] = useState(false);
-  const [dataset, setDataset] = useState(props.item_bank["datasets"][props.item_bank["item"+props.item]["dataset"]]);
-  const [loadVis, setLoadVis] = useState(props.item_bank["item"+props.item]["question_vis"]);
-  const [currentItemState, setCurrentItemState] = useState(props.item_bank["item"+props.item]["manage_state"]);
-  const [initializeState, setInitializeState] = useState(props.item_bank["item"+props.item]["initialize"]);
+  const [dataset, setDataset] = useState(props.item_bank["datasets"][props.item_bank[props.mode+props.item]["dataset"]]);
+  const [loadVis, setLoadVis] = useState(props.item_bank[props.mode+props.item]["question_vis"]);
+  const [currentItemState, setCurrentItemState] = useState(props.item_bank[props.mode+props.item]["manage_state"]);
+  const [initializeState, setInitializeState] = useState(props.item_bank[props.mode+props.item]["initialize"]);
   const [bankStatus, setBankStatus] = useState({});
   const [noTransformationDisplay, setNoTransformationDisplay] = useState([]);
   const [pID, setPID] = useState("");
@@ -634,7 +646,6 @@ const ConstructionItemComponent = (props) => {
                         </div>
                     ))}
                     </div>
-                    <p><i>Reselection will reset the chart.</i></p>
                 </div> : null}
             </div>
         </div> : null}

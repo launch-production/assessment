@@ -174,7 +174,7 @@ img {
 
 #toReconstruct {
   height: 260px;
-  width: 300px;
+  width: fit-content;
   /* margin-right: 2rem;
   margin-top: 2rem;
   padding-bottom: 1rem; */

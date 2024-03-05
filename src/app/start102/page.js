@@ -1,9 +1,9 @@
-import StartTraining from '../training';
+import ConstructionItemComponent from '../ConstructionItemComponent';
 
 export default function Page() {
     // const router = useRouter()
-    var training_set = require("../training_set.json");
-    console.log(training_set)
+    var item_bank = require("../item_bank.json");
+    console.log(item_bank)
 
     var tile_sets = require("../tile_sets.json");
     console.log(tile_sets)
@@ -12,11 +12,13 @@ export default function Page() {
     console.log(constraints)
     return (
         <div>
-        <StartTraining 
-            item={102} 
-            training_set={training_set}
+        <ConstructionItemComponent 
+            item={2} 
+            item_bank={item_bank}
             tile_sets={tile_sets}
             constraints={constraints}
+            assessment={false}
+            mode={"training"}
             />
     </div>
     )

@@ -100,31 +100,37 @@
     "training1": {
       "question_meta_data": {
         "question_text": "Reconstruct the chart shown below.",
-        "question_topic": "weather in Seattle"
+        "question_topic": "Jan 2023"
       },
-      "dataset": "seattle-weather",
+      "dataset": "day_by_day",
       "model_vis": {
         "data": {
-          "url": "data/seattle-weather.json"
+          "url": "data/day_by_day_2023_Jan.json"
         },
         "mark": {
-          "type": "point"
+          "type": "bar"
         },
         "encoding": {
           "x": {
-            "field": "temp_max",
-            "type": "quantitative"
+            "field": "Month",
+            "type": "ordinal",
+            "sort": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"]
           },
           "y": {
-            "field": "temp_min",
+            "field": "Spending",
+            "aggregate": "sum",
             "type": "quantitative"
             
+          },
+          "color": {
+            "field": "Spending_Category",
+            "type": "nominal"
           }
         }
       },
       "question_vis": {
           "data": {
-            "url": "data/seattle-weather.json"
+            "url": "data/day_by_day_2023_Jan.json"
           },
           "mark": {
             "type": "bar"
@@ -185,6 +191,452 @@
                 "data": "",
                 "transformation": ""
             },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "training2": {
+      "question_meta_data": {
+        "question_text": "Reconstruct the chart shown below.",
+        "question_topic": "Jan 2023"
+      },
+      "dataset": "day_by_day",
+      "model_vis": {
+        "data": {
+          "url": "data/day_by_day_2023_Jan.json"
+        },
+        "mark": {
+          "type": "line"
+        },
+        "encoding": {
+          "x": {
+            "field": "Date",
+            "type": "temporal"
+          },
+          "y": {
+            "field": "Income",
+            "type": "quantitative"
+            
+          }
+        }
+      },
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2023_Jan.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "training3": {
+      "question_meta_data": {
+        "question_text": "Reconstruct the chart shown below.",
+        "question_topic": "Jan 2023"
+      },
+      "dataset": "day_by_day",
+      "model_vis": {
+        "data": {
+          "url": "data/day_by_day_2023_Jan.json"
+        },
+        "mark": {
+          "type": "point"
+        },
+        "encoding": {
+          "x": {
+            "field": "Savings",
+            "type": "quantitative"
+          },
+          "y": {
+            "field": "Spending_Category",
+            "type": "nominal"
+            
+          },
+          "size": {
+            "field": "Spending",
+            "type": "quantitative"
+          }
+        }
+      },
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2023_Jan.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "training4": {
+      "question_meta_data": {
+        "question_text": "Reconstruct the chart shown below.",
+        "question_topic": "Jan 2023"
+      },
+      "dataset": "day_by_day",
+      "model_vis": {
+        "data": {
+          "url": "data/day_by_day_2023_Jan.json"
+        },
+        "mark": {
+          "type": "bar"
+        },
+        "encoding": {
+          "x": {
+            "field": "Spending",
+            "type": "quantitative",
+            "bin": true
+          },
+          "y": {
+            "aggregate": "count"
+            
+          }
+        }
+      },
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2023_Jan.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
+            "seq_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "div_color": {
+                "data": "",
+                "transformation": ""
+            },
+            "qual_color": {
+              "data": "",
+              "transformation": ""
+            }
+        }  
+      }
+        
+    },
+    "training5": {
+      "question_meta_data": {
+        "question_text": "Reconstruct the chart shown below.",
+        "question_topic": "Jan 2023"
+      },
+      "dataset": "day_by_day",
+      "model_vis": {
+        "data": {
+          "url": "data/day_by_day_2023.json"
+        },
+        "mark": {
+          "type": "area"
+        },
+        "encoding": {
+          "x": {
+            "field": "Month",
+            "type": "ordinal",
+            "sort": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"]
+          },
+          "y": {
+            "field": "Spending",
+            "aggregate": "sum",
+            "type": "quantitative"
+            
+          },
+          "color": {
+            "field": "Spending_Category",
+            "type": "nominal"
+          }
+        }
+      },
+      "question_vis": {
+          "data": {
+            "url": "data/day_by_day_2023.json"
+          },
+          "mark": {
+            "type": "bar"
+          },
+          "encoding": {
+            "x": {
+              "field": "",
+              "type": ""
+            },
+            "y": {
+              "field": "",
+              "type": ""
+              
+            }
+          }
+        },
+        "initialize": {
+            "chart_type": "bar",
+            "encodings": {
+              "x": {
+                  "data": "", 
+                  "transformation": ""
+              },
+              "y": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "size": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "seq_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "div_color": {
+                  "data": "",
+                  "transformation": ""
+              },
+              "qual_color": {
+                "data": "",
+                "transformation": ""
+              }
+          }  
+        },
+        "manage_state": {
+          "chart_type": "",
+          "encodings": {
+            "x": {
+                "data": "", 
+                "transformation": ""
+            },
+            "y": {
+                "data": "",
+                "transformation": ""
+            },
+            "size": {
+                "data": "",
+                "transformation": ""
+            },
+            "color": {
+              "data": "",
+              "transformation": ""
+            },
             "seq_color": {
                 "data": "",
                 "transformation": ""
@@ -209,7 +661,7 @@
       "dataset": "day_by_day",
       "question_vis": {
           "data": {
-            "url": "data/day_by_day_2023.json"
+            "url": "data/day_by_day_2021_JulAugSeptOct.json"
           },
           "mark": {
             "type": "bar"

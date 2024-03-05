@@ -4,7 +4,7 @@
     "Spending": 19.7582,
     "Income": 304.064,
     "Savings": 38.3063,
-    "Category": "Food",
+    "Spending_Category": "Food",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -13,7 +13,7 @@
     "Spending": 62.7743,
     "Income": 422.1709,
     "Savings": 45.5557,
-    "Category": "Food",
+    "Spending_Category": "Food",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -22,7 +22,7 @@
     "Spending": 66.3348,
     "Income": 181.2108,
     "Savings": 23.06,
-    "Category": "Transport",
+    "Spending_Category": "Transport",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -31,7 +31,7 @@
     "Spending": 36.8827,
     "Income": 435.0897,
     "Savings": 45.8242,
-    "Category": "Transport",
+    "Spending_Category": "Transport",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -40,7 +40,7 @@
     "Spending": 16.7053,
     "Income": 362.6078,
     "Savings": 27.2608,
-    "Category": "Food",
+    "Spending_Category": "Food",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -49,7 +49,7 @@
     "Spending": 44.9833,
     "Income": 512.9762,
     "Savings": 34.0265,
-    "Category": "Utilities",
+    "Spending_Category": "Utilities",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -58,7 +58,7 @@
     "Spending": 55.8611,
     "Income": 489.4534,
     "Savings": 36.8846,
-    "Category": "Entertainment",
+    "Spending_Category": "Entertainment",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -67,7 +67,7 @@
     "Spending": 30.0302,
     "Income": 656.9588,
     "Savings": 35.0215,
-    "Category": "Utilities",
+    "Spending_Category": "Utilities",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -76,7 +76,7 @@
     "Spending": 76.3817,
     "Income": 534.1552,
     "Savings": 47.5856,
-    "Category": "Food",
+    "Spending_Category": "Food",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -85,7 +85,7 @@
     "Spending": 52.1535,
     "Income": 356.9598,
     "Savings": 38.0446,
-    "Category": "Food",
+    "Spending_Category": "Food",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -94,7 +94,7 @@
     "Spending": 84.5957,
     "Income": 516.3237,
     "Savings": 58.1562,
-    "Category": "Utilities",
+    "Spending_Category": "Utilities",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -103,7 +103,7 @@
     "Spending": 64.7213,
     "Income": 280.8693,
     "Savings": 14.651,
-    "Category": "Utilities",
+    "Spending_Category": "Utilities",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -112,7 +112,7 @@
     "Spending": 99.9134,
     "Income": 249.2337,
     "Savings": 29.0331,
-    "Category": "Entertainment",
+    "Spending_Category": "Entertainment",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -121,7 +121,7 @@
     "Spending": 60.256,
     "Income": 339.7209,
     "Savings": 31.3517,
-    "Category": "Transport",
+    "Spending_Category": "Transport",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -130,7 +130,7 @@
     "Spending": 12.8458,
     "Income": 344.3444,
     "Savings": 14.3774,
-    "Category": "Entertainment",
+    "Spending_Category": "Entertainment",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -139,7 +139,7 @@
     "Spending": 64.5476,
     "Income": 548.9623,
     "Savings": 50.0838,
-    "Category": "Entertainment",
+    "Spending_Category": "Entertainment",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -148,7 +148,7 @@
     "Spending": 56.9499,
     "Income": 478.6948,
     "Savings": 44.3619,
-    "Category": "Transport",
+    "Spending_Category": "Transport",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -157,7 +157,7 @@
     "Spending": 66.8493,
     "Income": 323.5386,
     "Savings": 21.9202,
-    "Category": "Entertainment",
+    "Spending_Category": "Entertainment",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -166,7 +166,7 @@
     "Spending": 49.3489,
     "Income": 286.7675,
     "Savings": 30.7029,
-    "Category": "Entertainment",
+    "Spending_Category": "Entertainment",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -175,7 +175,7 @@
     "Spending": 27.6695,
     "Income": 455.3546,
     "Savings": 56.098,
-    "Category": "Food",
+    "Spending_Category": "Food",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -184,7 +184,7 @@
     "Spending": 29.9548,
     "Income": 458.8307,
     "Savings": 35.9504,
-    "Category": "Utilities",
+    "Spending_Category": "Utilities",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -193,7 +193,7 @@
     "Spending": 28.4015,
     "Income": 469.344,
     "Savings": 12.6883,
-    "Category": "Food",
+    "Spending_Category": "Food",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -202,7 +202,7 @@
     "Spending": 48.2585,
     "Income": 386.2066,
     "Savings": 29.3391,
-    "Category": "Utilities",
+    "Spending_Category": "Utilities",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -211,7 +211,7 @@
     "Spending": 23.4987,
     "Income": 321.9017,
     "Savings": 50.4711,
-    "Category": "Transport",
+    "Spending_Category": "Transport",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -220,7 +220,7 @@
     "Spending": 44.3808,
     "Income": 353.9769,
     "Savings": 31.9134,
-    "Category": "Food",
+    "Spending_Category": "Food",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -229,7 +229,7 @@
     "Spending": 28.858,
     "Income": 586.4101,
     "Savings": 61.0427,
-    "Category": "Food",
+    "Spending_Category": "Food",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -238,7 +238,7 @@
     "Spending": 87.9849,
     "Income": 551.8924,
     "Savings": 39.5888,
-    "Category": "Food",
+    "Spending_Category": "Food",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -247,7 +247,7 @@
     "Spending": 80.4206,
     "Income": 652.6375,
     "Savings": 34.5053,
-    "Category": "Utilities",
+    "Spending_Category": "Utilities",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -256,7 +256,7 @@
     "Spending": 55.5268,
     "Income": 426.8813,
     "Savings": 19.6898,
-    "Category": "Food",
+    "Spending_Category": "Food",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -265,7 +265,7 @@
     "Spending": 25.943,
     "Income": 282.4883,
     "Savings": 42.6149,
-    "Category": "Transport",
+    "Spending_Category": "Transport",
     "Year": 2023,
     "Month": "Jan"
   },
@@ -274,7 +274,7 @@
     "Spending": 33.8802,
     "Income": 391.1167,
     "Savings": 47.0141,
-    "Category": "Food",
+    "Spending_Category": "Food",
     "Year": 2023,
     "Month": "Jan"
   }
