@@ -228,6 +228,7 @@ const ConstructionItemComponent = (props) => {
   const [showTextBox, setShowTextBox] = useState(false);
   const [sumOptionsAddedY, setSumOptionsAddedY] = useState(false);
   const [sumOptionsAddedX, setSumOptionsAddedX] = useState(false);
+  const [itemAnswer, setItemAnswer] = useState("no answer");
   
   console.log("in CREATE item component!")
   console.log(props)
@@ -478,7 +479,8 @@ const ConstructionItemComponent = (props) => {
             add_count_option.value = "count-" + select_y
         }
         if (add_count_option.value.split("-")[1] == select_y || add_count_option.value.split("-")[1] == "bin_y") {
-            x_axis.appendChild(add_count_option)
+            // x_axis.appendChild(add_count_option)
+            x_axis.insertBefore(add_count_option, x_axis.children[1])
         }
         state_change["encodings"]["y"]["data"] = select_y
         setCurrentItemState(state_change)
@@ -534,7 +536,8 @@ const ConstructionItemComponent = (props) => {
             add_count_option.value = "count-" + select_x
         }
         if (add_count_option.value.split("-")[1] == select_x || add_count_option.value.split("-")[1] == "bin_x") {
-            y_axis.appendChild(add_count_option)
+            // y_axis.appendChild(add_count_option)
+            y_axis.insertBefore(add_count_option, y_axis.children[1])
         }
         
         state_change["encodings"]["x"]["data"] = select_x
@@ -578,9 +581,28 @@ const ConstructionItemComponent = (props) => {
     
   }
 
+  const recordAnswer = (answer, highlight_id) => {
+    setItemAnswer(answer)
+    if (highlight_id == "TFoptionT") {
+        document.getElementById(highlight_id).classList.add("selectedAnswer")
+        document.getElementById("TFoptionF").classList.remove("selectedAnswer")
+    } else {
+        document.getElementById(highlight_id).classList.add("selectedAnswer")
+        console.log(document.getElementById(highlight_id))
+        document.getElementById("TFoptionT").classList.remove("selectedAnswer")
+    }
+    
+  }
+
   const nextItem = (e) => {
     
     console.log("clicking next")
+    console.log(itemAnswer)
+    if (showTextBox && itemAnswer == "no answer") {
+        document.getElementById("requiredLabel").classList.add("showDescription")
+        document.getElementById("requiredLabel").classList.remove("hideDescription")
+    }
+
     console.log(showTextBox)
     if (props.assessment && !showTextBox) {
         setShowTextBox(true);
@@ -620,7 +642,8 @@ const ConstructionItemComponent = (props) => {
     <div id="globalContainer">
     
     <div id="interactionZone">
-        {isClient ? <QuestionText question={itemBank[currentItem]["question_meta_data"]}></QuestionText> : null}
+        {isClient && !showTextBox ? <QuestionText question={itemBank[currentItem]["question_meta_data"]}></QuestionText> : null}
+        {!showTextBox ? <hr></hr> : null}
         {!showTextBox ? <div id="workingTiles">
             <div id='chartTypes'>
             {!props.assessment ? <div id="toReconstruct"></div> : null}
@@ -674,7 +697,9 @@ const ConstructionItemComponent = (props) => {
            
             <div>
             {(!selectedChart || !selectedVar) ? <div id="placeholderInstructions">
-                {!selectedChart ? <p><i>Select a mark type from the <b>tiles above</b></i></p> : <p><i>Select variables from <b>dropdown lists</b></i></p>}
+                {showTextBox ? <p>No chart created</p> : !selectedChart ? 
+                <p><i>Select a mark type from the <b>tiles above</b></i></p> : 
+                <p><i>Select variables from <b>dropdown lists</b></i></p>}
             </div>: null}
             <div id="questionVis">
             </div>
@@ -728,9 +753,16 @@ const ConstructionItemComponent = (props) => {
                  
                 
                 {showTextBox ? <div id="answerVis">
-                    <p><label htmlFor="questionAnswer">Enter your answer to the question below <span style={{color:"red"}}>*</span>:</label></p>
-                    <textarea id="questionAnswer" name="questionAnswer" rows="2" cols="35"></textarea>
-                    <p className="hideDescription" id="requiredLabel" style={{color:"red"}}>* This is required</p>
+                    <p><b>True or False <span style={{color:"red"}}>*</span></b> <span style={{color:"red"}} className="hideDescription" id="requiredLabel">Selection required</span></p>
+                    <p>{itemBank[currentItem]["question_meta_data"]["question_text"]}</p>
+                    <div id="TFoptions">
+                        <div className="choiceOption" id="TFoptionT" onClick={() => recordAnswer(true, "TFoptionT")}><p>True</p></div>
+                        <div className="choiceOption" id="TFoptionF" onClick={() => recordAnswer(false, "TFoptionF")}><p>False</p></div>
+                        
+                    </div>
+                    <p><label htmlFor="questionAnswer">Enter any additional comments below:</label></p>
+                    <textarea id="questionAnswer" name="questionAnswer" rows="2" cols="35" placeholder='Optional'></textarea>
+                    {/* <p className="hideDescription" id="requiredLabel" style={{color:"red"}}>* This is required</p> */}
                 </div> : null}
                 <div id="nextButton" onClick={(e) => nextItem(e)}>
                     <p>Next</p>

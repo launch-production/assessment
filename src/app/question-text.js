@@ -3,8 +3,8 @@ const QuestionText = (question) => {
     return (
         <div>
             <div id='questionContainer'>
-                {/* <p><b>Use or fix the chart to answer the following question about {question.question.question_topic}:</b></p> */}
-                <p><b>{question.question.question_text}</b></p>
+                <p><b>Create a chart to support or negate the following statement:</b></p>
+                <p><i>{question.question.question_text}</i></p>
             </div>
         </div>
         

@@ -66,7 +66,7 @@ img {
 .mappingContainerColorSize {
   display: flex;
   flex-direction: column;
-  margin-bottom: 4rem;
+  margin-bottom: 6rem;
   margin-top: 2rem;
 }
 
@@ -136,14 +136,14 @@ img {
 
 #answerVis {
   margin-left: 1rem;
-  padding: 1rem;
+  /* padding: 1rem; */
   width: 350px;
 }
 
 #nextButton {
   margin: auto;
   width: 6rem;
-  margin-top: 4rem;
+  margin-top: 2rem;
   /* margin-bottom: 4rem; */
   border-width: 1px;
   border-style: solid;
@@ -281,7 +281,7 @@ img {
   color: gray;
 }
 
-.chartTiles:hover, .dataTiles:hover, #nextButton:hover, .transformationTiles:hover {
+.chartTiles:hover, .dataTiles:hover, #nextButton:hover, .transformationTiles:hover, .choiceOption:hover {
   cursor: pointer;
 }
 
@@ -298,6 +298,10 @@ img {
 .selectedChart {
   width: fit-content;
   /* margin: auto; */
+  background-color: #0033ff1c;
+}
+
+.selectedAnswer {
   background-color: #0033ff1c;
 }
 
@@ -413,3 +417,20 @@ img {
 #placeholderInstructions p {
   margin-top: 30%;
 }
+
+#TFoptions {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2rem;
+}
+
+.choiceOption {
+  width: 100px;
+  text-align: center;
+  border: 1px solid;
+  margin-right: 1rem;
+}
+
+/* textarea::placeholder {
+  line-height: normal;
+} */

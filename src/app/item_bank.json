@@ -89,12 +89,12 @@
       },
       "day_by_day": {
       "Date": {"type": "temporal", "full_name": "Date", "description": "", "truncate": null},
+      "Month": {"type": "ordinal", "full_name": "Month", "description": "", "truncate": null},
+      "Year": {"type": "ordinal", "full_name": "Year", "description": "", "truncate": null},
       "Spending": {"type": "quantitative", "full_name": "Spending ($)", "description": "", "truncate": null},
       "Income": {"type": "quantitative", "full_name": "Income ($)", "description": "", "truncate": null},
       "Savings": {"type": "quantitative", "full_name": "Savings ($)", "description": "", "truncate": null},
-      "Spending_Category": {"type": "nominal", "full_name": "Spending category", "description": "", "truncate": null},
-      "Year": {"type": "ordinal", "full_name": "Year", "description": "", "truncate": null},
-      "Month": {"type": "ordinal", "full_name": "Month", "description": "", "truncate": null}
+      "Spending_Category": {"type": "nominal", "full_name": "Spending category", "description": "", "truncate": null}
     }
     },
     "training1": {
