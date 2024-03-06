@@ -144,7 +144,7 @@ img {
   margin: auto;
   width: 6rem;
   margin-top: 2rem;
-  /* margin-bottom: 4rem; */
+  margin-bottom: 4rem;
   border-width: 1px;
   border-style: solid;
   background-color: gray;
@@ -281,7 +281,7 @@ img {
   color: gray;
 }
 
-.chartTiles:hover, .dataTiles:hover, #nextButton:hover, .transformationTiles:hover, .choiceOption:hover {
+.chartTiles:hover, .dataTiles:hover, #nextButton:hover, .transformationTiles:hover, .choiceOption:hover, .usabilityChoiceOption:hover {
   cursor: pointer;
 }
 
@@ -434,3 +434,26 @@ img {
 /* textarea::placeholder {
   line-height: normal;
 } */
+
+.usabilityChoiceOption {
+  width: 80px;
+  border: 1px solid;
+  margin-right: 1rem;
+  height: 40px;
+  text-align: center;
+}
+
+.usabilityChoiceOption p {
+  margin: 0.7rem;
+}
+
+.usabilityChoiceLabel {
+  width: 85px;
+  margin-right: 1rem;
+}
+
+#usabilityLabelsContainer {
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: row;
+}
