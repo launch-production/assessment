@@ -655,7 +655,7 @@
     },
     "item1": {
       "question_meta_data": {
-        "question_text": "Daily income in Jan 2023 rarely went over $300",
+        "question_text": "Daily income rarely went over $300.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -744,7 +744,7 @@
     },
     "item2": {
       "question_meta_data": {
-        "question_text": "Total monthly utilities spending in 2021 was generally lower than $300",
+        "question_text": "Total monthly utilities spending was generally lower than $300.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -833,7 +833,7 @@
     },
     "item3": {
       "question_meta_data": {
-        "question_text": "Most daily savings in Jan 2023 were above $20?",
+        "question_text": "Most daily savings were above $20.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -922,7 +922,7 @@
     },
     "item4": {
       "question_meta_data": {
-        "question_text": "Yearly spending in all categories did not exceed 10k in 2020",
+        "question_text": "Yearly spending in all categories did not exceed $10,000 in 2020.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -1011,7 +1011,7 @@
     },
     "item5": {
       "question_meta_data": {
-        "question_text": "Daily spendings in 2021 rarely went over $90",
+        "question_text": "Daily spendings rarely went over $90.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -1100,7 +1100,7 @@
     },
     "item6": {
       "question_meta_data": {
-        "question_text": "Most daily entertainment spending in 2021 were above $80?",
+        "question_text": "Most daily entertainment spending were above $80.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -1189,7 +1189,7 @@
     },
     "item7": {
       "question_meta_data": {
-        "question_text": "The range of daily savings in July was larger than Aug in 2022",
+        "question_text": "The range of daily savings in Jul was about $10 to $50.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -1278,7 +1278,7 @@
     },
     "item8": {
       "question_meta_data": {
-        "question_text": "There were more higher daily entertainment spendings as income increased in June 2022",
+        "question_text": "Most high daily entertainment spendings occur when income is also high.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -1367,7 +1367,7 @@
     },
     "item9": {
       "question_meta_data": {
-        "question_text": "Most daily income in 2021 were between $100 to $500",
+        "question_text": "Most daily income were between $100 to $500.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -1456,7 +1456,7 @@
     },
     "item10": {
       "question_meta_data": {
-        "question_text": "Most daily utilities spending were below $20 in 2021",
+        "question_text": "Most daily utilities spending were below $20.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -1545,7 +1545,7 @@
     },
     "item11": {
       "question_meta_data": {
-        "question_text": "The higher the daily income in April and May, the more high daily savings",
+        "question_text": "Most high daily savings occur when income is high.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -1634,7 +1634,7 @@
     },
     "item12": {
       "question_meta_data": {
-        "question_text": "As daily income and savings decreased, there were more food spendings less than $10",
+        "question_text": "As daily income and savings decreased, there were more food spendings less than $10.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -1723,7 +1723,7 @@
     },
     "item13": {
       "question_meta_data": {
-        "question_text": "How did total transport spending change from 2020 to 2023?",
+        "question_text": "Total spending increased from 2020 to 2023.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -1812,7 +1812,7 @@
     },
     "item14": {
       "question_meta_data": {
-        "question_text": "Monthly food spending was consistently higher than monthly entertainment spending in the second half of 2021.",
+        "question_text": "Monthly food spending consistently increased in the second half of the given year.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -1901,7 +1901,7 @@
     },
     "item15": {
       "question_meta_data": {
-        "question_text": "Total monthly spending was generally constant throughout 2023",
+        "question_text": "Total monthly spending generally decreased throughout the given year.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -1990,7 +1990,7 @@
     },
     "item16": {
       "question_meta_data": {
-        "question_text": "Total monthly entertainment spending was consistently the highest among all spending categories",
+        "question_text": "Total monthly entertainment spending was generally constant throughout the given year.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -2079,7 +2079,7 @@
     },
     "item17": {
       "question_meta_data": {
-        "question_text": "Daily entertainment spending generally fluctuated between $30 to $40 in 2020?",
+        "question_text": "Daily spending generally fluctuated between $30 to $40.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -2168,7 +2168,7 @@
     },
     "item18": {
       "question_meta_data": {
-        "question_text": "Recorded utilities spending generally decreased in the first half of June 2022.",
+        "question_text": "Daily utilities spending generally increased in the first half of the given month.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -2257,7 +2257,7 @@
     },
     "item19": {
       "question_meta_data": {
-        "question_text": "What generally happens to savings when income increases in Jan 2023?",
+        "question_text": "Daily savings generally increased as income increased.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -2435,7 +2435,7 @@
     },
     "item21": {
       "question_meta_data": {
-        "question_text": "Most daily savings were between $15 to $20 in 2021, then it's progressively more rare to have higher daily savings",
+        "question_text": "Most daily savings were between $15 to $20 for this given year, and it's progressively more rare to have higher daily savings.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -2524,7 +2524,7 @@
     },
     "item22": {
       "question_meta_data": {
-        "question_text": "The number of times that daily spendings were around $50 increases from 2020 to 2023",
+        "question_text": "The number of times that daily spendings were around $50 increased from 2020 to 2023.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -2613,7 +2613,7 @@
     },
     "item23": {
       "question_meta_data": {
-        "question_text": "As income and savings increased, spending decreased in June 2022",
+        "question_text": "As income and savings increased, spending also consistently increased.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -2702,7 +2702,7 @@
     },
     "item24": {
       "question_meta_data": {
-        "question_text": "How does transport spending change as savings decrease but income increases?",
+        "question_text": "As savings decrease but income increases, daily transport spending decreases.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -2791,7 +2791,7 @@
     },
     "item25": {
       "question_meta_data": {
-        "question_text": "There were more dramatic dips in daily savings in the first half of Feb 2023 than the second half",
+        "question_text": "There were more dramatic dips in daily savings in the first half of the given month than the second half.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -2880,7 +2880,7 @@
     },
     "item26": {
       "question_meta_data": {
-        "question_text": "Entertainment daily spending had the most dramatic drop around mid Jan 2023 compared to other spending categories.",
+        "question_text": "Entertainment daily spending had the most dramatic drop around the middle of the given month compared to other spending categories.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -2969,7 +2969,7 @@
     },
     "item27": {
       "question_meta_data": {
-        "question_text": "Daily income in the second half of Feb was generally higher than those of the first half",
+        "question_text": "Daily income in the second half of the given month was generally higher than those of the first half.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -3058,13 +3058,13 @@
     },
     "item28": {
       "question_meta_data": {
-        "question_text": "Total spending for all categories decreased from July to Oct 2021",
+        "question_text": "Total spending for all categories decreased from Jul to Oct.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
       "question_vis": {
           "data": {
-            "url": "data/day_by_day_2021_JulAugSeptOct.json"
+            "url": "data/day_by_day_2022_JulAugSeptOct.json"
           },
           "mark": {
             "type": "bar"
@@ -3147,7 +3147,7 @@
     },
     "item29": {
       "question_meta_data": {
-        "question_text": "There were more dramatic dips in daily savings in the second half of Jan 2023 compared to the first half.",
+        "question_text": "There were more dramatic dips in daily savings in the second half of the given year compared to the first half.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -3236,7 +3236,7 @@
     },
     "item30": {
       "question_meta_data": {
-        "question_text": "Daily spending on food was consistently higher than daily transport spending in the first 10 days in Dec 2022?",
+        "question_text": "Daily food spending was consistently higher than daily transport spending in the first 10 days of the given month.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -3325,13 +3325,13 @@
     },
     "item31": {
       "question_meta_data": {
-        "question_text": "The range of daily utilities spending was wider than the range of daily entertainment spending in July and Aug of 2022",
+        "question_text": "The range of daily utilities spending was wider than the range of daily entertainment spending in Jul.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
       "question_vis": {
           "data": {
-            "url": "data/day_by_day_2022_JulAug.json"
+            "url": "data/day_by_day_2022_JulAug_UE.json"
           },
           "mark": {
             "type": "bar"
@@ -3414,7 +3414,7 @@
     },
     "item32": {
       "question_meta_data": {
-        "question_text": "Most recorded daily spendings in Feb and March of 2021 were for entertainment",
+        "question_text": "The range of daily entertainment spendings was about the same each month of the given year.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -3503,7 +3503,7 @@
     },
     "item33": {
       "question_meta_data": {
-        "question_text": "The range of daily savings in July and August 2022 was approximately between $5 and $50, but there were a lot more on the higher end.",
+        "question_text": "The range of daily savings was approximately between $5 and $50, but most were near $50.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -3592,13 +3592,13 @@
     },
     "item34": {
       "question_meta_data": {
-        "question_text": "The range of daily income in Sept was about the same as in Aug",
+        "question_text": "The range of daily income in Aug was wider than in Sept.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
       "question_vis": {
           "data": {
-            "url": "data/day_by_day_2021_JulAugSeptOct.json"
+            "url": "data/day_by_day_2022_JulAugSeptOct.json"
           },
           "mark": {
             "type": "bar"
@@ -3681,7 +3681,7 @@
     },
     "item35": {
       "question_meta_data": {
-        "question_text": "There were more higher daily spending and savings in July than in Aug",
+        "question_text": "Compared to Aug, there were more instances of high daily spendings when daily savings were low in Jul.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -3770,7 +3770,7 @@
     },
     "item36": {
       "question_meta_data": {
-        "question_text": "As income and savings increase, daily spending on food also increased in Dec 2022",
+        "question_text": "As income and savings increase, daily food spending also increased in the given month.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -3859,7 +3859,7 @@
     },
     "item37": {
       "question_meta_data": {
-        "question_text": "Total spending was higher in 2023 for all spending categories than in 2020.",
+        "question_text": "For each spending category, total spending was higher in 2023 than in 2020.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
@@ -3948,7 +3948,7 @@
     },
     "item38": {
       "question_meta_data": {
-        "question_text": "Monthly spending on food have been consistently lower than $400 in 2021",
+        "question_text": "Monthly spending on food has been consistently lower than $400.",
         "question_topic": "weather in Seattle"
       },
       "dataset": "day_by_day",
