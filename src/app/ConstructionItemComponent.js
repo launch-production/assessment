@@ -612,7 +612,7 @@ const ConstructionItemComponent = (props) => {
     let next_item = current_item + 1
     console.log(next_item)
     
-    if (next_item <= 38) {
+    if (next_item <= 40) {
 
         let text_answer = ""
         if (props.assessment) {
@@ -754,7 +754,7 @@ const ConstructionItemComponent = (props) => {
                 
                 {showTextBox ? <div id="answerVis">
                     <p><b>True or False <span style={{color:"red"}}>*</span></b> <span style={{color:"red"}} className="hideDescription" id="requiredLabel">Selection required</span></p>
-                    <p>{itemBank[currentItem]["question_meta_data"]["question_text"]}</p>
+                    {itemBank[currentItem]["question_meta_data"]["attention_check"] ? <p>{itemBank[currentItem]["question_meta_data"]["attention_check"]}</p> : <p>{itemBank[currentItem]["question_meta_data"]["question_text"]}</p>}
                     <div id="TFoptions">
                         <div className="choiceOption" id="TFoptionT" onClick={() => recordAnswer(true, "TFoptionT")}><p>True</p></div>
                         <div className="choiceOption" id="TFoptionF" onClick={() => recordAnswer(false, "TFoptionF")}><p>False</p></div>
