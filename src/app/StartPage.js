@@ -261,54 +261,54 @@ const StartPage = (props) => {
   const [pID, setPID] = useState("");
   const [startTime, setStartTime] = useState(0);
   
-  console.log("in item component!")
-  console.log(props)
-  console.log(props.training_set)
-  console.log(pathname)
-  console.log(searchParams)
-  const handleSubmit = async (e, questionID, time_start, text_answer) => {
-    e.preventDefault();
-    console.log("in handle submit!!")
-    console.log(pID)
-    console.log(itemBank[currentItem]["question_meta_data"]["question_text"])
-    console.log(loadVis)
-    // const queryString = window.location.search;
-    // console.log(queryString);
+  // console.log("in item component!")
+  // console.log(props)
+  // console.log(props.training_set)
+  // console.log(pathname)
+  // console.log(searchParams)
+  // const handleSubmit = async (e, questionID, time_start, text_answer) => {
+  //   e.preventDefault();
+  //   console.log("in handle submit!!")
+  //   console.log(pID)
+  //   console.log(itemBank[currentItem]["question_meta_data"]["question_text"])
+  //   console.log(loadVis)
+  //   // const queryString = window.location.search;
+  //   // console.log(queryString);
 
-    // const urlParams = new URLSearchParams(queryString);
-    // console.log(urlParams)
+  //   // const urlParams = new URLSearchParams(queryString);
+  //   // console.log(urlParams)
 
-    // const prolific_ID = urlParams.get('PROLIFIC_PID')
-    // console.log(prolific_ID)
+  //   // const prolific_ID = urlParams.get('PROLIFIC_PID')
+  //   // console.log(prolific_ID)
 
-    if (pID) {
-      if (questionID.split("_")[1] == 1) {
-        const add_time_start = await initializeTime(pID, questionID, time_start)
-        if (add_time_start) {
-          // setPID("");
-          setScore("");
-          alert("start time added!");
-        }
-      }
-      const added = await addDataToFireStore(pID, questionID, loadVis, text_answer);
-      if (added) {
-        // setPID("");
-        setScore("");
-        alert("Data added!");
-      }
-    }
+  //   if (pID) {
+  //     if (questionID.split("_")[1] == 1) {
+  //       const add_time_start = await initializeTime(pID, questionID, time_start)
+  //       if (add_time_start) {
+  //         // setPID("");
+  //         setScore("");
+  //         alert("start time added!");
+  //       }
+  //     }
+  //     const added = await addDataToFireStore(pID, questionID, loadVis, text_answer);
+  //     if (added) {
+  //       // setPID("");
+  //       setScore("");
+  //       alert("Data added!");
+  //     }
+  //   }
     
-  };
+  // };
 
   useEffect(() => {
-      if (!isClient) {
-        if (props.item == 1) {
-          let start_time = new Date().getTime()
-          console.log("printing time!!")
-          console.log(start_time)
-          setStartTime(start_time)
-        }
-      }
+      // if (!isClient) {
+      //   if (props.item == 1) {
+      //     let start_time = new Date().getTime()
+      //     console.log("printing time!!")
+      //     console.log(start_time)
+      //     setStartTime(start_time)
+      //   }
+      // }
       setIsClient(true);
       const queryString = window.location.search;
       console.log(queryString);
@@ -353,9 +353,9 @@ const StartPage = (props) => {
     // console.log(item_state)
     // console.log(itemBank["status"])
     // document.getElementById(currentChartType+"_container").classList.add("selectedChart")
-    console.log(loadVis)
+    // console.log(loadVis)
     // let mark_spec = require(training_set["item"+currentItem.toString()]["initialize"]["question_vis"]);
-    embed('#questionVis', loadVis, {"actions": false});
+    // embed('#questionVis', loadVis, {"actions": false});
     // console.log(itemBank[currentItem]["question_meta_data"]["highlight_component"])
     // if (itemBank[currentItem]["question_meta_data"]["highlight_component"] == "question") {
     //     document.getElementById("answerVis").classList.add("highlightBackground")
@@ -1140,12 +1140,14 @@ const StartPage = (props) => {
 
   return (
     <div>
-        {isClient ? <div id='questionContainer'>
-                <p><b>- Training -</b></p>
+        {isClient ? 
+        <div id='questionContainer'>
+          <h1>Consent</h1>
+                {/* <p><b>- Training -</b></p>
                 <p><b>{itemBank[currentItem]["question_meta_data"]["question_topic"]}</b></p>
-                <p>{itemBank[currentItem]["question_meta_data"]["question_text"]}</p>
+                <p>{itemBank[currentItem]["question_meta_data"]["question_text"]}</p> */}
             </div> : null}
-        <div id='visContainer'>
+        {/* <div id='visContainer'>
             <div id="questionVis"></div>
             <div id="answerVis">
               <p><label htmlFor="questionAnswer">You will need to enter your answer to the question in a text box <span style={{color:"red"}}>*</span>:</label></p>
@@ -1158,7 +1160,7 @@ const StartPage = (props) => {
                 The following three questions will be training to help you get familiar with the layout of the survey and how to change the chart display.
             </p>
             <p>Click 'Start Training' to proceed.</p>
-        </div>
+        </div> */}
         {/* <div id='tilesContainer'>
           <div id='chartTypes'>
             <p>Marks</p>
@@ -1234,7 +1236,7 @@ const StartPage = (props) => {
           </div>
         </div> */}
       <div id="nextButton" onClick={(e) => nextItem(e)}>
-        <p>Start Training</p>
+        <p>I Agree</p>
       </div>
       {/*<form onSubmit={handleSubmit}>
          <div>

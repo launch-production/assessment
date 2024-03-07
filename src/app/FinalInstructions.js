@@ -1148,9 +1148,14 @@ const FinalInstructions = (props) => {
   return (
     <div>
         {isClient ? <div id='questionContainer'>
-                <p><b>{itemBank[currentItem]["question_meta_data"]["question_topic"]}</b></p>
-                <p>{itemBank[currentItem]["question_meta_data"]["question_text"]}</p>
-                <p>Note you will not be able to go back once you advance to the next question. For successsful completion, you must answer all questions in this survey. Click 'Start' to proceed.</p>
+                <h3>Instructions for Main Survey</h3>
+                <p><b>You are now about to begin the main survey.</b></p>
+                <p>The layout of each question in the following section will be the same as the training you just completed.</p>
+                <p>This section is expected to take approximately 45 minutes.</p>
+                {/* <p>{itemBank[currentItem]["question_meta_data"]["question_text"]}</p> */}
+                <p>For successsful completion, you must answer all questions in this survey.</p>
+                <p><i>Note you will not be able to go back once you advance to the next question.</i></p>
+                <p>Click 'Start' to proceed.</p>
             </div> : null}
         {/* <div id='visContainer'>
             <div id="questionVis"></div>

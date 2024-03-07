@@ -592,6 +592,12 @@ const UsabilityCheck = (props) => {
     update_answers[item_key] = answer
     setUsabilityItemAnswers(update_answers)
     console.log(usabilityItemAnswers)
+    let usability_options_container = document.getElementById("usabilityChoiceOptionContainer").children
+   
+    for (let index = 1; index <= 5; index += 1) {
+        document.getElementById(item_key+"-"+index.toString()).classList.remove("selectedAnswer")
+    }
+    document.getElementById(item_key+"-"+answer.toString()).classList.add("selectedAnswer")
     // setItemAnswer(answer)
     // if (highlight_id == "TFoptionT") {
     //     document.getElementById(highlight_id).classList.add("selectedAnswer")
@@ -611,6 +617,18 @@ const UsabilityCheck = (props) => {
     if (showTextBox && itemAnswer == "no answer") {
         document.getElementById("requiredLabel").classList.add("showDescription")
         document.getElementById("requiredLabel").classList.remove("hideDescription")
+    }
+    for (var key in usabilityItemAnswers) {
+        console.log(key)
+        if (usabilityItemAnswers[key] == 0) {
+            document.getElementById("usability_"+key).classList.add("highlightRequired")
+            document.getElementById("requiredLabel_"+key).classList.add("showDescription")
+            document.getElementById("requiredLabel_"+key).classList.remove("hideDescription")
+        } else {
+            document.getElementById("usability_"+key).classList.remove("highlightRequired")
+            document.getElementById("requiredLabel_"+key).classList.add("hideDescription")
+            document.getElementById("requiredLabel_"+key).classList.remove("showDescription")
+        }
     }
 
     console.log(showTextBox)
@@ -656,8 +674,8 @@ const UsabilityCheck = (props) => {
         <p><b>{itemBank[currentItem]["question_meta_data"]["question_topic"]}</b></p>
         <hr></hr>
         {itemBank[currentItem]["question_meta_data"]["question_text"].map((question, index) => (
-            <div key={question}>
-                <p><b>{question} <span style={{color:"red"}}>*</span></b> <span style={{color:"red"}} className="hideDescription" id="requiredLabel">Selection required</span></p>
+            <div className='usabilityQA' id={"usability_q"+index} key={question}>
+                <p><b>{question} <span style={{color:"red"}}>*</span></b> <span style={{color:"red"}} className="hideDescription" id={"requiredLabel_q"+index}>Selection required</span></p>
                 <div id="usabilityLabelsContainer">
                     <div className="usabilityChoiceLabel">
                         <label>Strongly Disagree</label>
@@ -678,24 +696,22 @@ const UsabilityCheck = (props) => {
                     </div>
                     
                 </div>
-                <div id="TFoptions">
-                    <div>
-                        <div className="usabilityChoiceOption" id={"q"+index+"-1"} onClick={() => recordAnswer(index, 1)}><p>1</p></div>
-                    </div>
+                <div id="usabilityChoiceOptionContainer">
+                    <div className="usabilityChoiceOption" id={"q"+index+"-1"} onClick={() => recordAnswer(index, 1)}><p>1</p></div>
                     <div className="usabilityChoiceOption" id={"q"+index+"-2"} onClick={() => recordAnswer(index, 2)}><p>2</p></div>
                     <div className="usabilityChoiceOption" id={"q"+index+"-3"} onClick={() => recordAnswer(index, 3)}><p>3</p></div>
                     <div className="usabilityChoiceOption" id={"q"+index+"-4"} onClick={() => recordAnswer(index, 4)}><p>4</p></div>
-                    <div>
-                        <div className="usabilityChoiceOption" id={"q"+index+"-5"} onClick={() => recordAnswer(index, 5)}><p>5</p></div>
-                    </div>
+                    <div className="usabilityChoiceOption" id={"q"+index+"-5"} onClick={() => recordAnswer(index, 5)}><p>5</p></div>
                     
                 </div>
                 <hr></hr>
             
             </div>
         ))}
-        <p><label htmlFor="questionAnswer"><b>Enter any additional comments below:</b></label></p>
-        <textarea id="questionAnswer" name="questionAnswer" rows="2" cols="35" placeholder='Optional'></textarea>
+        <div className='usabilityQA'>
+            <p><label htmlFor="questionAnswer"><b>Enter any additional comments below:</b></label></p>
+            <textarea id="questionAnswer" name="questionAnswer" rows="2" cols="35" placeholder='Optional'></textarea>
+        </div>
         <p id='proceeding' className='hideDescription'>Proceeding...</p>
         <div id="nextButton" onClick={(e) => nextItem(e)}>
             <p>Next</p>

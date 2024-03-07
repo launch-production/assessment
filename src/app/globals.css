@@ -418,7 +418,7 @@ img {
   margin-top: 30%;
 }
 
-#TFoptions {
+#TFoptions, #usabilityChoiceOptionContainer {
   display: flex;
   flex-direction: row;
   margin-bottom: 2rem;
@@ -456,4 +456,11 @@ img {
   margin-bottom: 0.5rem;
   display: flex;
   flex-direction: row;
+}
+
+.usabilityQA {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-top: 1rem;
+  padding-top: 0.5rem;
 }
