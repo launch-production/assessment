@@ -354,6 +354,7 @@ const ConstructionItemComponent = (props) => {
         // return true
         console.log()
         if (current_progress["completed_item"]) {
+            console.log(window.location.href)
             if (current_progress["completed_item"] == "consent") {
                 let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
                 let redirect_url = "/assessment/training" + url_pid
