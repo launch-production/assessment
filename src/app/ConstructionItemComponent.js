@@ -31,10 +31,14 @@ async function addDataToFireStore(prolificID, questionID, vis_answer, text_answe
   }
 }
 
-async function addProgress(prolificID, current_item) {
+async function addProgress(prolificID, current_item, created_vis, load_text_box, selected_chart, selected_var) {
     try {
       const docRef = await setDoc(doc(db, prolificID, "progress"), {
-        completed_item: current_item
+        completed_item: current_item,
+        auto_load_TF: load_text_box,
+        created_vis: created_vis,
+        selected_chart: selected_chart,
+        selected_var: selected_var
       }, { merge: true });
       console.log("Doc written with ID: ", prolificID);
       return true;
@@ -360,6 +364,7 @@ const ConstructionItemComponent = (props) => {
                 let redirect_url = "/training" + url_pid
                 if (window.location.href.includes("training")) {
                     setRedirectTo("")
+                    setShowTextBox(false)
                 } else {
                     setRedirectTo(redirect_url)
                 }
@@ -371,6 +376,7 @@ const ConstructionItemComponent = (props) => {
                 // setRedirectTo("")
                 if (window.location.href.includes("start101")) {
                     setRedirectTo("")
+                    setShowTextBox(false)
                 } else {
                     setRedirectTo(redirect_url)
                 }
@@ -381,6 +387,8 @@ const ConstructionItemComponent = (props) => {
                 let redirect_url = "/Q1" + url_pid
                 if (window.location.href.includes("Q1")) {
                     setRedirectTo("")
+                    setShowTextBox(current_progress["auto_load_TF"])
+                    console.log(current_progress["auto_load_TF"])
                 } else {
                     setRedirectTo(redirect_url)
                 }
@@ -402,6 +410,7 @@ const ConstructionItemComponent = (props) => {
                     let redirect_url = "/start10" + display_item + url_pid
                     if (window.location.href.includes(check_existing)) {
                         setRedirectTo("")
+                        setShowTextBox(false)
                     } else {
                         setRedirectTo(redirect_url)
                     }
@@ -415,7 +424,14 @@ const ConstructionItemComponent = (props) => {
                         let redirect_url = "/Q" + display_item + url_pid
                         if (window.location.href.includes(check_existing)) {
                             setRedirectTo("")
+                            console.log(current_progress["auto_load_TF"])
+                            console.log(showTextBox)
+                            setShowTextBox(current_progress["auto_load_TF"])
+                            console.log(current_progress["created_vis"])
+                            setSelectedChart(true)
+                            setSelectedVar(true);
                         } else {
+
                             setRedirectTo(redirect_url)
                         }
                     }
@@ -427,7 +443,21 @@ const ConstructionItemComponent = (props) => {
                 let item_order = current_progress["randomized_order"]
                 setCurrentItem(props.mode+item_order[index-1])
                 setDataset(props.item_bank["datasets"][props.item_bank[props.mode+item_order[index-1]]["dataset"]])
-                setLoadVis(props.item_bank[props.mode+item_order[index-1]]["question_vis"])
+                console.log(showTextBox)
+                console.log("VIS??")
+                if (current_progress["auto_load_TF"] == false) {
+                    setLoadVis(props.item_bank[props.mode+item_order[index-1]]["question_vis"]) 
+                    setSelectedChart(false)
+                    setSelectedVar(false);
+                } else {
+                    setLoadVis(current_progress["created_vis"])
+                    setSelectedChart(current_progress["selected_chart"])
+                    setSelectedVar(current_progress["selected_var"]);
+                    // setSelectedChart(false)
+                    // setSelectedVar(false);
+                }
+               
+                
             } else {
                 setCurrentItem(props.mode+props.item)
                 setDataset(props.item_bank["datasets"][props.item_bank[props.mode+props.item]["dataset"]])
@@ -454,9 +484,9 @@ const ConstructionItemComponent = (props) => {
     }
   }
 
-  const updateProgress = async (prolificID, completed_item) => {
+  const updateProgress = async (prolificID, completed_item, created_vis, load_text_box, select_chart, selected_var) => {
     if (prolificID) {
-      const added_progress = await addProgress(prolificID, completed_item);
+      const added_progress = await addProgress(prolificID, completed_item, created_vis, load_text_box, select_chart, selected_var);
       if (!added_progress) {
         // setPID("");
         setScore("");
@@ -487,6 +517,8 @@ const ConstructionItemComponent = (props) => {
       setPID(prolific_ID);
 
       checkProgress(prolific_ID)
+
+      setShowTextBox(false)
           
       
       
@@ -798,15 +830,25 @@ const ConstructionItemComponent = (props) => {
     
     console.log("clicking next")
     console.log(itemAnswer)
+    
+    let prev_index = props.item-1
+    let prev_item = "item_"+prev_index
+    if (prev_index <= 0) {
+        prev_item = "instructions"
+    }
     if (showTextBox && itemAnswer == "no answer") {
         document.getElementById("requiredLabel").classList.add("showDescription")
         document.getElementById("requiredLabel").classList.remove("hideDescription")
+        console.log(selectedChart)
+        console.log(selectedVar)
+        updateProgress(pID, prev_item, loadVis, showTextBox, selectedChart, selectedVar)
         return;
     }
 
     console.log(showTextBox)
     if (props.assessment && !showTextBox) {
         setShowTextBox(true);
+        updateProgress(pID, prev_item, loadVis, true, selectedChart, selectedVar)
         return;
     }
     let current_item = props.item;
@@ -826,7 +868,7 @@ const ConstructionItemComponent = (props) => {
             
             // let text_answer = "placeholder"
             document.getElementById("proceeding").classList.remove("hideDescription")
-            updateProgress(pID, "item_"+props.item)
+            updateProgress(pID, "item_"+props.item, loadVis, false, selectedChart, selectedVar)
             // console.log(document.getElementById("nextButtonValue").value)
             handleSubmit(e, "item_"+current_item, startTime, text_answer, itemAnswer, startTime)
             // let url_pid = "?PROLIFIC_PID=" + pID;
@@ -838,7 +880,7 @@ const ConstructionItemComponent = (props) => {
         if (next_item <= 6) {
             let text_answer = ""
             document.getElementById("proceeding").classList.remove("hideDescription")
-            updateProgress(pID, "training_"+props.item)
+            updateProgress(pID, "training_"+props.item, loadVis, false, selectedChart, selectedVar)
             // console.log(document.getElementById("nextButtonValue").value)
             handleSubmit(e, "training_"+current_item, startTime, text_answer, itemAnswer, startTime)
         }
