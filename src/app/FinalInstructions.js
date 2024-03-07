@@ -358,7 +358,7 @@ const checkProgress = async (prolific_ID) => {
       alert("An error occurred. Please contact the survey administrator.");
       return false
     } else {
-      // let url_pid = "/?PROLIFIC_PID=" + pID;
+      // let url_pid = "?PROLIFIC_PID=" + pID;
       // let next_item = props.item + 1
       
       // router.push('/training'+url_pid)
@@ -369,7 +369,7 @@ const checkProgress = async (prolific_ID) => {
       console.log()
       if (current_progress["completed_item"]) {
           if (current_progress["completed_item"] == "consent") {
-              let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
+              let url_pid = "?PROLIFIC_PID=" + prolific_ID;
               let redirect_url = "/training" + url_pid
               if (window.location.href.includes("training")) {
                   setRedirectTo("")
@@ -379,7 +379,7 @@ const checkProgress = async (prolific_ID) => {
               // router.push('/'+url_pid)
               // return true
           } else if (current_progress["completed_item"] == "training") {
-              let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
+              let url_pid = "?PROLIFIC_PID=" + prolific_ID;
               let redirect_url = "/start101" + url_pid
               // setRedirectTo("")
               if (window.location.href.includes("start101")) {
@@ -390,7 +390,7 @@ const checkProgress = async (prolific_ID) => {
 
               // setRedirectTo(redirect_url)
           } else if (current_progress["completed_item"] == "instructions") {
-              let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
+              let url_pid = "?PROLIFIC_PID=" + prolific_ID;
               let redirect_url = "/Q1" + url_pid
               if (window.location.href.includes("Q1")) {
                   setRedirectTo("")
@@ -398,7 +398,7 @@ const checkProgress = async (prolific_ID) => {
                   setRedirectTo(redirect_url)
               }
           } else if (current_progress["completed_item"] == "training6") {
-              let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
+              let url_pid = "?PROLIFIC_PID=" + prolific_ID;
               let redirect_url = "/instructions" + url_pid
               if (window.location.href.includes("instructions")) {
                   setRedirectTo("")
@@ -410,7 +410,7 @@ const checkProgress = async (prolific_ID) => {
               let display_item = Number(current_item_info[1]) + 1
               let type = current_item_info[0]
               if (type == "training") {
-                  let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
+                  let url_pid = "?PROLIFIC_PID=" + prolific_ID;
                   let check_existing = "start10" + display_item;
                   let redirect_url = "/start10" + display_item + url_pid
                   if (window.location.href.includes(check_existing)) {
@@ -423,7 +423,7 @@ const checkProgress = async (prolific_ID) => {
                   if (display_item == 42) {
                   location.href = "https://app.prolific.com/submissions/complete?cc=C1B86W6I";
                   } else {
-                      let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
+                      let url_pid = "?PROLIFIC_PID=" + prolific_ID;
                       let check_existing = "Q" + display_item;
                       let redirect_url = "/Q" + display_item + url_pid
                       if (window.location.href.includes(check_existing)) {
@@ -437,7 +437,7 @@ const checkProgress = async (prolific_ID) => {
               
           }
       } else {
-          let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
+          let url_pid = "?PROLIFIC_PID=" + prolific_ID;
           let redirect_url = url_pid
           setRedirectTo(redirect_url)
       }
@@ -1128,7 +1128,7 @@ const updateProgress = async (prolificID, completed_item) => {
     console.log(next_item)
     document.getElementById("proceeding").classList.remove("hideDescription")
     updateProgress(pID, "instructions")
-    let url_pid = "/?PROLIFIC_PID=" + pID;
+    let url_pid = "?PROLIFIC_PID=" + pID;
     router.push('/Q1'+url_pid)
 
     // if (next_item > 100 && next_item <= 103) {
@@ -1178,7 +1178,7 @@ const updateProgress = async (prolificID, completed_item) => {
     //   console.log(text_answer)
     //   if (text_answer) {
     //     // handleSubmit(e, "item_"+current_item, startTime, text_answer)
-    //     let url_pid = "/?PROLIFIC_PID=" + pID;
+    //     let url_pid = "?PROLIFIC_PID=" + pID;
     //     router.push('/start'+next_item+url_pid)
     //   }
       
@@ -1187,7 +1187,7 @@ const updateProgress = async (prolificID, completed_item) => {
     // //   console.log(text_answer)
     // //   if (text_answer) {
     //     // handleSubmit(e, "item_"+current_item, startTime, text_answer)
-    //     let url_pid = "/?PROLIFIC_PID=" + pID;
+    //     let url_pid = "?PROLIFIC_PID=" + pID;
     //     router.push('/Q1'+url_pid)
     // //   }
     // }
