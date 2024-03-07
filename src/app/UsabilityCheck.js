@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import embed from 'vega-embed';
 import * as vl from 'vega-lite-api';
 import { db } from './firebaseConfig';
-import { doc, collection, addDoc, updateDoc, setDoc, serverTimestamp} from "firebase/firestore";
+import { doc, collection, addDoc, updateDoc, setDoc, serverTimestamp, getDocs} from "firebase/firestore";
 import QuestionText from './question-text.js';
 // import QuestionVis from './question-vis.js';
 // import TilesChartTypes from './tiles-chart-types.js';
@@ -13,20 +13,36 @@ import QuestionText from './question-text.js';
 // import { DraftModeProvider } from 'next/dist/server/async-storage/draft-mode-provider';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 
-async function addDataToFireStore(prolificID, questionID, vis_answer, text_answer) {
-  try {
-    const docRef = await setDoc(doc(db, prolificID, questionID), {
-      timestamp: serverTimestamp(),
-      vis_answer: vis_answer,
-      text_answer: text_answer
-    }, { merge: true });
-    console.log("Doc written with ID: ", prolificID);
-    return true;
-  } catch (error) {
-    console.error("Error ", error)
-    return false;
+async function addDataToFireStore(prolificID, questionID, usability_answers, item_start) {
+    try {
+      const docRef = await setDoc(doc(db, prolificID, questionID), {
+        timestamp: serverTimestamp(),
+        usability_answers: usability_answers,
+        item_startTime: item_start,
+        item_endTime: new Date().getTime()
+      }, { merge: true });
+      console.log("Doc written with ID: ", prolificID);
+      return true;
+    } catch (error) {
+      console.error("Error ", error)
+      return false;
+    }
   }
-}
+
+  async function addProgress(prolificID, current_item) {
+    try {
+      const docRef = await setDoc(doc(db, prolificID, "progress"), {
+        completed_item: current_item
+      }, { merge: true });
+      console.log("Doc written with ID: ", prolificID);
+      return true;
+    } catch (error) {
+      console.error("Error ", error)
+      return false;
+    }
+  }
+  
+
 
 async function initializeTime(prolificID, questionID, time_start) {
   try {
@@ -230,13 +246,16 @@ const UsabilityCheck = (props) => {
   const [sumOptionsAddedX, setSumOptionsAddedX] = useState(false);
   const [itemAnswer, setItemAnswer] = useState("no answer");
   const [usabilityItemAnswers, setUsabilityItemAnswers] = useState({"q0": 0, "q1": 0, "q2": 0, "q3": 0, "q4": 0, "q5": 0, "q6": 0, "q7": 0, "q8": 0, "q9": 0 })
+  const [currentProgress, setCurrentProgress] = useState({})
+  const [redirectTo, setRedirectTo] = useState("")
+  const [loading, setLoading] = useState(true);
   
   console.log("in CREATE item component!")
   console.log(props)
   console.log(props.item_bank)
   console.log(pathname)
   console.log(searchParams)
-  const handleSubmit = async (e, questionID, time_start, text_answer) => {
+  const handleSubmit = async (e, questionID, item_start) => {
     e.preventDefault();
     console.log("in handle submit!!")
     console.log(pID)
@@ -252,38 +271,191 @@ const UsabilityCheck = (props) => {
     // console.log(prolific_ID)
 
     if (pID) {
-      if (questionID.split("_")[1] == 1) {
-        const add_time_start = await initializeTime(pID, questionID, time_start)
-        if (!add_time_start) {
-          // setPID("");
-          setScore("");
-          alert("An error occurred. Please contact the survey administrator.");
-        }
-      }
-      const added = await addDataToFireStore(pID, questionID, loadVis, text_answer);
+    //   if (questionID.split("_")[1] == 1) {
+    //     const add_time_start = await initializeTime(pID, questionID, time_start)
+    //     if (!add_time_start) {
+    //       // setPID("");
+    //       setScore("");
+    //       alert("An error occurred. Please contact the survey administrator.");
+    //     }
+    //   }
+      const added = await addDataToFireStore(pID, questionID, usabilityItemAnswers, item_start);
       if (!added) {
         // setPID("");
         setScore("");
         alert("An error occurred. Please contact the survey administrator.");
       } else {
         let url_pid = "/?PROLIFIC_PID=" + pID;
-        let next_item = props.item + 1
-        router.push('/Q'+next_item+url_pid)
+        // let next_item = props.item + 1
+        router.push('/instructions'+url_pid)
+
+        
       }
     }
     
   };
 
+  const getProgress = async (prolificID) => {
+    try {
+      const querySnapshot = await getDocs(collection(db, prolificID));
+      var progress = {}
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        if (doc.id == "progress") {
+          progress = doc.data();
+        }
+        console.log(doc.id, " => ", doc.data());
+      });
+      // const docRef = await setDoc(doc(db, prolificID, questionID), {
+      //   timestamp: serverTimestamp(),
+      //   item_startTime: item_start,
+      //   consent: "Agree",
+      //   prolificID: prolificID,
+      //   item_endTime: new Date().getTime(),
+      //   randomized_order: randomized_order
+      // }, { merge: true });
+      // console.log("Doc written with ID: ", prolificID);
+    //   return progress;
+        console.log(progress)
+      setCurrentProgress(progress)
+      console.log(currentProgress)
+      return progress
+    } catch (error) {
+      console.error("Error ", error)
+      return false;
+    }
+  }
+
+  const checkProgress = async (prolific_ID) => {
+    console.log("checking progress?")
+    console.log(prolific_ID)
+    if (prolific_ID) {
+      const current_progress = await getProgress(prolific_ID);
+      if (!current_progress) {
+        // setPID("");
+        setScore("");
+        alert("An error occurred. Please contact the survey administrator.");
+        return false
+      } else {
+        // let url_pid = "/?PROLIFIC_PID=" + pID;
+        // let next_item = props.item + 1
+        
+        // router.push('/training'+url_pid)
+        console.log(current_progress)
+        setLoading(false)
+        // setCurrentProgress(current_progress)
+        // return true
+        console.log()
+        if (current_progress["completed_item"]) {
+            if (current_progress["completed_item"] == "consent") {
+                let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
+                let redirect_url = "/training" + url_pid
+                if (window.location.href.includes("training")) {
+                    setRedirectTo("")
+                } else {
+                    setRedirectTo(redirect_url)
+                }
+                // router.push('/'+url_pid)
+                // return true
+            } else if (current_progress["completed_item"] == "training") {
+                let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
+                let redirect_url = "/start101" + url_pid
+                // setRedirectTo("")
+                if (window.location.href.includes("start101")) {
+                    setRedirectTo("")
+                } else {
+                    setRedirectTo(redirect_url)
+                }
+
+                // setRedirectTo(redirect_url)
+            } else if (current_progress["completed_item"] == "instructions") {
+                let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
+                let redirect_url = "/Q1" + url_pid
+                if (window.location.href.includes("Q1")) {
+                    setRedirectTo("")
+                } else {
+                    setRedirectTo(redirect_url)
+                }
+            } else if (current_progress["completed_item"] == "training6") {
+                let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
+                let redirect_url = "/instructions" + url_pid
+                if (window.location.href.includes("instructions")) {
+                    setRedirectTo("")
+                } else {
+                    setRedirectTo(redirect_url)
+                }
+            } else {
+                let current_item_info = current_progress["completed_item"].split("_")
+                let display_item = Number(current_item_info[1]) + 1
+                let type = current_item_info[0]
+                if (type == "training") {
+                    let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
+                    let check_existing = "start10" + display_item;
+                    let redirect_url = "/start10" + display_item + url_pid
+                    if (window.location.href.includes(check_existing)) {
+                        setRedirectTo("")
+                    } else {
+                        setRedirectTo(redirect_url)
+                    }
+
+                } else if (type == "item") {
+                    if (display_item == 42) {
+                    location.href = "https://app.prolific.com/submissions/complete?cc=C1B86W6I";
+                    } else {
+                        let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
+                        let check_existing = "Q" + display_item;
+                        let redirect_url = "/Q" + display_item + url_pid
+                        if (window.location.href.includes(check_existing)) {
+                            setRedirectTo("")
+                        } else {
+                            setRedirectTo(redirect_url)
+                        }
+                    }
+                }
+                
+                
+            }
+        } else {
+            let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
+            let redirect_url = url_pid
+            setRedirectTo(redirect_url)
+        }
+        
+        
+
+
+        // if (current_progress["completed_item"]) {
+        //   if (current_progress["completed_item"] == "consent") {
+        //     setPageVisited(true);
+        //   }
+        // }
+        
+      }
+    }
+  }
+
+  const updateProgress = async (prolificID, completed_item) => {
+    if (prolificID) {
+      const added_progress = await addProgress(prolificID, completed_item);
+      if (!added_progress) {
+        // setPID("");
+        setScore("");
+        alert("An error occurred. Please contact the survey administrator.");
+      }
+    }
+  }
+
   useEffect(() => {
       if (!isClient) {
-        if (props.item == 1) {
+        // if (props.item == 1) {
           let start_time = new Date().getTime()
           console.log("printing time!!")
           console.log(start_time)
           setStartTime(start_time)
-        }
+        // }
       }
-      setIsClient(true);
+
+      
       const queryString = window.location.search;
       console.log(queryString);
   
@@ -293,7 +465,9 @@ const UsabilityCheck = (props) => {
       const prolific_ID = urlParams.get('PROLIFIC_PID')
       console.log(prolific_ID)
       setPID(prolific_ID);
-      
+      checkProgress(prolific_ID)
+
+      setIsClient(true);
       
     }, [])
 
@@ -614,16 +788,20 @@ const UsabilityCheck = (props) => {
     
     console.log("clicking next")
     console.log(itemAnswer)
-    if (showTextBox && itemAnswer == "no answer") {
-        document.getElementById("requiredLabel").classList.add("showDescription")
-        document.getElementById("requiredLabel").classList.remove("hideDescription")
-    }
+    // if (showTextBox && itemAnswer == "no answer") {
+    //     document.getElementById("requiredLabel").classList.add("showDescription")
+    //     document.getElementById("requiredLabel").classList.remove("hideDescription")
+    // }
+    let ready = true
     for (var key in usabilityItemAnswers) {
         console.log(key)
         if (usabilityItemAnswers[key] == 0) {
             document.getElementById("usability_"+key).classList.add("highlightRequired")
             document.getElementById("requiredLabel_"+key).classList.add("showDescription")
             document.getElementById("requiredLabel_"+key).classList.remove("hideDescription")
+            // document.getElementById("usability_"+key).focus()
+            document.getElementById("scrollUp").classList.remove("hideDescription")
+            ready = false
         } else {
             document.getElementById("usability_"+key).classList.remove("highlightRequired")
             document.getElementById("requiredLabel_"+key).classList.add("hideDescription")
@@ -631,38 +809,51 @@ const UsabilityCheck = (props) => {
         }
     }
 
-    console.log(showTextBox)
-    if (props.assessment && !showTextBox) {
-        setShowTextBox(true);
-        return;
+    if (ready) {
+        document.getElementById("scrollUp").classList.add("hideDescription")
+        document.getElementById("proceeding").classList.remove("hideDescription")
+        updateProgress(pID, "training"+props.item)
+        // console.log(document.getElementById("nextButtonValue").value)
+        handleSubmit(e, "usability_checks", startTime)
     }
-    let current_item = props.item;
-    let next_item = current_item + 1
-    console.log(next_item)
-    
-    if (next_item <= 40) {
 
-        let text_answer = ""
-        if (props.assessment) {
-          text_answer = document.getElementById("questionAnswer").value
-        } else {
-          text_answer = "placeholder"
-        }
-        console.log(text_answer)
-        if (text_answer) {
-            // let text_answer = "placeholder"
-            document.getElementById("proceeding").classList.remove("hideDescription")
-            // console.log(document.getElementById("nextButtonValue").value)
-            handleSubmit(e, "item_"+current_item, startTime, text_answer)
-            // let url_pid = "/?PROLIFIC_PID=" + pID;
-            // router.push('/Q'+next_item+url_pid)
-        }
+    // console.log(showTextBox)
+    // if (props.assessment && !showTextBox) {
+    //     setShowTextBox(true);
+    //     return;
+    // }
+    // let current_item = props.item;
+    // let next_item = current_item + 1
+    // console.log(next_item)
+    
+    // if (next_item <= 40) {
+
+    //     let text_answer = ""
+    //     if (props.assessment) {
+    //       text_answer = document.getElementById("questionAnswer").value
+    //     } else {
+    //       text_answer = "placeholder"
+    //     }
+    //     console.log(text_answer)
+    //     if (text_answer) {
+    //         // let text_answer = "placeholder"
+    //         document.getElementById("proceeding").classList.remove("hideDescription")
+    //         // console.log(document.getElementById("nextButtonValue").value)
+    //         handleSubmit(e, "item_"+current_item, startTime, text_answer)
+    //         // let url_pid = "/?PROLIFIC_PID=" + pID;
+    //         // router.push('/Q'+next_item+url_pid)
+    //     }
  
       
       
-    }
+    // }
     
 
+  }
+
+  const redirecting = () => {
+    // router.push(redirectTo)
+    location.href = redirectTo
   }
   
 
@@ -670,6 +861,9 @@ const UsabilityCheck = (props) => {
   return (
     <div id="globalContainer">
     
+    {loading ? null  :
+    (redirectTo != "") ? 
+    (redirecting()) : 
     <div id="interactionZone">
         <p><b>{itemBank[currentItem]["question_meta_data"]["question_topic"]}</b></p>
         <hr></hr>
@@ -713,6 +907,7 @@ const UsabilityCheck = (props) => {
             <textarea id="questionAnswer" name="questionAnswer" rows="2" cols="35" placeholder='Optional'></textarea>
         </div>
         <p id='proceeding' className='hideDescription'>Proceeding...</p>
+        <p id='scrollUp' className='hideDescription'><span style={{color:"red"}}>Please answer all questions marked with *</span></p>
         <div id="nextButton" onClick={(e) => nextItem(e)}>
             <p>Next</p>
         </div>
@@ -749,7 +944,7 @@ const UsabilityCheck = (props) => {
         </div> : null} */}
         
      
-      </div>
+      </div>}
     
     </div>
 

@@ -13,7 +13,7 @@ export default function Page() {
     return (
         <div>
         <FinalInstructions 
-            item={104} 
+            item={100} 
             training_set={training_set}
             tile_sets={tile_sets}
             constraints={constraints}

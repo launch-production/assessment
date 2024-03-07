@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import embed from 'vega-embed';
 import * as vl from 'vega-lite-api';
 import { db } from './firebaseConfig';
-import { doc, collection, addDoc, updateDoc, setDoc, serverTimestamp} from "firebase/firestore";
+import { doc, collection, addDoc, updateDoc, setDoc, serverTimestamp, getDocs} from "firebase/firestore";
 import QuestionText from './question-text.js';
 // import QuestionVis from './question-vis.js';
 // import TilesChartTypes from './tiles-chart-types.js';
@@ -40,6 +40,19 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 //     return false;
 //   }
 // }
+
+async function addProgress(prolificID, current_item) {
+  try {
+    const docRef = await setDoc(doc(db, prolificID, "progress"), {
+      completed_item: current_item
+    }, { merge: true });
+    console.log("Doc written with ID: ", prolificID);
+    return true;
+  } catch (error) {
+    console.error("Error ", error)
+    return false;
+  }
+}
 
 function updateEncodingMapping(vis_spec, encoding, update_to, data_columns) {
   console.log("in update x")
@@ -260,6 +273,9 @@ const FinalInstructions = (props) => {
 //   const [noTransformationDisplay, setNoTransformationDisplay] = useState([]);
   const [pID, setPID] = useState("");
   const [startTime, setStartTime] = useState(0);
+  const [currentProgress, setCurrentProgress] = useState({})
+  const [redirectTo, setRedirectTo] = useState("")
+  const [loading, setLoading] = useState(true);
   
 //   console.log("in item component!")
 //   console.log(props)
@@ -300,6 +316,156 @@ const FinalInstructions = (props) => {
     
 // //   };
 
+const getProgress = async (prolificID) => {
+  try {
+    const querySnapshot = await getDocs(collection(db, prolificID));
+    var progress = {}
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      if (doc.id == "progress") {
+        progress = doc.data();
+      }
+      console.log(doc.id, " => ", doc.data());
+    });
+    // const docRef = await setDoc(doc(db, prolificID, questionID), {
+    //   timestamp: serverTimestamp(),
+    //   item_startTime: item_start,
+    //   consent: "Agree",
+    //   prolificID: prolificID,
+    //   item_endTime: new Date().getTime(),
+    //   randomized_order: randomized_order
+    // }, { merge: true });
+    // console.log("Doc written with ID: ", prolificID);
+  //   return progress;
+      console.log(progress)
+    setCurrentProgress(progress)
+    console.log(currentProgress)
+    return progress
+  } catch (error) {
+    console.error("Error ", error)
+    return false;
+  }
+}
+
+const checkProgress = async (prolific_ID) => {
+  console.log("checking progress?")
+  console.log(prolific_ID)
+  if (prolific_ID) {
+    const current_progress = await getProgress(prolific_ID);
+    if (!current_progress) {
+      // setPID("");
+      setScore("");
+      alert("An error occurred. Please contact the survey administrator.");
+      return false
+    } else {
+      // let url_pid = "/?PROLIFIC_PID=" + pID;
+      // let next_item = props.item + 1
+      
+      // router.push('/training'+url_pid)
+      console.log(current_progress)
+      setLoading(false)
+      // setCurrentProgress(current_progress)
+      // return true
+      console.log()
+      if (current_progress["completed_item"]) {
+          if (current_progress["completed_item"] == "consent") {
+              let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
+              let redirect_url = "/training" + url_pid
+              if (window.location.href.includes("training")) {
+                  setRedirectTo("")
+              } else {
+                  setRedirectTo(redirect_url)
+              }
+              // router.push('/'+url_pid)
+              // return true
+          } else if (current_progress["completed_item"] == "training") {
+              let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
+              let redirect_url = "/start101" + url_pid
+              // setRedirectTo("")
+              if (window.location.href.includes("start101")) {
+                  setRedirectTo("")
+              } else {
+                  setRedirectTo(redirect_url)
+              }
+
+              // setRedirectTo(redirect_url)
+          } else if (current_progress["completed_item"] == "instructions") {
+              let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
+              let redirect_url = "/Q1" + url_pid
+              if (window.location.href.includes("Q1")) {
+                  setRedirectTo("")
+              } else {
+                  setRedirectTo(redirect_url)
+              }
+          } else if (current_progress["completed_item"] == "training6") {
+              let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
+              let redirect_url = "/instructions" + url_pid
+              if (window.location.href.includes("instructions")) {
+                  setRedirectTo("")
+              } else {
+                  setRedirectTo(redirect_url)
+              }
+          } else {
+              let current_item_info = current_progress["completed_item"].split("_")
+              let display_item = Number(current_item_info[1]) + 1
+              let type = current_item_info[0]
+              if (type == "training") {
+                  let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
+                  let check_existing = "start10" + display_item;
+                  let redirect_url = "/start10" + display_item + url_pid
+                  if (window.location.href.includes(check_existing)) {
+                      setRedirectTo("")
+                  } else {
+                      setRedirectTo(redirect_url)
+                  }
+
+              } else if (type == "item") {
+                  if (display_item == 42) {
+                  location.href = "https://app.prolific.com/submissions/complete?cc=C1B86W6I";
+                  } else {
+                      let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
+                      let check_existing = "Q" + display_item;
+                      let redirect_url = "/Q" + display_item + url_pid
+                      if (window.location.href.includes(check_existing)) {
+                          setRedirectTo("")
+                      } else {
+                          setRedirectTo(redirect_url)
+                      }
+                  }
+              }
+              
+              
+          }
+      } else {
+          let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
+          let redirect_url = url_pid
+          setRedirectTo(redirect_url)
+      }
+      
+      
+
+
+      // if (current_progress["completed_item"]) {
+      //   if (current_progress["completed_item"] == "consent") {
+      //     setPageVisited(true);
+      //   }
+      // }
+      
+    }
+  }
+}
+
+const updateProgress = async (prolificID, completed_item) => {
+  if (prolificID) {
+    const added_progress = await addProgress(prolificID, completed_item);
+    if (!added_progress) {
+      // setPID("");
+      setScore("");
+      alert("An error occurred. Please contact the survey administrator.");
+    }
+  }
+}
+
   useEffect(() => {
     //   if (!isClient) {
     //     if (props.item == 1) {
@@ -319,6 +485,8 @@ const FinalInstructions = (props) => {
       const prolific_ID = urlParams.get('PROLIFIC_PID')
       console.log(prolific_ID)
       setPID(prolific_ID);
+
+      checkProgress(prolific_ID)
       
       
       // setChartTypeSelected("scatter");
@@ -958,66 +1126,71 @@ const FinalInstructions = (props) => {
     let current_item = props.item;
     let next_item = current_item + 1
     console.log(next_item)
-    if (next_item > 100 && next_item <= 103) {
-    //   setCurrentItem(next_item);
-    //   setLoadVis(itemBank["item"+next_item.toString()]["initialize"]["question_vis"])
-    //   console.log(document.getElementsByClassName("inputSpace"))
-      // let to_clear = document.getElementsByClassName("inputSpace")
-      // for (let i = 0; i < to_clear.length; i += 1) {
-      //   to_clear[i].innerHTML = "<p></p>";
-      // }
+    document.getElementById("proceeding").classList.remove("hideDescription")
+    updateProgress(pID, "instructions")
+    let url_pid = "/?PROLIFIC_PID=" + pID;
+    router.push('/Q1'+url_pid)
 
-      // var current_item_state = require("./training_set_config/item"+current_item+"_initialize.json");
-      // setCurrentItemState(current_item_state);
-      // let clear_state = currentItemState
-      // for (var [key, value] of Object.entries(currentItemState)) {
-      //   // console.log(key, value);
-      //   if (value["data"]) {
+    // if (next_item > 100 && next_item <= 103) {
+    // //   setCurrentItem(next_item);
+    // //   setLoadVis(itemBank["item"+next_item.toString()]["initialize"]["question_vis"])
+    // //   console.log(document.getElementsByClassName("inputSpace"))
+    //   // let to_clear = document.getElementsByClassName("inputSpace")
+    //   // for (let i = 0; i < to_clear.length; i += 1) {
+    //   //   to_clear[i].innerHTML = "<p></p>";
+    //   // }
 
-      //   }
-      //   clear_state[key]["data"] = "";
-      //   clear_state[key]["transformation"] = "";
-      //   // let extract_data = ev.target.id.split("_")[1]
-      //   // // console.log(extract_data)
-      //   // console.log(value["data"])
-      //   // if (value["data"] == extract_data) {
-      //   //   console.log(key)
-      //   //   // TODO: fix this portion
-      //   //   if (key == "x_axis" || key == "y_axis") {
-      //   //     let extract_encoding = key.split("_")[0];
-      //   //     console.log(extract_encoding)
-      //   //     vis_update["encoding"][extract_encoding] = ""
-      //   //   } else {
-      //   //     vis_update["encoding"][key] = ""
-      //   //   }
+    //   // var current_item_state = require("./training_set_config/item"+current_item+"_initialize.json");
+    //   // setCurrentItemState(current_item_state);
+    //   // let clear_state = currentItemState
+    //   // for (var [key, value] of Object.entries(currentItemState)) {
+    //   //   // console.log(key, value);
+    //   //   if (value["data"]) {
+
+    //   //   }
+    //   //   clear_state[key]["data"] = "";
+    //   //   clear_state[key]["transformation"] = "";
+    //   //   // let extract_data = ev.target.id.split("_")[1]
+    //   //   // // console.log(extract_data)
+    //   //   // console.log(value["data"])
+    //   //   // if (value["data"] == extract_data) {
+    //   //   //   console.log(key)
+    //   //   //   // TODO: fix this portion
+    //   //   //   if (key == "x_axis" || key == "y_axis") {
+    //   //   //     let extract_encoding = key.split("_")[0];
+    //   //   //     console.log(extract_encoding)
+    //   //   //     vis_update["encoding"][extract_encoding] = ""
+    //   //   //   } else {
+    //   //   //     vis_update["encoding"][key] = ""
+    //   //   //   }
           
-      //   //   state_change[key]["data"] = ""
-      //   }
-      //   setCurrentItemState(clear_state);      
+    //   //   //   state_change[key]["data"] = ""
+    //   //   }
+    //   //   setCurrentItemState(clear_state);      
 
-    //   var next_item_state = require("./training_set_config/item"+next_item+"_initialize.json");
-    //   setCurrentItemState(next_item_state);
-    //   itemBank["status"]["item"+next_item] = true
-    //   setBankStatus(itemBank["status"])
-    //   console.log(currentItemState)
-    //   console.log(itemBank["status"])
-      let text_answer = document.getElementById("questionAnswer").value
-      console.log(text_answer)
-      if (text_answer) {
-        // handleSubmit(e, "item_"+current_item, startTime, text_answer)
-        let url_pid = "/?PROLIFIC_PID=" + pID;
-        router.push('/start'+next_item+url_pid)
-      }
-      
-    } else {
+    // //   var next_item_state = require("./training_set_config/item"+next_item+"_initialize.json");
+    // //   setCurrentItemState(next_item_state);
+    // //   itemBank["status"]["item"+next_item] = true
+    // //   setBankStatus(itemBank["status"])
+    // //   console.log(currentItemState)
+    // //   console.log(itemBank["status"])
     //   let text_answer = document.getElementById("questionAnswer").value
     //   console.log(text_answer)
     //   if (text_answer) {
-        // handleSubmit(e, "item_"+current_item, startTime, text_answer)
-        let url_pid = "/?PROLIFIC_PID=" + pID;
-        router.push('/Q1'+url_pid)
+    //     // handleSubmit(e, "item_"+current_item, startTime, text_answer)
+    //     let url_pid = "/?PROLIFIC_PID=" + pID;
+    //     router.push('/start'+next_item+url_pid)
     //   }
-    }
+      
+    // } else {
+    // //   let text_answer = document.getElementById("questionAnswer").value
+    // //   console.log(text_answer)
+    // //   if (text_answer) {
+    //     // handleSubmit(e, "item_"+current_item, startTime, text_answer)
+    //     let url_pid = "/?PROLIFIC_PID=" + pID;
+    //     router.push('/Q1'+url_pid)
+    // //   }
+    // }
     
 
     // write to DB and reset [necessary/written variables]
@@ -1143,11 +1316,16 @@ const FinalInstructions = (props) => {
   // };
   // var moreSpecificSpec = require("./visSpec.json");
   
-  
+  const redirecting = () => {
+    // router.push(redirectTo)
+    location.href = redirectTo
+  }
 
   return (
     <div>
-        {isClient ? <div id='questionContainer'>
+        {loading ? null  :
+            (redirectTo != "") ? 
+            (redirecting()) : <div id='questionContainer'>
                 <h3>Instructions for Main Survey</h3>
                 <p><b>You are now about to begin the main survey.</b></p>
                 <p>The layout of each question in the following section will be the same as the training you just completed.</p>
@@ -1156,7 +1334,11 @@ const FinalInstructions = (props) => {
                 <p>For successsful completion, you must answer all questions in this survey.</p>
                 <p><i>Note you will not be able to go back once you advance to the next question.</i></p>
                 <p>Click 'Start' to proceed.</p>
-            </div> : null}
+                <div id="nextButton" onClick={(e) => nextItem(e)}>
+                  <p>Start</p>
+                </div>
+                <p id='proceeding' className='hideDescription'>Proceeding...</p>
+            </div>}
         {/* <div id='visContainer'>
             <div id="questionVis"></div>
             <div id="answerVis">
@@ -1238,9 +1420,10 @@ const FinalInstructions = (props) => {
               </div>
           </div>
         </div> */}
-      <div id="nextButton" onClick={(e) => nextItem(e)}>
+      {/* <div id="nextButton" onClick={(e) => nextItem(e)}>
         <p>Start</p>
       </div>
+      <p id='proceeding' className='hideDescription'>Proceeding...</p> */}
       {/*<form onSubmit={handleSubmit}>
          <div>
           <label htmlFor='PID'>

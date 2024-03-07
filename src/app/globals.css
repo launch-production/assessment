@@ -144,7 +144,7 @@ img {
   margin: auto;
   width: 6rem;
   margin-top: 2rem;
-  margin-bottom: 4rem;
+  /* margin-bottom: 4rem; */
   border-width: 1px;
   border-style: solid;
   background-color: gray;
