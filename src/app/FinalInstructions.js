@@ -1318,7 +1318,8 @@ const updateProgress = async (prolificID, completed_item) => {
   
   const redirecting = () => {
     // router.push(redirectTo)
-    location.href = redirectTo
+    // location.href = redirectTo
+    router.push(redirectTo)
   }
 
   return (

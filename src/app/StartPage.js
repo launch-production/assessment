@@ -1294,7 +1294,8 @@ const StartPage = (props) => {
   }
   const redirecting = () => {
     // router.push(redirectTo)
-    location.href = redirectTo
+    // location.href = redirectTo
+    router.push(redirectTo)
   }
   // document.getElementById('exportText').addEventListener('click', function() {
   //   console.log(document.getElementById('yourname').value)

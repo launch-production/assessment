@@ -853,7 +853,8 @@ const UsabilityCheck = (props) => {
 
   const redirecting = () => {
     // router.push(redirectTo)
-    location.href = redirectTo
+    // location.href = redirectTo
+    router.push(redirectTo)
   }
   
 

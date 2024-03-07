@@ -248,7 +248,8 @@ const TrainingInstructions = () => {
 
       const redirecting = () => {
         // router.push(redirectTo)
-        location.href = redirectTo
+        // location.href = redirectTo
+        router.push(redirectTo)
       }
     return (
         <div>
