@@ -356,7 +356,7 @@ const ConstructionItemComponent = (props) => {
         if (current_progress["completed_item"]) {
             if (current_progress["completed_item"] == "consent") {
                 let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
-                let redirect_url = "/training" + url_pid
+                let redirect_url = "/assessment/training" + url_pid
                 if (window.location.href.includes("training")) {
                     setRedirectTo("")
                 } else {
@@ -366,7 +366,7 @@ const ConstructionItemComponent = (props) => {
                 // return true
             } else if (current_progress["completed_item"] == "training") {
                 let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
-                let redirect_url = "/start101" + url_pid
+                let redirect_url = "/assessment/start101" + url_pid
                 // setRedirectTo("")
                 if (window.location.href.includes("start101")) {
                     setRedirectTo("")
@@ -377,7 +377,7 @@ const ConstructionItemComponent = (props) => {
                 // setRedirectTo(redirect_url)
             } else if (current_progress["completed_item"] == "instructions") {
                 let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
-                let redirect_url = "/Q1" + url_pid
+                let redirect_url = "/assessment/Q1" + url_pid
                 if (window.location.href.includes("Q1")) {
                     setRedirectTo("")
                 } else {
@@ -385,7 +385,7 @@ const ConstructionItemComponent = (props) => {
                 }
             } else if (current_progress["completed_item"] == "training6") {
                 let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
-                let redirect_url = "/instructions" + url_pid
+                let redirect_url = "/assessment/instructions" + url_pid
                 if (window.location.href.includes("instructions")) {
                     setRedirectTo("")
                 } else {
@@ -398,7 +398,7 @@ const ConstructionItemComponent = (props) => {
                 if (type == "training") {
                     let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
                     let check_existing = "start10" + display_item;
-                    let redirect_url = "/start10" + display_item + url_pid
+                    let redirect_url = "/assessment/start10" + display_item + url_pid
                     if (window.location.href.includes(check_existing)) {
                         setRedirectTo("")
                     } else {
@@ -411,7 +411,7 @@ const ConstructionItemComponent = (props) => {
                     } else {
                         let url_pid = "/?PROLIFIC_PID=" + prolific_ID;
                         let check_existing = "Q" + display_item;
-                        let redirect_url = "/Q" + display_item + url_pid
+                        let redirect_url = "/assessment/Q" + display_item + url_pid
                         if (window.location.href.includes(check_existing)) {
                             setRedirectTo("")
                         } else {
