@@ -564,30 +564,108 @@ const StartPage = (props) => {
 
   const randomizeItems =() => {
     let item_IDs = []
-    for (let i = 1; i <= 38; i += 1) {
-      item_IDs.push(i.toString())
-    }
-    console.log(item_IDs)
-    console.log(Math.random())
-    let randomized_IDS = []
-    for (let i = 1; i <= 38; i += 1) {
-      console.log(item_IDs)
-      let random_index = Math.floor(Math.random() * item_IDs.length);
-      console.log(random_index)
-      randomized_IDS.push(item_IDs[random_index])
-      let temp = item_IDs.slice(0, random_index)
-      let temp_2 = item_IDs.slice(random_index+1)
-      let combine_new = temp.concat(temp_2)
-      console.log(combine_new)
-      item_IDs = combine_new
+    // // randomize all 38
+    // for (let i = 1; i <= 38; i += 1) {
+    //   item_IDs.push(i.toString())
+    // }
+    // console.log(item_IDs)
+    // console.log(Math.random())
+    // let randomized_IDS = []
+    // for (let i = 1; i <= 38; i += 1) {
+    //   console.log(item_IDs)
+    //   let random_index = Math.floor(Math.random() * item_IDs.length);
+    //   console.log(random_index)
+    //   randomized_IDS.push(item_IDs[random_index])
+    //   let temp = item_IDs.slice(0, random_index)
+    //   let temp_2 = item_IDs.slice(random_index+1)
+    //   let combine_new = temp.concat(temp_2)
+    //   console.log(combine_new)
+    //   item_IDs = combine_new
+    // }
+
+    // task: describe distribution
+    let item_IDs_DD = []
+    for (let i = 1; i <= 12; i += 1) {
+      item_IDs_DD.push(i.toString())
     }
 
+    // task: find correlation/trend
+    let item_IDs_FCT = []
+    for (let i = 13; i <= 24; i += 1) {
+      item_IDs_FCT.push(i.toString())
+    }
+
+    // task: make pattern comparisons
+    let item_IDs_MPC = []
+    for (let i = 25; i <= 38; i += 1) {
+      item_IDs_MPC.push(i.toString())
+    }
+
+    let random_4_DD = []
+    for (let i = 1; i <= 4; i += 1) {
+      console.log(item_IDs_DD)
+      let random_index = Math.floor(Math.random() * item_IDs_DD.length);
+      console.log(random_index)
+      random_4_DD.push(item_IDs_DD[random_index])
+      let temp = item_IDs_DD.slice(0, random_index)
+      let temp_2 = item_IDs_DD.slice(random_index+1)
+      let combine_new = temp.concat(temp_2)
+      console.log(combine_new)
+      item_IDs_DD = combine_new
+    }
+
+    let random_4_FCT = []
+    for (let i = 1; i <= 4; i += 1) {
+      console.log(item_IDs_FCT)
+      let random_index = Math.floor(Math.random() * item_IDs_FCT.length);
+      console.log(random_index)
+      random_4_FCT.push(item_IDs_FCT[random_index])
+      let temp = item_IDs_FCT.slice(0, random_index)
+      let temp_2 = item_IDs_FCT.slice(random_index+1)
+      let combine_new = temp.concat(temp_2)
+      console.log(combine_new)
+      item_IDs_FCT = combine_new
+    }
+
+    let random_4_MPC = []
+    for (let i = 1; i <= 4; i += 1) {
+      console.log(item_IDs_MPC)
+      let random_index = Math.floor(Math.random() * item_IDs_MPC.length);
+      console.log(random_index)
+      random_4_MPC.push(item_IDs_MPC[random_index])
+      let temp = item_IDs_MPC.slice(0, random_index)
+      let temp_2 = item_IDs_MPC.slice(random_index+1)
+      let combine_new = temp.concat(temp_2)
+      console.log(combine_new)
+      item_IDs_MPC = combine_new
+    }
+
+    var random_12_IDs = random_4_DD.concat(random_4_FCT, random_4_MPC)
+    let randomized_IDS = []
+    for (let i = 1; i <= 12; i += 1) {
+      console.log(random_12_IDs)
+      let random_index = Math.floor(Math.random() * random_12_IDs.length);
+      console.log(random_index)
+      randomized_IDS.push(random_12_IDs[random_index])
+      let temp = random_12_IDs.slice(0, random_index)
+      let temp_2 = random_12_IDs.slice(random_index+1)
+      let combine_new = temp.concat(temp_2)
+      console.log(combine_new)
+      random_12_IDs = combine_new
+    }
+
+    console.log(randomized_IDS)
+
+
+
+    // starting index: 0 or 5 or 9
     let attention_checkIDs = ["39", "40", "41"]
+    let segment_start = [0, 5, 9]
     for (let i = 1; i <= 3; i += 1) {
       let random_A_index = Math.floor(Math.random() * attention_checkIDs.length);
       console.log(random_A_index)
-      let insert_index = Math.floor(Math.random() * 37) + 1;
-      randomized_IDS.splice(insert_index, 0, attention_checkIDs[random_A_index])
+      let insert_index = Math.floor(Math.random() * 3) + 1;
+      randomized_IDS.splice(segment_start[i-1]+insert_index, 0, attention_checkIDs[random_A_index])
       let temp_A = attention_checkIDs.slice(0, random_A_index)
       let temp_A2 = attention_checkIDs.slice(random_A_index+1)
       let combine_A_new = temp_A.concat(temp_A2)
