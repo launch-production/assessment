@@ -495,7 +495,7 @@ const StartPage = (props) => {
 
               } else if (type == "item") {
                   if (display_item == 42) {
-                  location.href = "https://app.prolific.com/submissions/complete?cc=C1B86W6I";
+                  location.href = "https://app.prolific.com/submissions/complete?cc=C17SX24M";
                   } else {
                       let url_pid = "?PROLIFIC_PID=" + prolific_ID;
                       let check_existing = "Q" + display_item;
@@ -1537,9 +1537,9 @@ const StartPage = (props) => {
           </ul>
           <p><b>What happens if I say, “Yes, I want to be in this research”?</b></p>
           <ul>
-            <li>Please click “I Agree” and proceed to the questions.</li>
+            <li>Please click “I Agree” on the bottom of this page and proceed to the questions.</li>
             <li>Provide your best answer for each required question.</li>
-            <li>The study will take approximately 30 minutes. Note you will not be able to go back once you have advanced to the next question.</li>
+            <li>The study will take approximately 30 minutes in total. Note you will not be able to go back once you have advanced to the next question.</li>
           </ul>
           <p><b>Will being in this study help me in any way?</b></p>
           <p>There are no direct benefits for participants in this study. We expect this study may help us better understand visualization literacy.</p>

@@ -132,7 +132,7 @@ const TrainingInstructions = () => {
     
                     } else if (type == "item") {
                         if (display_item == 42) {
-                        location.href = "https://app.prolific.com/submissions/complete?cc=C1B86W6I";
+                        location.href = "https://app.prolific.com/submissions/complete?cc=C17SX24M";
                         } else {
                             let url_pid = "?PROLIFIC_PID=" + prolific_ID;
                             let check_existing = "Q" + display_item;
