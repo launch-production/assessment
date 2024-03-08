@@ -100,7 +100,7 @@
     "training1": {
       "question_meta_data": {
         "question_text": "Reconstruct the chart shown below. This chart shows the sum of spending in each spending category in the month of Jan.",
-        "question_topic": "- Training -"
+        "question_topic": "- Required Training -"
       },
       "dataset": "day_by_day",
       "model_vis": {
@@ -214,7 +214,7 @@
     "training2": {
       "question_meta_data": {
         "question_text": "Reconstruct the chart shown below. This chart shows how daily income changed in Jan.",
-        "question_topic": "- Training -"
+        "question_topic": "- Required Training -"
       },
       "dataset": "day_by_day",
       "model_vis": {
@@ -322,7 +322,7 @@
     "training3": {
       "question_meta_data": {
         "question_text": "Reconstruct the chart shown below. This chart shows the daily savings and spendings in each spending category.",
-        "question_topic": "- Training -"
+        "question_topic": "- Required Training -"
       },
       "dataset": "day_by_day",
       "model_vis": {
@@ -434,7 +434,7 @@
     "training4": {
       "question_meta_data": {
         "question_text": "Reconstruct the chart shown below. This chart shows the distribution of daily spendings.",
-        "question_topic": "- Training -"
+        "question_topic": "- Required Training -"
       },
       "dataset": "day_by_day",
       "model_vis": {
@@ -542,7 +542,7 @@
     "training5": {
       "question_meta_data": {
         "question_text": "Reconstruct the chart shown below. This chart shows the sum of monthly spendings in each spending category.",
-        "question_topic": "- Training -"
+        "question_topic": "- Required Training -"
       },
       "dataset": "day_by_day",
       "model_vis": {

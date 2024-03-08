@@ -934,6 +934,19 @@ const ConstructionItemComponent = (props) => {
         }
     } else {
         if (next_item <= 6) {
+            let chart_tiles = document.getElementsByClassName("chartTilesContainer")
+            console.log(chart_tiles)
+            // let answered = false
+            // for (let index = 0; index < chart_tiles.length; index += 1) {
+            //   if (chart_tiles[index].classList.contains("selectedChart")) {
+            //     answered = true
+            //   }
+            // }
+            if (!selectedChart || !selectedVar) {
+              document.getElementById("questionContainer").classList.add("highlightRequired")
+              document.getElementById("questionContainer").focus()
+              return;
+            }
             let text_answer = ""
             document.getElementById("proceeding").classList.remove("hideDescription")
             updateProgress(pID, "training_"+props.item, false, selectedChart, selectedVar)
