@@ -592,7 +592,7 @@ const ConstructionItemComponent = (props) => {
             }
         }
     }
-    // let vis_update = loadVis
+    let vis_update = update_vis_spec
     
     // clear vis when changing chart type
     // if (selectedChart) {

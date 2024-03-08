@@ -4152,7 +4152,7 @@
     "item39": {
       "question_meta_data": {
         "question_text": "Do exactly the following: click 'line' for mark type and select 'Date' for the Y-axis.",
-        "attention_check": "This is still an attention check. Just select False and click 'Next'.",
+        "attention_check": "This is still an attention check. Just select 'False' and click 'Next'.",
         "question_topic": "This is an attention check:"
       },
       "dataset": "day_by_day",
@@ -4242,7 +4242,7 @@
     "item40": {
       "question_meta_data": {
         "question_text": "Do exactly the following: click 'point' for mark type and select 'Spending ($)' for Size and 'Spending category' for Color.",
-        "attention_check": "This is still an attention check. Just select False and click 'Next'.",
+        "attention_check": "This is still an attention check. Just select 'False' and click 'Next'.",
         "question_topic": "This is an attention check:"
       },
       "dataset": "day_by_day",
@@ -4332,7 +4332,7 @@
     "item41": {
       "question_meta_data": {
         "question_text": "Do exactly the following: click 'area' for mark type and select 'Savings ($)' for the Y-axis and 'Date' for the X-axis.",
-        "attention_check": "This is still an attention check. Just select False and click 'Next'.",
+        "attention_check": "This is still an attention check. Just select 'True' and click 'Next'.",
         "question_topic": "This is an attention check:"
       },
       "dataset": "day_by_day",
