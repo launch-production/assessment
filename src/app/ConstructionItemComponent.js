@@ -1107,7 +1107,7 @@ const ConstructionItemComponent = (props) => {
                     <textarea id="questionAnswer" name="questionAnswer" rows="2" cols="35" placeholder='Optional'></textarea>
                     {/* <p className="hideDescription" id="requiredLabel" style={{color:"red"}}>* This is required</p> */}
                 </div> : null}
-                <div id="nextButton" onClick={(e) => nextItem(e)}>
+                <div id="nextButton" style={{marginBottom:"4rem"}} onClick={(e) => nextItem(e)}>
                     <p>Next</p>
                 </div>
                 <p id='proceeding' className='hideDescription'>Proceeding...</p>

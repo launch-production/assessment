@@ -3617,7 +3617,7 @@
     },
     "item33": {
       "question_meta_data": {
-        "question_text": "The range of daily savings was approximately between $5 and $50, but most were near $50.",
+        "question_text": "The range of daily savings was approximately between $5 and $50, but most daily savings were near $50.",
         "question_topic": "Create a chart that supports or negates the following statement:"
       },
       "dataset": "day_by_day",
