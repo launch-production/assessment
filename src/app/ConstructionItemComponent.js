@@ -572,23 +572,28 @@ const ConstructionItemComponent = (props) => {
     let current_y_value = document.getElementById("data-y").value
     let current_x_value = document.getElementById("data-x").value
     let update_vis_spec = loadVis
+    let use_vis_spec = loadVis
     if (clicked_chart == "line" || clicked_chart == "point") {
         if (dataset[current_y_value] && dataset[current_y_value]["type"] == "quantitative") {
-          update_vis_spec = removeAction(loadVis, "y", "sum")
+          update_vis_spec = removeAction(use_vis_spec, "y", "sum")
+          use_vis_spec = update_vis_spec
         }
         if (dataset[current_x_value] && dataset[current_x_value]["type"] == "quantitative") {
-          update_vis_spec = removeAction(loadVis, "x", "sum")
+          update_vis_spec = removeAction(use_vis_spec, "x", "sum")
+          use_vis_spec = update_vis_spec
         }
     } else {
         if (dataset[current_y_value] && dataset[current_y_value]["type"] == "quantitative") {
             if (!current_x_value.includes("count")) {
-              update_vis_spec = updateDataEncoding(loadVis, "y", "sum-"+current_y_value, dataset)
+              update_vis_spec = updateDataEncoding(use_vis_spec, "y", "sum-"+current_y_value, dataset)
+              use_vis_spec = update_vis_spec
             }
             
         }
         if (dataset[current_x_value] && dataset[current_x_value]["type"] == "quantitative") {
             if (!current_y_value.includes("count")) {
-              update_vis_spec = updateDataEncoding(loadVis, "x", "sum-"+current_x_value, dataset)
+              update_vis_spec = updateDataEncoding(use_vis_spec, "x", "sum-"+current_x_value, dataset)
+              use_vis_spec = update_vis_spec
             }
         }
     }
@@ -612,7 +617,8 @@ const ConstructionItemComponent = (props) => {
     setCurrentItemState(state_change)
     // setEncodingDisplay(tileSets[clicked_chart]["encodings"]);
     
-    update_vis_spec = updateMark(vis_update, clicked_chart)
+    update_vis_spec = updateMark(use_vis_spec, clicked_chart)
+    use_vis_spec = update_vis_spec
 
     setSelectedChart(true);
     let chart_tiles = document.getElementsByClassName("chartTilesContainer")
@@ -628,17 +634,22 @@ const ConstructionItemComponent = (props) => {
 
 
 
-  const removeOption = (vis_spec, check_element, to_remove, from_encoding) => {
+  const removeOption = (check_element, to_remove, from_encoding) => {
     console.log("in remove options")
     console.log(to_remove)
-    let update_vis_spec = vis_spec
+    // let update_vis_spec = loadVis
+    // let use_vis_spec = loadVis
+    // console.log(use_vis_spec)
+    // update_vis_spec = removeAction(use_vis_spec, from_encoding, to_remove);
+    // use_vis_spec = update_vis_spec
     for (let i = 0; i < check_element.length; i += 1) {
         if (check_element.options[i].value.includes(to_remove)) {
             check_element.remove(i)
-            update_vis_spec = removeAction(vis_spec, from_encoding, to_remove);
+            // update_vis_spec = removeAction(use_vis_spec, from_encoding, to_remove);
+            // use_vis_spec = update_vis_spec
         }
     }
-    setLoadVis(update_vis_spec)
+    // setLoadVis(update_vis_spec)
   }
 
   const addSumOf = (add_to, current_element, dataset) => {
@@ -672,26 +683,37 @@ const ConstructionItemComponent = (props) => {
     console.log(select_y)
     console.log(dataset)
     let state_change = currentItemState
+    console.log(loadVis)
     let update_vis_spec = loadVis
+    let use_vis_spec = loadVis
     if (!select_y) {
-        update_vis_spec = removeDataEncoding(loadVis, "y")
+        update_vis_spec = removeDataEncoding(use_vis_spec, "y")
+        use_vis_spec = update_vis_spec
         state_change["encodings"]["y"]["data"] = ""
         setCurrentItemState(state_change)
     } else {
-        update_vis_spec = removeAction(loadVis, "y", "count");
-        update_vis_spec = removeAction(loadVis, "y", "bin");
-        update_vis_spec = removeAction(loadVis, "x", "bin");
-        update_vis_spec = updateDataEncoding(loadVis, "y", select_y, dataset)
+        update_vis_spec = removeAction(use_vis_spec, "y", "count");
+        use_vis_spec = update_vis_spec
+        update_vis_spec = removeAction(use_vis_spec, "y", "bin");
+        use_vis_spec = update_vis_spec
+        update_vis_spec = removeAction(use_vis_spec, "x", "bin");
+        use_vis_spec = update_vis_spec
+        update_vis_spec = updateDataEncoding(use_vis_spec, "y", select_y, dataset)
+        use_vis_spec = update_vis_spec
         let x_axis = document.getElementById("data-x")
-        update_vis_spec = removeOption(loadVis, x_axis, "count", "x")
+        removeOption(x_axis, "count", "x")
+        update_vis_spec = removeAction(use_vis_spec, "x", "count");
+        use_vis_spec = update_vis_spec
         let add_count_option = document.createElement("option")
         add_count_option.innerHTML = "Count of Records (" + select_y + ")"
         if (dataset[select_y] && dataset[select_y]["type"] == "quantitative") {
             add_count_option.value = "count-bin_y-" + select_y
-            update_vis_spec = removeAction(loadVis, "y", "sum")
+            update_vis_spec = removeAction(use_vis_spec, "y", "sum")
+            use_vis_spec = update_vis_spec
             // default to sum aggregation for bar and area
             if (currentChartType == "bar" || currentChartType == "area") {
-                update_vis_spec = updateDataEncoding(loadVis, "y", "sum-"+select_y, dataset)
+                update_vis_spec = updateDataEncoding(use_vis_spec, "y", "sum-"+select_y, dataset)
+                use_vis_spec = update_vis_spec
             }
             // removeSumOf(x_axis) // remove sums from the other axis
             // removeDataEncoding(loadVis, "x")
@@ -704,7 +726,8 @@ const ConstructionItemComponent = (props) => {
                 // if the current value on x axis is quantative and y value is not, set the x value to be sum again
                 let current_x_value = document.getElementById("data-x").value
                 if (dataset[current_x_value] && dataset[current_x_value]["type"] == "quantitative") {
-                    update_vis_spec = updateDataEncoding(loadVis, "x", "sum-"+current_x_value, dataset)
+                    update_vis_spec = updateDataEncoding(use_vis_spec, "x", "sum-"+current_x_value, dataset)
+                    use_vis_spec = update_vis_spec
                 }
             
             }
@@ -732,27 +755,39 @@ const ConstructionItemComponent = (props) => {
   const updateXSelectedValue = () => {
     let select_x = document.getElementById("data-x").value
     console.log(select_x)
+    console.log(loadVis)
     let state_change = currentItemState
     let update_vis_spec = loadVis
+    let use_vis_spec = loadVis
     if (!select_x) {
-        update_vis_spec = removeDataEncoding(loadVis, "x")
+        update_vis_spec = removeDataEncoding(use_vis_spec, "x")
+        use_vis_spec = update_vis_spec
         state_change["encodings"]["x"]["data"] = ""
         setCurrentItemState(state_change)
     } else {
-        update_vis_spec = removeAction(loadVis, "x", "count");
-        update_vis_spec = removeAction(loadVis, "x", "bin");
-        update_vis_spec = removeAction(loadVis, "y", "bin");
-        update_vis_spec = updateDataEncoding(loadVis, "x", select_x, dataset)
+        update_vis_spec = removeAction(use_vis_spec, "x", "count");
+        use_vis_spec = update_vis_spec
+        update_vis_spec = removeAction(use_vis_spec, "x", "bin");
+        use_vis_spec = update_vis_spec
+        update_vis_spec = removeAction(use_vis_spec, "y", "bin");
+        use_vis_spec = update_vis_spec
+        update_vis_spec = updateDataEncoding(use_vis_spec, "x", select_x, dataset)
+        use_vis_spec = update_vis_spec
         let y_axis = document.getElementById("data-y")
         let add_count_option = document.createElement("option")
-        update_vis_spec = removeOption(loadVis, y_axis, "count", "y")
+        removeOption(y_axis, "count", "y")
+        update_vis_spec = removeAction(use_vis_spec, "y", "count");
+        use_vis_spec = update_vis_spec
         add_count_option.innerHTML = "Count of Records (" + select_x + ")"
         if (dataset[select_x] && dataset[select_x]["type"] == "quantitative") {
             add_count_option.value = "count-bin_x-" + select_x
-            update_vis_spec = removeAction(loadVis, "x", "sum")
+            console.log(use_vis_spec)
+            update_vis_spec = removeAction(use_vis_spec, "x", "sum")
+            use_vis_spec = update_vis_spec
             // default to sum aggregation for bar and area
             if (currentChartType == "bar" || currentChartType == "area") {
-                update_vis_spec = updateDataEncoding(loadVis, "x", "sum-"+select_x, dataset)
+                update_vis_spec = updateDataEncoding(use_vis_spec, "x", "sum-"+select_x, dataset)
+                use_vis_spec = update_vis_spec
             }
             // removeSumOf(y_axis) // remove sums from the other axis
             // removeDataEncoding(loadVis, "y")
@@ -763,7 +798,8 @@ const ConstructionItemComponent = (props) => {
                 // if the current value on y axis is quantative and x value is not, set the y value to be sum again
                 let current_y_value = document.getElementById("data-y").value
                 if (dataset[current_y_value] && dataset[current_y_value]["type"] == "quantitative") {
-                    update_vis_spec = updateDataEncoding(loadVis, "y", "sum-"+current_y_value, dataset)
+                    update_vis_spec = updateDataEncoding(use_vis_spec, "y", "sum-"+current_y_value, dataset)
+                    use_vis_spec = update_vis_spec
                 }
             
             }
@@ -792,13 +828,16 @@ const ConstructionItemComponent = (props) => {
     let select_color = document.getElementById("data-color").value
     console.log(select_color)
     let state_change = currentItemState
+    let use_vis_spec = loadVis
     let update_vis_spec = loadVis
     if (!select_color) {
-        update_vis_spec = removeDataEncoding(loadVis, "color")
+        update_vis_spec = removeDataEncoding(use_vis_spec, "color")
+        use_vis_spec = update_vis_spec
         state_change["encodings"]["color"]["data"] = ""
         setCurrentItemState(state_change)
     } else {
-        update_vis_spec = updateDataEncoding(loadVis, "color", select_color, dataset)
+        update_vis_spec = updateDataEncoding(use_vis_spec, "color", select_color, dataset)
+        use_vis_spec = update_vis_spec
         state_change["encodings"]["color"]["data"] = select_color
         setCurrentItemState(state_change)
         setSelectedVar(true);
@@ -811,13 +850,16 @@ const ConstructionItemComponent = (props) => {
     let select_size = document.getElementById("data-size").value
     console.log(select_size)
     let state_change = currentItemState
+    let use_vis_spec = loadVis
     let update_vis_spec = loadVis
     if (!select_size) {
-        update_vis_spec = removeDataEncoding(loadVis, "size")
+        update_vis_spec = removeDataEncoding(use_vis_spec, "size")
+        use_vis_spec = update_vis_spec
         state_change["encodings"]["size"]["data"] = ""
         setCurrentItemState(state_change)
     } else {
-        update_vis_spec = updateDataEncoding(loadVis, "size", select_size, dataset) 
+        update_vis_spec = updateDataEncoding(use_vis_spec, "size", select_size, dataset) 
+        use_vis_spec = update_vis_spec
         state_change["encodings"]["size"]["data"] = select_size
         setCurrentItemState(state_change)
         setSelectedVar(true);
