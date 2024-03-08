@@ -909,7 +909,7 @@ const UsabilityCheck = (props) => {
         </div>
         <p id='proceeding' className='hideDescription'>Proceeding...</p>
         <p id='scrollUp' className='hideDescription'><span style={{color:"red"}}>Please answer all questions marked with *</span></p>
-        <div id="nextButton" onClick={(e) => nextItem(e)}>
+        <div id="nextButton" style={{marginBottom:"6rem"}} onClick={(e) => nextItem(e)}>
             <p>Next</p>
         </div>
         

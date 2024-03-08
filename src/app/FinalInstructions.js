@@ -1352,7 +1352,7 @@ const updateProgress = async (prolificID, completed_item) => {
                 <br></br>
                 <p><i>Note you will not be able to go back once you advance to the next question.</i></p>
                 <p>Click 'Start' to proceed.</p>
-                <div id="nextButton" onClick={(e) => nextItem(e)}>
+                <div id="nextButton" style={{marginBottom:"6rem"}} onClick={(e) => nextItem(e)}>
                   <p>Start</p>
                 </div>
                 <p id='proceeding' className='hideDescription'>Proceeding...</p>
