@@ -258,9 +258,12 @@ const TrainingInstructions = () => {
             (redirecting()) : <div id='questionContainer'>
             <div>
                 <h3>Instructions for Training Section</h3>
+                <br></br>
                 <p><b>You are about to begin the training section.</b></p>
-                <p>This section is expected to take approximately 15 minutes.</p>
-                <p>For successsful completion, you must answer all questions in this survey.</p>
+                <p>There are <b>5 questions</b> in this section followed by a short survey.</p>
+                <p>This section is expected to take approximately 5 minutes.</p>
+                <p>For successsful completion, you must answer all of the questions in this section.</p>
+                <br></br>
                 <p><i>Note you will not be able to go back once you advance to the next question.</i></p>
                 <p>Click 'Start Training' to proceed.</p>
             </div>

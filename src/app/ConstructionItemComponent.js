@@ -678,7 +678,7 @@ const ConstructionItemComponent = (props) => {
         let x_axis = document.getElementById("data-x")
         removeOption(loadVis, x_axis, "count", "x")
         let add_count_option = document.createElement("option")
-        add_count_option.innerHTML = "Count of " + select_y
+        add_count_option.innerHTML = "Count of Records (" + select_y + ")"
         if (dataset[select_y] && dataset[select_y]["type"] == "quantitative") {
             add_count_option.value = "count-bin_y-" + select_y
             removeAction(loadVis, "y", "sum")
@@ -738,7 +738,7 @@ const ConstructionItemComponent = (props) => {
         let y_axis = document.getElementById("data-y")
         let add_count_option = document.createElement("option")
         removeOption(loadVis, y_axis, "count", "y")
-        add_count_option.innerHTML = "Count of " + select_x
+        add_count_option.innerHTML = "Count of Records (" + select_x + ")"
         if (dataset[select_x] && dataset[select_x]["type"] == "quantitative") {
             add_count_option.value = "count-bin_x-" + select_x
             removeAction(loadVis, "x", "sum")
@@ -1034,7 +1034,7 @@ const ConstructionItemComponent = (props) => {
                         <div className="choiceOption" id="TFoptionF" onClick={() => recordAnswer(false, "TFoptionF")}><p>False</p></div>
                         
                     </div>
-                    <p><label htmlFor="questionAnswer">Enter any additional comments below:</label></p>
+                    <p><label htmlFor="questionAnswer">If you have any additional reasoning or comments, please explain below:</label></p>
                     <textarea id="questionAnswer" name="questionAnswer" rows="2" cols="35" placeholder='Optional'></textarea>
                     {/* <p className="hideDescription" id="requiredLabel" style={{color:"red"}}>* This is required</p> */}
                 </div> : null}

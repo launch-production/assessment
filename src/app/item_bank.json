@@ -99,7 +99,7 @@
     },
     "training1": {
       "question_meta_data": {
-        "question_text": "Reconstruct the chart shown below.",
+        "question_text": "Reconstruct the chart shown below. This chart shows the sum of spending in each spending category in the month of Jan.",
         "question_topic": "- Training -"
       },
       "dataset": "day_by_day",
@@ -213,7 +213,7 @@
     },
     "training2": {
       "question_meta_data": {
-        "question_text": "Reconstruct the chart shown below.",
+        "question_text": "Reconstruct the chart shown below. This chart shows how daily income changed in Jan.",
         "question_topic": "- Training -"
       },
       "dataset": "day_by_day",
@@ -321,7 +321,7 @@
     },
     "training3": {
       "question_meta_data": {
-        "question_text": "Reconstruct the chart shown below.",
+        "question_text": "Reconstruct the chart shown below. This chart shows the daily savings and spendings in each spending category.",
         "question_topic": "- Training -"
       },
       "dataset": "day_by_day",
@@ -433,7 +433,7 @@
     },
     "training4": {
       "question_meta_data": {
-        "question_text": "Reconstruct the chart shown below.",
+        "question_text": "Reconstruct the chart shown below. This chart shows the distribution of daily spendings.",
         "question_topic": "- Training -"
       },
       "dataset": "day_by_day",
@@ -541,7 +541,7 @@
     },
     "training5": {
       "question_meta_data": {
-        "question_text": "Reconstruct the chart shown below.",
+        "question_text": "Reconstruct the chart shown below. This chart shows the sum of monthly spendings in each spending category.",
         "question_topic": "- Training -"
       },
       "dataset": "day_by_day",
@@ -656,7 +656,7 @@
     "training6": {
       "question_meta_data": {
         "question_text": ["I think that I would like to use this system frequently.", "I found the system unnecessarily complex.", "I thought the system was easy to use.", "I think that I would need the support of a technical person to be able to use this system.", "I found the various functions in this system were well integrated.", "I thought there was too much inconsistency in this system.", "I would imagine that most people would learn to use this system very quickly.", "I found the system very cumbersome to use.", "I felt very confident using the system.", "I needed to learn a lot of things before I could get going with this system."],
-        "question_topic": "The following questions ask for your experience with this system so far."
+        "question_topic": "The following questions ask for your experience with this system interface so far."
       },
       "dataset": "day_by_day",
       "model_vis": {

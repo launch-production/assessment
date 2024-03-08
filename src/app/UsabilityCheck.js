@@ -904,7 +904,7 @@ const UsabilityCheck = (props) => {
             </div>
         ))}
         <div className='usabilityQA'>
-            <p><label htmlFor="questionAnswer"><b>Enter any additional comments below:</b></label></p>
+            <p><label htmlFor="questionAnswer"><b>If you have any additional reasoning or comments, please enter them below:</b></label></p>
             <textarea id="questionAnswer" name="questionAnswer" rows="2" cols="35" placeholder='Optional'></textarea>
         </div>
         <p id='proceeding' className='hideDescription'>Proceeding...</p>

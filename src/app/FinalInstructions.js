@@ -1327,12 +1327,29 @@ const updateProgress = async (prolificID, completed_item) => {
         {loading ? null  :
             (redirectTo != "") ? 
             (redirecting()) : <div id='questionContainer'>
-                <h3>Instructions for Main Survey</h3>
-                <p><b>You are now about to begin the main survey.</b></p>
-                <p>The layout of each question in the following section will be the same as the training you just completed.</p>
-                <p>This section is expected to take approximately 45 minutes.</p>
+                <h3>Instructions for Main Section</h3>
+                <br></br>
+                <p><b>You are now about to begin the main section.</b></p>
+                <p>The layout of each question in this section will be the same as the training you just completed.</p>
+                <p>In each question, you will be asked to create a chart that supports or negates a given statement.</p>
+                <p>The given data for each question may be different, but they will all involve the following variables.</p>
+                
+                <h4><b>Please familiarize yourself with these variables before clicking start.</b></h4>
+                <hr></hr>
+                <p><b>Date:</b> A recorded date (year-month-date) to track daily spendings, income, or savings.</p>
+                <p><b>Month:</b> The month.</p>
+                <p><b>Year:</b> The year.</p>
+                <p><b>Spending:</b> The amount of spending in each recorded date in dollars.</p>
+                <p><b>Income:</b> The amount of income in each recorded date in dollars.</p>
+                <p><b>Savings:</b> The amount of savings in each recorded date in dollars.</p>
+                <p><b>Spending_Category:</b> What the spending was categorized as.</p>
+                <hr></hr>
+                <br></br>
+                <p>There are <b>15 questions</b> in this section.</p>
+                <p>This section is expected to take approximately 25 minutes.</p>
                 {/* <p>{itemBank[currentItem]["question_meta_data"]["question_text"]}</p> */}
-                <p>For successsful completion, you must answer all questions in this survey.</p>
+                <p>For successful completion, you must answer all of the questions in this section.</p>
+                <br></br>
                 <p><i>Note you will not be able to go back once you advance to the next question.</i></p>
                 <p>Click 'Start' to proceed.</p>
                 <div id="nextButton" onClick={(e) => nextItem(e)}>
