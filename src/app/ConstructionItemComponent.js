@@ -33,13 +33,13 @@ async function addDataToFireStore(prolificID, questionID, vis_answer, text_answe
 
 async function addProgress(prolificID, current_item, created_vis, load_text_box, selected_chart, selected_var) {
     try {
-      const docRef = await setDoc(doc(db, prolificID, "progress"), {
+      const docRef = await updateDoc(doc(db, prolificID, "progress"), {
         completed_item: current_item,
         auto_load_TF: load_text_box,
         created_vis: created_vis,
         selected_chart: selected_chart,
         selected_var: selected_var
-      }, { merge: true });
+      });
       console.log("Doc written with ID: ", prolificID);
       return true;
     } catch (error) {
@@ -484,9 +484,10 @@ const ConstructionItemComponent = (props) => {
     }
   }
 
-  const updateProgress = async (prolificID, completed_item, created_vis, load_text_box, select_chart, selected_var) => {
+  const updateProgress = async (prolificID, completed_item, load_text_box, select_chart, selected_var) => {
+    console.log(loadVis)
     if (prolificID) {
-      const added_progress = await addProgress(prolificID, completed_item, created_vis, load_text_box, select_chart, selected_var);
+      const added_progress = await addProgress(prolificID, completed_item, loadVis, load_text_box, select_chart, selected_var);
       if (!added_progress) {
         // setPID("");
         setScore("");
@@ -896,14 +897,14 @@ const ConstructionItemComponent = (props) => {
         document.getElementById("requiredLabel").classList.remove("hideDescription")
         console.log(selectedChart)
         console.log(selectedVar)
-        updateProgress(pID, prev_item, loadVis, showTextBox, selectedChart, selectedVar)
+        updateProgress(pID, prev_item, showTextBox, selectedChart, selectedVar)
         return;
     }
 
     console.log(showTextBox)
     if (props.assessment && !showTextBox) {
         setShowTextBox(true);
-        updateProgress(pID, prev_item, loadVis, true, selectedChart, selectedVar)
+        updateProgress(pID, prev_item, true, selectedChart, selectedVar)
         return;
     }
     let current_item = props.item;
@@ -913,9 +914,9 @@ const ConstructionItemComponent = (props) => {
     if (props.assessment) {
         if (next_item <= 16) {
 
-            let text_answer = ""
+            // let text_answer = ""
             // if (props.assessment) {
-            // let text_answer = document.getElementById("questionAnswer").value
+            let text_answer = document.getElementById("questionAnswer").value
             // } else {
             // text_answer = "placeholder"
             // }
@@ -923,7 +924,7 @@ const ConstructionItemComponent = (props) => {
             
             // let text_answer = "placeholder"
             document.getElementById("proceeding").classList.remove("hideDescription")
-            updateProgress(pID, "item_"+props.item, loadVis, false, selectedChart, selectedVar)
+            updateProgress(pID, "item_"+props.item, false, selectedChart, selectedVar)
             // console.log(document.getElementById("nextButtonValue").value)
             handleSubmit(e, "item_"+current_item, startTime, text_answer, itemAnswer, startTime)
             // let url_pid = "?PROLIFIC_PID=" + pID;
@@ -935,7 +936,7 @@ const ConstructionItemComponent = (props) => {
         if (next_item <= 6) {
             let text_answer = ""
             document.getElementById("proceeding").classList.remove("hideDescription")
-            updateProgress(pID, "training_"+props.item, loadVis, false, selectedChart, selectedVar)
+            updateProgress(pID, "training_"+props.item, false, selectedChart, selectedVar)
             // console.log(document.getElementById("nextButtonValue").value)
             handleSubmit(e, "training_"+current_item, startTime, text_answer, itemAnswer, startTime)
         }

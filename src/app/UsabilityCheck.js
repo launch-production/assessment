@@ -13,13 +13,14 @@ import QuestionText from './question-text.js';
 // import { DraftModeProvider } from 'next/dist/server/async-storage/draft-mode-provider';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 
-async function addDataToFireStore(prolificID, questionID, usability_answers, item_start) {
+async function addDataToFireStore(prolificID, questionID, usability_answers, item_start, text_answer) {
     try {
       const docRef = await setDoc(doc(db, prolificID, questionID), {
         timestamp: serverTimestamp(),
         usability_answers: usability_answers,
         item_startTime: item_start,
-        item_endTime: new Date().getTime()
+        item_endTime: new Date().getTime(),
+        text_answer: text_answer
       }, { merge: true });
       console.log("Doc written with ID: ", prolificID);
       return true;
@@ -255,7 +256,7 @@ const UsabilityCheck = (props) => {
   console.log(props.item_bank)
   console.log(pathname)
   console.log(searchParams)
-  const handleSubmit = async (e, questionID, item_start) => {
+  const handleSubmit = async (e, questionID, item_start, text_answer) => {
     e.preventDefault();
     console.log("in handle submit!!")
     console.log(pID)
@@ -279,7 +280,7 @@ const UsabilityCheck = (props) => {
     //       alert("An error occurred. Please contact the survey administrator.");
     //     }
     //   }
-      const added = await addDataToFireStore(pID, questionID, usabilityItemAnswers, item_start);
+      const added = await addDataToFireStore(pID, questionID, usabilityItemAnswers, item_start, text_answer);
       if (!added) {
         // setPID("");
         setScore("");
@@ -812,9 +813,10 @@ const UsabilityCheck = (props) => {
     if (ready) {
         document.getElementById("scrollUp").classList.add("hideDescription")
         document.getElementById("proceeding").classList.remove("hideDescription")
+        let text_answer = document.getElementById("usabilityQuestionAnswer").value
         updateProgress(pID, "training"+props.item)
         // console.log(document.getElementById("nextButtonValue").value)
-        handleSubmit(e, "usability_checks", startTime)
+        handleSubmit(e, "usability_checks", startTime, text_answer)
     }
 
     // console.log(showTextBox)
@@ -904,8 +906,8 @@ const UsabilityCheck = (props) => {
             </div>
         ))}
         <div className='usabilityQA'>
-            <p><label htmlFor="questionAnswer"><b>If you have any additional reasoning or comments, please enter them below:</b></label></p>
-            <textarea id="questionAnswer" name="questionAnswer" rows="2" cols="35" placeholder='Optional'></textarea>
+            <p><label htmlFor="usabilityQuestionAnswer"><b>If you have any additional reasoning or comments, please enter them below:</b></label></p>
+            <textarea id="usabilityQuestionAnswer" name="usabilityQuestionAnswer" rows="2" cols="35" placeholder='Optional'></textarea>
         </div>
         <p id='proceeding' className='hideDescription'>Proceeding...</p>
         <p id='scrollUp' className='hideDescription'><span style={{color:"red"}}>Please answer all questions marked with *</span></p>
