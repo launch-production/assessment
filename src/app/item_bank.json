@@ -99,7 +99,7 @@
     },
     "training1": {
       "question_meta_data": {
-        "question_text": "Reconstruct the chart shown below. This chart shows the sum of spending in each spending category in the month of Jan.",
+        "question_text": "Reconstruct the exact chart shown below. This chart shows the sum of spending in each spending category in the month of Jan.",
         "question_topic": "- Required Training -"
       },
       "dataset": "day_by_day",
@@ -213,7 +213,7 @@
     },
     "training2": {
       "question_meta_data": {
-        "question_text": "Reconstruct the chart shown below. This chart shows how daily income changed in Jan.",
+        "question_text": "Reconstruct the exact chart shown below. This chart shows how daily income changed in Jan.",
         "question_topic": "- Required Training -"
       },
       "dataset": "day_by_day",
@@ -321,7 +321,7 @@
     },
     "training3": {
       "question_meta_data": {
-        "question_text": "Reconstruct the chart shown below. This chart shows the daily savings and spendings in each spending category.",
+        "question_text": "Reconstruct the exact chart shown below. This chart shows the daily savings and spendings in each spending category.",
         "question_topic": "- Required Training -"
       },
       "dataset": "day_by_day",
@@ -433,7 +433,7 @@
     },
     "training4": {
       "question_meta_data": {
-        "question_text": "Reconstruct the chart shown below. This chart shows the distribution of daily spendings.",
+        "question_text": "Reconstruct the exact chart shown below. This chart shows the distribution of daily spendings.",
         "question_topic": "- Required Training -"
       },
       "dataset": "day_by_day",
@@ -541,7 +541,7 @@
     },
     "training5": {
       "question_meta_data": {
-        "question_text": "Reconstruct the chart shown below. This chart shows the sum of monthly spendings in each spending category.",
+        "question_text": "Reconstruct the exact chart shown below. This chart shows the sum of monthly spendings in each spending category.",
         "question_topic": "- Required Training -"
       },
       "dataset": "day_by_day",
@@ -4241,7 +4241,7 @@
     },
     "item40": {
       "question_meta_data": {
-        "question_text": "Do exactly the following: click 'point' for mark type and select 'Spending ($)' for Size and 'Spending category' for Color.",
+        "question_text": "Do exactly the following: click 'point' for mark type and select 'Spending ($)' for Size and 'Spending_Category' for Color.",
         "attention_check": "This is still an attention check. Just select 'False' and click 'Next'.",
         "question_topic": "This is an attention check:"
       },
